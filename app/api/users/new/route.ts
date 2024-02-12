@@ -16,7 +16,7 @@ export async function POST(request: Request) {
 
 		return NextResponse.json(user)
 	} catch (error: any) {
-		throw new Error(`Failed to create user: ${error.message}`)
+		return NextResponse.json({ error: error.message }, { status: 400 })
 	}
 }
 
