@@ -1,31 +1,46 @@
 import { db } from '@lib'
 import { User } from '@models'
-import { UserZodSchema } from '@types'
+import { UserType, UserZodSchema } from '@types'
 import { hashPassword } from '@utils'
 import { NextResponse } from 'next/server'
 
 export async function POST(request: Request) {
 	try {
 		// Validate the request body
-		const body = await request.json()
-		const result = UserZodSchema.safeParse(body)
-		if (!result.success) {
-			return NextResponse.json({ error: result.error }, { status: 400 })
-		}
+		const userData = await validateUserRequest(request)
 		// Check if user already exists
-		const { username, password } = result.data
 		await db.connect()
-		const existingUser = await User.findOne({ username })
-		if (existingUser) {
-			return NextResponse.json({ error: 'User already exists' }, { status: 400 })
-		}
+		await checkUserExists(userData.username)
 		// Create new user
-		const user = new User({ username, password })
-		user.password = await hashPassword(user.password)
-		await user.save()
+		const user = await saveNewUser(userData)
 
 		return NextResponse.json(user)
 	} catch (error: any) {
 		throw new Error(`Failed to create user: ${error.message}`)
 	}
+}
+
+const validateUserRequest = async (request: Request) => {
+	const body = await request.json()
+	const result = UserZodSchema.safeParse(body)
+	if (!result.success) {
+		throw new Error(result.error.message)
+	}
+
+	return result.data
+}
+
+const checkUserExists = async (username: string) => {
+	const existingUser = await User.findOne({ username })
+	if (existingUser) {
+		throw new Error('User already exists')
+	}
+}
+
+const saveNewUser = async (userData: UserType) => {
+	const user = new User(userData)
+	user.password = await hashPassword(user.password)
+	await user.save()
+
+	return user
 }
