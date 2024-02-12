@@ -1,8 +1,7 @@
 import { db } from '@lib'
 import { User } from '@models'
-import { UserType, UserZodSchema } from '@types'
+import { UserZodSchema } from '@types'
 import { hashPassword } from '@utils'
-import { HydratedDocument } from 'mongoose'
 import { NextResponse } from 'next/server'
 
 export async function POST(request: Request) {
