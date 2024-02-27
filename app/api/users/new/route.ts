@@ -3,6 +3,7 @@ import { User } from '@models'
 import { UserType, UserZodSchema } from '@types'
 import { hashPassword } from '@utils'
 import { NextResponse } from 'next/server'
+import { z } from 'zod'
 
 export async function POST(request: Request) {
 	try {
@@ -16,18 +17,17 @@ export async function POST(request: Request) {
 
 		return NextResponse.json(user)
 	} catch (error: any) {
+		if (error instanceof z.ZodError) return NextResponse.json({ error: error.issues }, { status: 422 })
+
 		return NextResponse.json({ error: error.message }, { status: 400 })
 	}
 }
 
 const validateUserRequest = async (request: Request) => {
 	const body = await request.json()
-	const result = UserZodSchema.safeParse(body)
-	if (!result.success) {
-		throw new Error(result.error.message)
-	}
+	const result = UserZodSchema.parse(body)
 
-	return result.data
+	return result
 }
 
 const checkUserExists = async (username: string) => {
