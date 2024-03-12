@@ -1,2 +1,2 @@
-export { default as SessionProvider } from './SessionProvider'
-export { default as ProtectedRoute } from './ProtectedRoute'
+export { default as SessionProvider } from "./SessionProvider"
+export { default as Navbar } from "./Navbar/Navbar"
