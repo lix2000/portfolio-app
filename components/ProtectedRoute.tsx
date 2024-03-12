@@ -1,16 +1,19 @@
-import { getCurrentSession } from '@lib'
-import { redirect } from 'next/navigation'
+'use client'
+import { useSession } from 'next-auth/react'
+import { redirect, usePathname } from 'next/navigation'
+import { PropsWithChildren } from 'react'
+import { Loader } from '@components'
 
-interface Props {
-	children: React.ReactNode
-}
+const ProtectedRoute = ({ children }: PropsWithChildren) => {
+	const pathname = usePathname()
+	const { status } = useSession({
+		required: true,
+		onUnauthenticated() {
+			redirect(`/login?callbackUrl=${pathname}`)
+		},
+	})
 
-const ProtectedRoute = async ({ children }: Props) => {
-	const session = await getCurrentSession()
-
-	if (!session || !session.user) return redirect('/api/auth/signin')
-
-	return <>{children}</>
+	return <Loader isLoading={status === 'loading'}>{children}</Loader>
 }
 
 export default ProtectedRoute
