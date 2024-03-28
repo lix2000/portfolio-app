@@ -1,4 +1,4 @@
-import type { Config } from "tailwindcss"
+import type { Config } from 'tailwindcss'
 
 const config: Config = {
 	content: [
@@ -58,7 +58,6 @@ const config: Config = {
 				'tertiary-contrast-80': '#ccc',
 				'tertiary-contrast-90': '#e6e6e6',
 				'tertiary-shadow': 'rgba(0,0,0,0.2)',
-				buttonHover: '#1E566E',
 			},
 		},
 		fontSize: {
