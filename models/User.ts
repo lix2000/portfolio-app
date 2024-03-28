@@ -18,6 +18,6 @@ const UserSchema = new Schema<UserType>({
 	},
 })
 
-const User: Model<UserType> = models.User || model<UserType>('User', UserSchema)
+const User: Model<UserType> = models?.User || model<UserType>('User', UserSchema)
 
 export default User
