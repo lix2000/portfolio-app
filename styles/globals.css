@@ -32,3 +32,15 @@ main {
 		text-wrap: balance;
 	}
 }
+
+.flex-center {
+	@apply flex items-center justify-center;
+}
+
+.flex-space-between {
+	@apply flex items-center justify-between;
+}
+
+.transition {
+	transition: opacity 0.5s, transform 0.5s;
+}
