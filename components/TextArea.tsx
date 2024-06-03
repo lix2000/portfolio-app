@@ -1,4 +1,4 @@
-import { InputHTMLAttributes, forwardRef, Ref } from 'react'
+import { HTMLProps, forwardRef } from 'react'
 import { Error } from '@components'
 
 interface Props {
@@ -6,12 +6,13 @@ interface Props {
   error?: string
 }
 
-const Input = (
-  { label, error, className, ...rest }: Props & InputHTMLAttributes<HTMLInputElement>,
-  ref: Ref<HTMLInputElement>
+const TextArea = (
+  { label, error, className, ...rest }: Props & React.TextareaHTMLAttributes<HTMLTextAreaElement>,
+  ref: React.Ref<HTMLTextAreaElement>
 ) => {
   const classes = [
     'w-full',
+    'min-h-[100px]',
     'rounded-2xl',
     'p-2',
     'border',
@@ -23,10 +24,10 @@ const Input = (
   return (
     <div className='flex flex-col gap-1'>
       {label && <label className='text-label'>{label}</label>}
-      <input ref={ref} className={classes.join(' ')} {...rest} />
+      <textarea ref={ref} className={classes.join(' ')} {...rest} />
       {error && <Error>{error}</Error>}
     </div>
   )
 }
 
-export default forwardRef(Input)
+export default forwardRef(TextArea)
