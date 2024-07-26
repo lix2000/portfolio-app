@@ -1,16 +1,19 @@
 'use client'
-import { AdminSidebar, Button, ProtectedRoute } from '@components'
-import { signOut } from 'next-auth/react'
-import { PropsWithChildren } from 'react'
+import { AdminSidebar, ProtectedRoute } from '@components'
+import { PropsWithChildren, ReactNode } from 'react'
 
-const AdminLayout = ({ children }: PropsWithChildren) => (
+interface Props {
+	modal?: ReactNode
+	rightSidebar?: ReactNode
+}
+
+const AdminLayout = ({ children, modal, rightSidebar }: PropsWithChildren<Props>) => (
 	<ProtectedRoute>
 		<div className='relative w-full h-full flex'>
 			<AdminSidebar />
+			{modal}
+			{rightSidebar}
 			{children}
-			<Button className='absolute bottom-12 right-12' onClick={() => signOut()}>
-				Logout
-			</Button>
 		</div>
 	</ProtectedRoute>
 )

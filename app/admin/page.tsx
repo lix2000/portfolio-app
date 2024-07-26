@@ -7,7 +7,7 @@ const Admin = () => {
 
 	return (
 		<div className='w-full h-full'>
-			<Title>Welcome, {session?.user?.name}</Title>
+			<Title.Label>Welcome, {session?.user?.name}</Title.Label>
 		</div>
 	)
 }

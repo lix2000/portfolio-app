@@ -1,7 +1,6 @@
-import { db } from '@lib'
+import { db, hashPassword } from '@lib'
 import { User } from '@models'
 import { UserType, UserZodSchema } from '@types'
-import { hashPassword } from '@utils'
 import { NextResponse } from 'next/server'
 import { z } from 'zod'
 

@@ -1,30 +1,31 @@
-import { ServiceType } from '@types'
+import { ServerServiceType } from '@types'
 import { Model, Schema, model, models } from 'mongoose'
+import { ImageSchema } from '@models/subschemas'
 
-const ServiceSchema = new Schema<ServiceType>({
+const ServiceSchema = new Schema<ServerServiceType>({
 	title: {
 		type: String,
 		required: true,
 		unique: true,
 	},
 	price: {
-		type: Number,
+		type: String,
 		required: true,
 	},
+	priceDescription: {
+		type: String,
+	},
 	images: {
-		type: [String],
+		type: [ImageSchema],
 		required: true,
 	},
 	description: {
 		type: String,
 		required: true,
 	},
-	longDescription: {
-		type: String,
-		required: true,
-	},
 })
 
-const Service: Model<ServiceType> = models?.Service || model<ServiceType>('Service', ServiceSchema)
+const Service: Model<ServerServiceType> =
+	models?.Service || model<ServerServiceType>('Service', ServiceSchema)
 
 export default Service

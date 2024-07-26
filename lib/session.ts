@@ -1,7 +1,6 @@
 import { DefaultSession, getServerSession, NextAuthOptions } from 'next-auth'
 import CredentialsProvider from 'next-auth/providers/credentials'
-import { isPasswordValid } from '@utils'
-import { db } from '@lib'
+import { db, isPasswordValid } from '@lib'
 import { User } from '@models'
 
 export const authOptions: NextAuthOptions = {

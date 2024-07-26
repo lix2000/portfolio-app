@@ -1,12 +1,15 @@
 {
-  "cSpell.words": [
-    "hookform",
-    "signin",
-    "zustand",
-    "cshgreenwichadvisory",
-    "fontawesome",
-    "fortawesome",
-    "tailwindcss",
-    "Unicons"
-  ]
+	"cSpell.words": [
+		"cloudinary",
+		"cshgreenwichadvisory",
+		"fontawesome",
+		"fortawesome",
+		"hookform",
+		"Prefetcher",
+		"signin",
+		"tailwindcss",
+		"tanstack",
+		"Unicons",
+		"zustand"
+	]
 }
