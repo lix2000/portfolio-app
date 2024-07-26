@@ -1,5 +1,5 @@
 'use server'
-import { db, getCurrentSession } from '@lib'
+import { db, getCurrentSession, log } from '@lib'
 import { Service } from '@models'
 import { deleteFiles, deleteFolder, upload } from '@actions'
 import { CLOUDINARY_FOLDERS } from '@lib/settings'
@@ -12,6 +12,7 @@ import { connection } from 'mongoose'
  * @returns An object with the list of services, number of pages, current page, and whether there are more pages
  */
 export const getServices = async (request?: { page?: number; limit?: number }) => {
+	log.success('getServices', request)
 	// Connect to the database
 	await db.connect()
 
@@ -43,6 +44,7 @@ export const getServices = async (request?: { page?: number; limit?: number }) =
  * @throws An error if the service does not exist
  */
 export const getService = async (id: string) => {
+	log.success('getService', id)
 	// Connect to the database
 	await db.connect()
 
@@ -62,6 +64,7 @@ export const getService = async (id: string) => {
  * @throws An error if the user is not authenticated or the service already exists
  */
 export const createService = async (formData: FormData) => {
+	log.success('createService', formData)
 	// Connect to the database
 	await db.connect()
 
@@ -104,6 +107,7 @@ export const createService = async (formData: FormData) => {
  * @returns The edited service
  */
 export const editService = async (id: string, formData: FormData) => {
+	log.success('editService', id, formData)
 	// Connect to the database
 	await db.connect()
 
@@ -171,6 +175,7 @@ export const editService = async (id: string, formData: FormData) => {
  * @throws An error if the service or the images cannot be deleted.
  */
 export const deleteService = async (id: string) => {
+	log.success('deleteService', id)
 	// Connect to the database
 	await db.connect()
 
@@ -191,6 +196,7 @@ export const deleteService = async (id: string) => {
 }
 
 export const checkServiceExists = async (title: string | undefined) => {
+	log.success('checkServiceExists', title)
 	const existingService = await Service.findOne({ title })
 	if (existingService) {
 		throw new Error('Service already exists')
@@ -198,6 +204,7 @@ export const checkServiceExists = async (title: string | undefined) => {
 }
 
 export const updateServicesDev = async (newKeys: any) => {
+	log.success('updateServicesDev', newKeys)
 	await db.connect()
 	await connection.collection('services').updateMany({}, newKeys)
 }

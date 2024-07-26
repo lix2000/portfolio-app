@@ -1,7 +1,7 @@
-import { ImageType } from '@types'
+import { UploadApiResponse } from 'cloudinary'
 import { Schema } from 'mongoose'
 
-export const ImageSchema = new Schema<ImageType>({
+export const ImageSchema = new Schema<UploadApiResponse>({
 	public_id: {
 		type: String,
 	},
