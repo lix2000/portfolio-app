@@ -5,6 +5,7 @@ import { deleteFiles, deleteFolder, upload } from '@actions'
 import { CLOUDINARY_FOLDERS } from '@lib/settings'
 import { FormServiceType, ServerServiceType } from '@types'
 import { connection } from 'mongoose'
+import { spaceToDash } from '@utils'
 
 /**
  * Retrieves a list of services from the database, optionally with pagination
@@ -82,7 +83,10 @@ export const createService = async (formData: FormData) => {
 	const images = formData.getAll('images')
 
 	// Upload the images to Cloudinary
-	const uploadedImages = await upload(images as File[], `${CLOUDINARY_FOLDERS.SERVICES}/${serviceData.title}`)
+	const uploadedImages = await upload(
+		images as File[],
+		`${CLOUDINARY_FOLDERS.SERVICES}/${spaceToDash(serviceData.title)}`
+	)
 
 	// Create a new Service object with the uploaded images
 	const service = new Service({ ...serviceData, images: uploadedImages })
@@ -92,7 +96,7 @@ export const createService = async (formData: FormData) => {
 		if (uploadedImages?.length) {
 			// Delete the uploaded images and the folder if there are any
 			await deleteFiles(uploadedImages.map(image => image.public_id))
-			await deleteFolder(`${CLOUDINARY_FOLDERS.SERVICES}/${serviceData.title}`)
+			await deleteFolder(`${CLOUDINARY_FOLDERS.SERVICES}/${spaceToDash(serviceData.title)}`)
 		}
 		throw new Error(err)
 	})
@@ -128,13 +132,23 @@ export const editService = async (id: string, formData: FormData) => {
 	// Extract new and existing images from the form data
 	const newImages = formData.getAll('newImages') as unknown as File[]
 	const existingFormImageIds = formData.getAll('existingImageIds') as string[]
+	log.info('existingFormImageIds', existingFormImageIds)
+	log.info('newImages', newImages)
 
 	// Upload new images
-	const uploadedImages = await upload(newImages, `${CLOUDINARY_FOLDERS.SERVICES}/${serviceFormData.title}`)
+	const uploadedImages = await upload(
+		newImages,
+		`${CLOUDINARY_FOLDERS.SERVICES}/${spaceToDash(serviceFormData.title)}`
+	)
 
 	// Find the service by ID
 	const service = await Service.findById(id)
 	if (!service) throw new Error('Service not found')
+
+	// Identify deleted image IDs
+	const deletedImageIds = service.images
+		.map(image => image.public_id)
+		.filter(imageId => !existingFormImageIds.includes(imageId))
 
 	// Update service data with new images
 	const { images, ...updatedServiceData } = serviceFormData
@@ -150,10 +164,6 @@ export const editService = async (id: string, formData: FormData) => {
 	await service
 		.save()
 		.then(async () => {
-			// Identify deleted image IDs
-			const deletedImageIds = service.images
-				.map(image => image.public_id)
-				.filter(imageId => !existingFormImageIds.includes(imageId))
 			// Delete unused images
 			if (deletedImageIds.length) await deleteFiles(deletedImageIds)
 		})

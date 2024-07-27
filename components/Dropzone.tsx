@@ -92,10 +92,10 @@ const Dropzone = ({ name, label, multiple }: DropzoneProps) => {
 									<Image
 										src={url}
 										alt='image'
-										layout='fill'
-										className='rounded-lg'
-										objectFit='cover'
-										objectPosition='center'
+										className='w-full h-auto rounded-lg'
+										style={{ objectFit: 'cover', objectPosition: 'center' }}
+										sizes='100vw'
+										fill
 									/>
 									<Button
 										type='button'
