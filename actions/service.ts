@@ -4,29 +4,35 @@ import { Service } from '@models'
 import { deleteFiles, deleteFolder, upload } from '@actions'
 import { CLOUDINARY_FOLDERS } from '@lib/settings'
 import { FormServiceType, ServerServiceType } from '@types'
-import { connection } from 'mongoose'
+import { connection, FilterQuery } from 'mongoose'
 import { spaceToDash } from '@utils'
 
 /**
  * Retrieves a list of services from the database, optionally with pagination
- * @param request - Optional request object with page and limit properties
+ * @param options - Optional object with page, limit, and filter properties
  * @returns An object with the list of services, number of pages, current page, and whether there are more pages
  */
-export const getServices = async (request?: { page?: number; limit?: number }) => {
-	log.success('getServices', request)
+export const getServices = async (options?: {
+	page?: number
+	limit?: number
+	filter?: FilterQuery<ServerServiceType>
+}) => {
+	log.success('getServices', options)
 	// Connect to the database
 	await db.connect()
 
-	// Extract page and limit from the request, defaulting to 1 and 10
-	const { page = 1, limit = 10 } = request || {}
+	const { page = 1, limit = 10, filter } = options || {}
 
 	// Calculate the offset for pagination
 	const offset = (page - 1) * limit
 
-	// Retrieve the services and count the number of documents
+	// Retrieve the services and count the number of documents that match the filter
 	const [services, count] = await Promise.all([
-		Service.find().skip(offset).limit(limit).lean(),
-		Service.countDocuments(),
+		Service.find(filter || {})
+			.skip(offset)
+			.limit(limit)
+			.lean(),
+		Service.countDocuments(filter),
 	])
 
 	// Calculate the number of pages

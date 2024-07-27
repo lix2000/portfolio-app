@@ -4,13 +4,14 @@ import { createService, deleteService, editService, getServices } from '@actions
 import { useInfiniteQuery, useMutation } from '@tanstack/react-query'
 import { FormServiceType, ServerResponse, ServerServiceType } from '@types'
 import { UploadApiResponse } from 'cloudinary'
+import { FilterQuery } from 'mongoose'
 import { useRouter } from 'next/navigation'
 import toast from 'react-hot-toast'
 
-export const useServices = () => {
+export const useServices = ({ filter }: { filter?: FilterQuery<ServerServiceType> }) => {
 	const result = useInfiniteQuery({
 		queryKey: ['services'],
-		queryFn: ({ pageParam }) => getServices({ page: pageParam }),
+		queryFn: ({ pageParam }) => getServices({ page: pageParam, filter }),
 		initialPageParam: 1,
 		getNextPageParam: (lastPage: ServerResponse<ServerServiceType[]>) =>
 			lastPage.hasMore ? (lastPage.page ?? 1) + 1 : null,
