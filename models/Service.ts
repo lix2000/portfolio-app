@@ -23,6 +23,11 @@ const ServiceSchema = new Schema<ServerServiceType>({
 		type: String,
 		required: true,
 	},
+	isAdditionalService: {
+		type: Boolean,
+		required: true,
+		default: false,
+	},
 })
 
 const Service: Model<ServerServiceType> =

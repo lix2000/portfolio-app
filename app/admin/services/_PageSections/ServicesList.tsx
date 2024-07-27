@@ -23,6 +23,10 @@ const columns = [
 		header: 'Description',
 		cell: info => <div className='truncate'>{info.renderValue()}</div>,
 	}),
+	columnHelper.accessor('isAdditionalService', {
+		header: 'Additional Service',
+		cell: info => (info.getValue() ? 'Yes' : 'No'),
+	}),
 ]
 
 const ServicesList = () => {

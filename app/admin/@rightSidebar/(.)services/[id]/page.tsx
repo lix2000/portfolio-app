@@ -12,7 +12,7 @@ export default function AdminServicePreview({ params }: { params: { id: string }
 	const deleteMutation = useDeleteService(params.id)
 	const [deleteModalOpen, toggleDeleteModal] = useToggle()
 	const service = data?.pages.flatMap(page => page.data).find(service => service._id === params.id)
-	const { description, priceDescription, images = [], title, price } = service ?? {}
+	const { description, priceDescription, images = [], title, price, isAdditionalService } = service ?? {}
 
 	const onEdit = () => router.push(`/admin/services/${params.id}/edit`, { scroll: false })
 
@@ -35,10 +35,15 @@ export default function AdminServicePreview({ params }: { params: { id: string }
 				<div className='h-[250px] mb-2'>
 					<Carousel images={images.map(image => image.url)} />
 				</div>
-				<div className='my-4 text-subtitle font-bold text-center'>
+				<div className='my-4 text-body font-bold text-center'>
 					<span className='bg-primary text-primary-contrast rounded-xl p-2'>
 						${price}&nbsp;{priceDescription}
 					</span>
+					{isAdditionalService && (
+						<span className='bg-secondary text-secondary-contrast rounded-xl p-2 ml-2'>
+							Additional Service
+						</span>
+					)}
 				</div>
 				<div className='text-body'>{description}</div>
 			</div>

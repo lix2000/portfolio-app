@@ -6,7 +6,7 @@ export const ServiceZodSchema = z.object({
 	price: z.string().refine(value => !isNaN(parseFloat(value)), {
 		message: 'Price should be a number',
 	}),
-	priceDescription: z.string().min(1).optional(),
+	priceDescription: z.string().optional(),
 	images: z
 		.object({
 			newFiles: z.array(z.custom<File>()),
@@ -14,6 +14,7 @@ export const ServiceZodSchema = z.object({
 		})
 		.refine(images => !!Object.values(images).flat().length, { message: 'Please upload at least one image' }),
 	description: z.string().min(1),
+	isAdditionalService: z.boolean().default(false),
 })
 
 export type FormServiceType = z.infer<typeof ServiceZodSchema>

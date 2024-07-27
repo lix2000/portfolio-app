@@ -26,16 +26,14 @@ export const useCreateService = () => {
 	const mutation = useMutation({
 		mutationKey: ['services'],
 		mutationFn: (formValues: FormServiceType) => {
+			const { images, ...rest } = formValues
 			//* Server Actions do not support File objects in the args yet, so we need to convert them to FormData
 			const formData = new FormData()
-			Object.entries(formValues).forEach(
-				([key, value]) => typeof value !== 'object' && formData.append(key, value)
-			)
-			formValues.images.newFiles.forEach((image: File) => {
+			images.newFiles.forEach((image: File) => {
 				formData.append('images', image)
 			})
 
-			return createService(formData)
+			return createService(rest, formData)
 		},
 		onSuccess: () => {
 			toast.success('Service created successfully')
@@ -54,17 +52,17 @@ export const useEditService = (id: string, redirectUrl?: string) => {
 	const mutation = useMutation({
 		mutationKey: ['services'],
 		mutationFn: (formValues: FormServiceType) => {
+			const { images, ...rest } = formValues
+			//* Server Actions do not support File objects in the args yet, so we need to convert them to FormData
 			const formData = new FormData()
-			Object.entries(formValues).forEach(
-				([key, value]) => typeof value !== 'object' && formData.append(key, value)
-			)
 			formValues.images.newFiles.forEach((image: File) => {
 				formData.append('newImages', image)
 			})
 			formValues.images.existingFiles.forEach((image: UploadApiResponse) => {
 				formData.append('existingImageIds', image.public_id)
 			})
-			return editService(id, formData)
+
+			return editService(id, rest, formData)
 		},
 		onSuccess: () => {
 			toast.success('Service updated successfully')

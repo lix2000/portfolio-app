@@ -7,6 +7,8 @@ import { FormServiceType, ServerServiceType } from '@types'
 import { connection, FilterQuery } from 'mongoose'
 import { spaceToDash } from '@utils'
 
+type ServicePayload = Omit<FormServiceType, 'images'>
+
 /**
  * Retrieves a list of services from the database, optionally with pagination
  * @param options - Optional object with page, limit, and filter properties
@@ -51,7 +53,7 @@ export const getServices = async (options?: {
  * @throws An error if the service does not exist
  */
 export const getService = async (id: string) => {
-	log.success('getService', id)
+	log.warn('getService', id)
 	// Connect to the database
 	await db.connect()
 
@@ -60,6 +62,7 @@ export const getService = async (id: string) => {
 
 	// Throw an error if the service does not exist
 	if (!service) throw new Error('Service not found')
+	log.success('getService', service)
 
 	return service.toObject() as ServerServiceType
 }
@@ -70,8 +73,8 @@ export const getService = async (id: string) => {
  * @returns The created service object
  * @throws An error if the user is not authenticated or the service already exists
  */
-export const createService = async (formData: FormData) => {
-	log.success('createService', formData)
+export const createService = async (servicePayload: ServicePayload, imagesFormData: FormData) => {
+	log.warn('createService', servicePayload, imagesFormData)
 	// Connect to the database
 	await db.connect()
 
@@ -79,33 +82,31 @@ export const createService = async (formData: FormData) => {
 	const session = await getCurrentSession()
 	if (!session?.user) throw new Error('Unauthorized')
 
-	// Extract the service data from the form data
-	const serviceData: Partial<FormServiceType> = Object.fromEntries(formData)
-
 	// Check if a service with the same title already exists
-	await checkServiceExists(serviceData.title)
+	await checkServiceExists(servicePayload.title)
 
 	// Retrieve the images from the form data
-	const images = formData.getAll('images')
+	const images = imagesFormData.getAll('images')
 
 	// Upload the images to Cloudinary
 	const uploadedImages = await upload(
 		images as File[],
-		`${CLOUDINARY_FOLDERS.SERVICES}/${spaceToDash(serviceData.title)}`
+		`${CLOUDINARY_FOLDERS.SERVICES}/${spaceToDash(servicePayload.title)}`
 	)
 
 	// Create a new Service object with the uploaded images
-	const service = new Service({ ...serviceData, images: uploadedImages })
+	const service = new Service({ ...servicePayload, images: uploadedImages })
 
 	// Save the service to the database
 	await service.save().catch(async (err: any) => {
 		if (uploadedImages?.length) {
 			// Delete the uploaded images and the folder if there are any
 			await deleteFiles(uploadedImages.map(image => image.public_id))
-			await deleteFolder(`${CLOUDINARY_FOLDERS.SERVICES}/${spaceToDash(serviceData.title)}`)
+			await deleteFolder(`${CLOUDINARY_FOLDERS.SERVICES}/${spaceToDash(servicePayload.title)}`)
 		}
 		throw new Error(err)
 	})
+	log.success('createService', service)
 
 	return service.toObject()
 }
@@ -116,8 +117,8 @@ export const createService = async (formData: FormData) => {
  * @param formData - The form data containing the service information
  * @returns The edited service
  */
-export const editService = async (id: string, formData: FormData) => {
-	log.success('editService', id, formData)
+export const editService = async (id: string, servicePayload: ServicePayload, imagesFormData: FormData) => {
+	log.success('editService', id, servicePayload, imagesFormData)
 	// Connect to the database
 	await db.connect()
 
@@ -125,26 +126,21 @@ export const editService = async (id: string, formData: FormData) => {
 	const session = await getCurrentSession()
 	if (!session?.user) throw new Error('Unauthorized')
 
-	// Extract service form data
-	const serviceFormData: Partial<FormServiceType> = Object.fromEntries(formData)
-
 	// Check if a service with the same title already exists
 	const existingServiceWithSameTitle = await Service.findOne({
-		title: serviceFormData.title,
+		title: servicePayload.title,
 		_id: { $ne: id },
 	})
 	if (existingServiceWithSameTitle) throw new Error('Service with the same title already exists')
 
 	// Extract new and existing images from the form data
-	const newImages = formData.getAll('newImages') as unknown as File[]
-	const existingFormImageIds = formData.getAll('existingImageIds') as string[]
-	log.info('existingFormImageIds', existingFormImageIds)
-	log.info('newImages', newImages)
+	const newImages = imagesFormData.getAll('newImages') as unknown as File[]
+	const existingFormImageIds = imagesFormData.getAll('existingImageIds') as string[]
 
 	// Upload new images
 	const uploadedImages = await upload(
 		newImages,
-		`${CLOUDINARY_FOLDERS.SERVICES}/${spaceToDash(serviceFormData.title)}`
+		`${CLOUDINARY_FOLDERS.SERVICES}/${spaceToDash(servicePayload.title)}`
 	)
 
 	// Find the service by ID
@@ -157,9 +153,8 @@ export const editService = async (id: string, formData: FormData) => {
 		.filter(imageId => !existingFormImageIds.includes(imageId))
 
 	// Update service data with new images
-	const { images, ...updatedServiceData } = serviceFormData
 	Object.assign(service, {
-		...updatedServiceData,
+		...servicePayload,
 		images: [
 			...service.images.filter(image => existingFormImageIds.includes(image.public_id)),
 			...uploadedImages,
