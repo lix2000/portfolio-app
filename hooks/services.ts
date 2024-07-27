@@ -8,7 +8,8 @@ import { FilterQuery } from 'mongoose'
 import { useRouter } from 'next/navigation'
 import toast from 'react-hot-toast'
 
-export const useServices = ({ filter }: { filter?: FilterQuery<ServerServiceType> }) => {
+export const useServices = (params?: { filter?: FilterQuery<ServerServiceType> }) => {
+	const { filter } = params || {}
 	const result = useInfiniteQuery({
 		queryKey: ['services'],
 		queryFn: ({ pageParam }) => getServices({ page: pageParam, filter }),
