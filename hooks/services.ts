@@ -1,7 +1,7 @@
 'use client'
 
-import { createService, deleteService, editService, getServices } from '@actions'
-import { useInfiniteQuery, useMutation } from '@tanstack/react-query'
+import { createService, deleteService, editService, getServices, getService } from '@actions'
+import { useInfiniteQuery, useMutation, useQuery } from '@tanstack/react-query'
 import { FormServiceType, ServerResponse, ServerServiceType } from '@types'
 import { UploadApiResponse } from 'cloudinary'
 import { FilterQuery } from 'mongoose'
@@ -11,11 +11,20 @@ import toast from 'react-hot-toast'
 export const useServices = (params?: { filter?: FilterQuery<ServerServiceType> }) => {
 	const { filter } = params || {}
 	const result = useInfiniteQuery({
-		queryKey: ['services'],
+		queryKey: ['services', JSON.stringify(filter)],
 		queryFn: ({ pageParam }) => getServices({ page: pageParam, filter }),
 		initialPageParam: 1,
 		getNextPageParam: (lastPage: ServerResponse<ServerServiceType[]>) =>
 			lastPage.hasMore ? (lastPage.page ?? 1) + 1 : null,
+	})
+
+	return result
+}
+
+export const useService = (id: string) => {
+	const result = useQuery({
+		queryKey: ['services', id],
+		queryFn: () => getService(id),
 	})
 
 	return result

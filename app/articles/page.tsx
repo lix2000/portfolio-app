@@ -2,6 +2,7 @@ import { Card, Title } from '@components'
 import { articleMock } from '@lib/settings'
 
 const Articles = () => {
+  //to do remove this when api is ready
   const articles = articleMock
   return (
     <div className='w-full h-full pt-[60px] flex flex-col items-center '>

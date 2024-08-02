@@ -4,7 +4,7 @@ import { Error } from '@components'
 interface Props {
 	label?: string | ReactNode
 	error?: string
-	placeholder?: string | ReactNode
+	placeholder?: any
 }
 
 const CheckBox = (
