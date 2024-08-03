@@ -55,8 +55,9 @@ const Services = () => {
 								<Card
 									key={service?._id}
 									{...{
+										label:'Learn More',
 										...service,
-										onReadMoreClick: () => goToService(service?._id),
+										onClick: () => goToService(service?._id),
 										delay: index * 1000,
 									}}
 								/>
@@ -82,8 +83,9 @@ const Services = () => {
 								<Card
 									key={service?._id}
 									{...{
+										label:'Learn More',
 										...service,
-										onReadMoreClick: () => goToService(service?._id),
+										onClick: () => goToService(service?._id),
 										delay: index * 1000,
 									}}
 								/>

@@ -33,11 +33,13 @@ const Portfolio = () => {
                         <div className='w-full flex flex-row flex-wrap gap-4 justify-center'>
                             {allPortfolios.map((portfolio, index) => (
                                 <Card
+                                    className='max-h-[485px]'
                                     key={portfolio?.id}
                                     {...{
                                         ...portfolio,
-                                        onReadMoreClick: () => goToPortfolio(portfolio?.id),
+                                        onClick: () => goToPortfolio(portfolio?.id),
                                         delay: index * 1000,
+                                        label: 'View',
                                     }}
                                 />
                             ))}
