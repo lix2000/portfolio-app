@@ -1,21 +1,49 @@
 'use client'
-import { getServices } from '@actions'
+import { addonsMock } from '@lib/settings'
 import { Button, Card, Title } from '@components'
-// import { useServerAction } from '@hooks'
-import { addonsMock, servicesMock } from '@lib/settings'
-import { ServerServiceType } from '@types'
-import { useState } from 'react'
+import { useServices } from '@hooks'
+import { useCallback, useState } from 'react'
+import { useRouter } from 'next/navigation'
 
 const Services = () => {
+	const router = useRouter()
 	const [showServices, setShowServices] = useState(true)
-	// const { services = [] } = (useServerAction(getServices) || {}) as { services?: ServerServiceType[] }
-	const services = servicesMock
+
+	const {
+		data: servicesData,
+		fetchNextPage: servicesFetchNextPage,
+		hasNextPage: servicesHasNextPage,
+		isLoading: servicesIsLoading,
+		isFetchingNextPage: servicesIsFetchingNextPage,
+	} = useServices({ filter: { isAdditionalService: false } })
+	const servicesDisableFetchNext = servicesIsLoading || servicesIsFetchingNextPage
+	const { pages: servicePages = [] } = servicesData || {}
+	const allServices = servicePages.flatMap(page => page.data)
+
+	const {
+		data: additionalServicesData,
+		fetchNextPage: additionalServicesFetchNextPage,
+		hasNextPage: additionalServicesHasNextPage,
+		isLoading: additionalServicesIsLoading,
+		isFetchingNextPage: additionalServicesIsFetchingNextPage,
+	} = useServices({ filter: { isAdditionalService: true } })
+	const additionalServicesDisableFetchNext =
+		additionalServicesIsLoading || additionalServicesIsFetchingNextPage
+	const { pages: additionalServicePages = [] } = additionalServicesData || {}
+	const additionalServices = additionalServicePages.flatMap(page => page.data)
+
 	const addons = addonsMock
+	const goToService = useCallback(
+		(id: string) => {
+			router.push(`/services/${id}`)
+		},
+		[router]
+	)
 
 	return (
-		<div className='w-full h-full pt-[60px] flex flex-col items-center'>
+		<div className='w-full pt-[60px] flex flex-col items-center'>
 			<Title>Services</Title>
-			<div className='w-fill h-fill min-w-[310px] max-w-[1040px] mb-10 '>
+			<div className='w-fill min-h-full min-w-[310px] max-w-[1040px] mb-10 '>
 				{showServices && (
 					<div>
 						<div className='flex justify-between py-4'>
@@ -23,10 +51,25 @@ const Services = () => {
 							<Button onClick={() => setShowServices(prev => !prev)}>Additional Services</Button>
 						</div>
 						<div className='w-full flex flex-row flex-wrap gap-4 justify-center'>
-							{services.map((service, index) => (
-								<Card key={index} {...{ ...service, delay: index * 1000 }} />
+							{allServices.map((service, index) => (
+								<Card
+									key={service?._id}
+									{...{
+										label:'Learn More',
+										...service,
+										onClick: () => goToService(service?._id),
+										delay: index * 1000,
+									}}
+								/>
 							))}
 						</div>
+						{servicesHasNextPage && (
+							<div className='flex-center mt-[20px]'>
+								<Button disabled={servicesDisableFetchNext} onClick={() => servicesFetchNextPage()}>
+									Load More...
+								</Button>
+							</div>
+						)}
 					</div>
 				)}
 				{!showServices && (
@@ -36,10 +79,28 @@ const Services = () => {
 							<div className='text-title grow truncate text-end'>Additional Services</div>
 						</div>
 						<div className='w-full flex flex-row flex-wrap gap-4 justify-center'>
-							{services.map((service, index) => (
-								<Card key={index} {...{ ...service, delay: index * 1000 }} />
+							{additionalServices.map((service, index) => (
+								<Card
+									key={service?._id}
+									{...{
+										label:'Learn More',
+										...service,
+										onClick: () => goToService(service?._id),
+										delay: index * 1000,
+									}}
+								/>
 							))}
 						</div>
+						{additionalServicesHasNextPage && (
+							<div className='flex-center mt-[20px]'>
+								<Button
+									disabled={additionalServicesDisableFetchNext}
+									onClick={() => additionalServicesFetchNextPage()}
+								>
+									Load More...
+								</Button>
+							</div>
+						)}
 					</div>
 				)}
 			</div>

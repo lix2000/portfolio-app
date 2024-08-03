@@ -3,45 +3,47 @@
 @tailwind utilities;
 
 :root {
-  --foreground-rgb: 0, 0, 0;
-  --background-start-rgb: 214, 219, 220;
-  --background-end-rgb: 255, 255, 255;
+	--foreground-rgb: 0, 0, 0;
+	--background-start-rgb: 214, 219, 220;
+	--background-end-rgb: 255, 255, 255;
 }
 
 @media (prefers-color-scheme: dark) {
-  :root {
-    --foreground-rgb: 255, 255, 255;
-    --background-start-rgb: 0, 0, 0;
-    --background-end-rgb: 0, 0, 0;
-  }
+	:root {
+		--foreground-rgb: 255, 255, 255;
+		--background-start-rgb: 0, 0, 0;
+		--background-end-rgb: 0, 0, 0;
+	}
 }
 
 body {
-  height: 100vh;
-  width: 100vw;
-  @apply bg-tertiary text-tertiary-contrast text-body;
+	height: 100vh;
+	width: 100vw;
+	@apply bg-tertiary text-tertiary-contrast text-body;
 }
 
 main {
-  min-width: 100%;
-  min-height: 100%;
-  box-sizing: border-box;
+	min-width: 100%;
+	min-height: 100%;
+	box-sizing: border-box;
 }
 
 @layer utilities {
-  .text-balance {
-    text-wrap: balance;
-  }
+	.text-balance {
+		text-wrap: balance;
+	}
 }
 
 .flex-center {
-  @apply flex items-center justify-center;
+	@apply flex items-center justify-center;
 }
 
 .flex-space-between {
-  @apply flex items-center justify-between;
+	@apply flex items-center justify-between;
 }
 
 .transition {
-  transition: opacity 0.5s, transform 0.5s;
+	transition:
+		opacity 0.5s,
+		transform 0.5s;
 }

@@ -89,7 +89,7 @@ const Carousel: React.FC<CarouselProps> = ({
 				</button>
 			)}
 			<div
-				className='relative w-full h-full flex items-center transition-transform duration-1000'
+				className='relative w-full h-full max-h-full flex items-center transition-transform duration-1000'
 				style={{ transform: `translateX(-${currentChildIndex * 100}%)` }}
 			>
 				{images
