@@ -14,7 +14,7 @@ const NewService = () => {
 		<div className='w-full h-full'>
 			<Title.Label>New Service</Title.Label>
 			<div className='mx-8'>
-				<ServiceForm onSubmit={mutation.mutate} onCancel={onCancel} />
+				<ServiceForm onSubmit={mutation.mutateAsync} onCancel={onCancel} />
 			</div>
 		</div>
 	)

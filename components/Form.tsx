@@ -61,7 +61,7 @@ const Form = <FormValues extends DefaultFormValues>({
 			<form onSubmit={handleSubmit(onSubmit)} className={className}>
 				{isSubmitting && (
 					<div
-						className='absolute top-0 left-0 w-full h-full  bg-opacity-50 flex items-center justify-center'
+						className='absolute top-0 left-0 w-full h-full  bg-opacity-50 flex items-center justify-center z-50'
 						style={{ backdropFilter: 'blur(2px)' }}
 					>
 						<Loader isLoading />

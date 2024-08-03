@@ -17,7 +17,7 @@ const EditService = ({ id, service }: { id: string; service: ServerServiceType }
 			<Title.Label>Edit Service</Title.Label>
 			<div className='mx-8'>
 				<ServiceForm
-					onSubmit={mutation.mutate}
+					onSubmit={mutation.mutateAsync}
 					onCancel={onCancel}
 					defaultValues={transformServiceToFormValues(service)}
 				/>

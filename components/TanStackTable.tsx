@@ -1,6 +1,5 @@
 'use client'
 import {
-	AccessorKeyColumnDef,
 	ColumnDef,
 	flexRender,
 	getCoreRowModel,
@@ -15,7 +14,7 @@ import { Loader } from '@components'
 
 type Props = {
 	data: any[]
-	columns: AccessorKeyColumnDef<any, string>[]
+	columns: ColumnDef<any, any>[]
 	hasMore?: boolean
 	loadMore: (page: number) => void
 	onRowClick?: (row: any) => void

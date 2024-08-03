@@ -36,18 +36,6 @@ const adminSidebarItems: AdminSidebarItem[] = [
 		name: 'Portfolio',
 		path: '/admin/portfolio',
 		icon: faBriefcase,
-		subitems: [
-			{
-				name: 'Projects',
-				path: '/admin/portfolio',
-				icon: faList,
-			},
-			{
-				name: 'Categories',
-				path: '/admin/portfolio-categories',
-				icon: faLayerGroup,
-			},
-		],
 	},
 ]
 

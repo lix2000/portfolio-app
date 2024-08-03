@@ -17,7 +17,7 @@ const EditServiceModal = ({ id }: { id: string }) => {
 		<Modal className='w-[500px] relative'>
 			<div className='text-title text-center text-primary font-bold'>Edit Service</div>
 			<ServiceForm
-				onSubmit={mutation.mutate}
+				onSubmit={mutation.mutateAsync}
 				onCancel={closeModal}
 				defaultValues={transformServiceToFormValues(service as ServerServiceType)}
 			/>

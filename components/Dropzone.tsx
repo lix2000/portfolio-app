@@ -59,7 +59,7 @@ const Dropzone = ({ name, label, multiple }: DropzoneProps) => {
 	}
 
 	return (
-		<div className='flex flex-col gap-4'>
+		<div className='w-full flex flex-col gap-4'>
 			<div
 				{...getRootProps()}
 				className={`border-2 ${

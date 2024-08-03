@@ -14,7 +14,7 @@ const NewServiceModal = () => {
 	return (
 		<Modal className='w-[500px] relative'>
 			<div className='text-title text-center text-primary font-bold'>New Service</div>
-			<ServiceForm onSubmit={mutation.mutate} onCancel={closeModal} />
+			<ServiceForm onSubmit={mutation.mutateAsync} onCancel={closeModal} />
 		</Modal>
 	)
 }

@@ -67,6 +67,7 @@ export const footerContactIcons = [
 
 export const CLOUDINARY_FOLDERS = {
 	SERVICES: 'services',
+	PORTFOLIO: 'portfolio',
 }
 
 // we have to delete it after connecting to BE

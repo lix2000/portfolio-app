@@ -21,7 +21,7 @@ const ServiceForm = ({ onSubmit, onCancel, defaultValues }: Props) => {
 				<Input name='priceDescription' label='Price Description' placeholder='Price Description' />
 			</div>
 			<TextArea name='description' label='Description' placeholder='Description' />
-			<CheckBox name='isAdditionalService' placeholder='Is Additional Service' />
+			<CheckBox name='isAdditionalService' placeholder='Additional Service' />
 			<Dropzone name='images' label='Click or drag images' multiple />
 			<Button type='submit'>Save</Button>
 			<Button type='button' onClick={onCancel} theme='tertiary'>
