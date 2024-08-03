@@ -1,4 +1,4 @@
-import { DangerousHtml, Title } from '@components'
+import { Title } from '@components'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import {  theDesignerContactIcons, theDesignerMock } from '@lib/settings'
 import Link from 'next/link'
@@ -32,7 +32,7 @@ const TheDesigner = () => {
 						</Link>
 					))}
 				</div>
-			{DangerousHtml(description)}
+        <div>{description}</div>
       </div>
       </div>
 		</div>
