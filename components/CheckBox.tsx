@@ -1,22 +1,14 @@
 import { ReactNode, forwardRef } from 'react'
 import { Error } from '@components'
 
-interface Props {
+interface Props extends Omit<React.InputHTMLAttributes<HTMLInputElement>, 'placeholder'> {
 	label?: string | ReactNode
 	error?: string
-	placeholder?: any
+	placeholder?: ReactNode
 }
 
 const CheckBox = (
-	{
-		label,
-		error,
-		className,
-		children,
-		placeholder,
-		type,
-		...rest
-	}: Props & React.InputHTMLAttributes<HTMLInputElement>,
+	{ label, error, className, children, placeholder, type, ...rest }: Props,
 	ref: React.Ref<HTMLInputElement>
 ) => {
 	const classes = [

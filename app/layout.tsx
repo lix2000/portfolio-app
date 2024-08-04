@@ -1,7 +1,14 @@
 import type { Metadata } from 'next'
 import { Inter } from 'next/font/google'
 import { getCurrentSession } from '@lib'
-import { SessionProvider, Navbar, Footer, MobileNavbar, ReactQueryClientProvider } from '@components'
+import {
+	SessionProvider,
+	Navbar,
+	Footer,
+	MobileNavbar,
+	ReactQueryClientProvider,
+	GoogleReCaptchaWrapper,
+} from '@components'
 import { Toaster } from 'react-hot-toast'
 import '@lib/fontawesome'
 
@@ -20,15 +27,17 @@ export default async function RootLayout({ children }: Readonly<{ children: Reac
 	return (
 		<html lang='en'>
 			<body className={inter.className}>
-				<ReactQueryClientProvider>
-					<SessionProvider session={session}>
-						<Toaster />
-						<Navbar />
-						{/* <MobileNavbar /> */}
-						{children}
-						<Footer />
-					</SessionProvider>
-				</ReactQueryClientProvider>
+				<GoogleReCaptchaWrapper>
+					<ReactQueryClientProvider>
+						<SessionProvider session={session}>
+							<Toaster />
+							<Navbar />
+							{/* <MobileNavbar /> */}
+							{children}
+							<Footer />
+						</SessionProvider>
+					</ReactQueryClientProvider>
+				</GoogleReCaptchaWrapper>
 			</body>
 		</html>
 	)

@@ -1,9 +1,9 @@
-import { ContactType, ContactZodSchema } from '@types'
+import { AppointmentZodSchema, FormAppointmentType } from '@types'
 import { Button, CheckBox, DatePicker, Radio, Input, Form, TextArea, Dropzone } from '@components'
 import Link from 'next/link'
 import { serviceTypes } from '@lib/settings'
 
-const ContactForm = ({ onSubmit }: { onSubmit: (data: ContactType) => any }) => {
+const ContactForm = ({ onSubmit }: { onSubmit: (data: FormAppointmentType) => any }) => {
 	return (
 		<div className='min-w-[350px] max-w-[650px] w-full p-6 flex-col flex-center bg-white rounded-lg shadow-card hover:shadow-2xl'>
 			<div className='text-title my-2'>Contact Form</div>
@@ -11,28 +11,33 @@ const ContactForm = ({ onSubmit }: { onSubmit: (data: ContactType) => any }) => 
 				Please fill up this contact form with your project address and tell us a little bit more about what
 				you're looking to do in your home.
 			</div>
-			<Form<ContactType> className='w-full flex flex-col gap-4' onSubmit={onSubmit} schema={ContactZodSchema}>
+			<Form<FormAppointmentType>
+				className='w-full flex flex-col gap-4'
+				onSubmit={onSubmit}
+				schema={AppointmentZodSchema}
+				recaptchaAction='appointment'
+			>
 				<div className='w-full flex gap-4'>
-					<Input name='fullName' type='text' placeholder='First Name' />
+					<Input name='fullName' type='text' placeholder='Full Name' />
 					<Input name='email' type='email' placeholder='Email' />
 					<Input name='phoneNumber' type='text' placeholder='Phone Number' />
 				</div>
 				<Input name='address' type='text' placeholder='Project Address' />
-				<Radio name='serviceType' label='Desired Service' options={serviceTypes} />
+				<Radio name='service' label='Desired Service' options={serviceTypes} />
 				<Input
 					name='budget'
 					type='text'
 					placeholder='Budget (renovation Cost + Furniture) exuding designer fee'
 				/>
 				<DatePicker name='date' />
-				<TextArea name='tellUsMore' placeholder='Project Description' />
+				<TextArea name='description' placeholder='Project Description' />
 				<Dropzone name='images' label='Upload Images' />
 				<CheckBox
 					name='termsAndConditions'
 					placeholder={
 						<div>
 							I agree with any applicable Terms and Conditions of CSH Greenwich Advisory. This site is
-							protected by reCAPTCHA and the Google
+							protected by reCAPTCHA and the Google&nbsp;
 							<Link
 								rel='noopener noreferrer '
 								target='_blank'
@@ -40,8 +45,8 @@ const ContactForm = ({ onSubmit }: { onSubmit: (data: ContactType) => any }) => 
 								href={'https://policies.google.com/privacy'}
 							>
 								Privacy Policy
-							</Link>{' '}
-							and
+							</Link>
+							&nbsp;and&nbsp;
 							<Link
 								rel='noopener noreferrer '
 								target='_blank'
@@ -49,8 +54,8 @@ const ContactForm = ({ onSubmit }: { onSubmit: (data: ContactType) => any }) => 
 								href={'https://policies.google.com/terms'}
 							>
 								Terms of Service
-							</Link>{' '}
-							apply.
+							</Link>
+							&nbsp;apply.
 						</div>
 					}
 				/>

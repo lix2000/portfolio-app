@@ -1,16 +1,15 @@
 'use client'
-import { Title, Form, Input, Button, TextArea, CheckBox, DatePicker, Radio, ContactForm } from '@components'
-import { footerBlackList, footerContactIcons, serviceTypes } from '@lib/settings'
+import { ContactForm, Title } from '@components'
+import { footerBlackList, footerContactIcons } from '@lib/settings'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { ContactType, ContactZodSchema } from '@types'
+import { FormAppointmentType } from '@types'
 import { usePathname } from 'next/navigation'
 import Link from 'next/link'
+import { useCreateAppointment } from '@hooks'
 
 const Footer = () => {
 	const pathName = usePathname()
-	const onSubmit = (data: ContactType) => {
-		console.log(data)
-	}
+	const mutation = useCreateAppointment()
 
 	if (footerBlackList.some(item => pathName.includes(item))) return null
 
@@ -18,7 +17,7 @@ const Footer = () => {
 		<>
 			<Title>Contact Us</Title>
 			<div className='w-full py-10 bg-tertiary-10 flex-center flex-col gap-6'>
-				<ContactForm onSubmit={onSubmit} />
+				<ContactForm onSubmit={mutation.mutateAsync} />
 				<div className='flex-center gap-2'>
 					{footerContactIcons.map(({ icon, href }) => (
 						<Link

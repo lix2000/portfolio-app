@@ -3,6 +3,7 @@ import { zodResolver } from '@hookform/resolvers/zod'
 import { Children, PropsWithChildren, cloneElement, isValidElement, useCallback, useMemo } from 'react'
 import { DefaultValues, FormProvider, UseFormHandleSubmit, useForm } from 'react-hook-form'
 import { Loader } from '@components'
+import { useGoogleReCaptcha } from 'react-google-recaptcha-v3'
 
 type DefaultFormValues = Record<string, any>
 
@@ -11,6 +12,7 @@ interface Props<FormValues extends DefaultFormValues> {
 	schema: Parameters<typeof zodResolver>[0]
 	className?: string
 	defaultValues?: DefaultValues<FormValues>
+	recaptchaAction?: string
 }
 
 const Form = <FormValues extends DefaultFormValues>({
@@ -18,8 +20,10 @@ const Form = <FormValues extends DefaultFormValues>({
 	schema,
 	className = '',
 	defaultValues,
+	recaptchaAction,
 	children,
 }: PropsWithChildren<Props<FormValues>>) => {
+	const { executeRecaptcha } = useGoogleReCaptcha()
 	const formMethods = useForm<FormValues>({
 		resolver: zodResolver(schema),
 		...(defaultValues && { defaultValues }),
@@ -56,9 +60,22 @@ const Form = <FormValues extends DefaultFormValues>({
 
 	const registeredChildren = useMemo(() => registerChildren(children), [registerChildren, children])
 
+	const executeRecaptchaAndSubmit = useCallback(
+		async (data: FormValues) => {
+			if (!recaptchaAction || !executeRecaptcha) return onSubmit(data)
+			const token = await executeRecaptcha(recaptchaAction)
+			if (!token) return
+			return onSubmit({
+				...data,
+				recaptchaToken: token,
+			})
+		},
+		[executeRecaptcha, onSubmit, recaptchaAction]
+	)
+
 	return (
 		<FormProvider {...formMethods}>
-			<form onSubmit={handleSubmit(onSubmit)} className={className}>
+			<form onSubmit={handleSubmit(executeRecaptchaAndSubmit)} className={className}>
 				{isSubmitting && (
 					<div
 						className='absolute top-0 left-0 w-full h-full  bg-opacity-50 flex items-center justify-center z-50'

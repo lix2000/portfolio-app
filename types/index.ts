@@ -1,6 +1,6 @@
 export * from './user'
 export * from './service'
 export * from './aboutUs'
-export * from './contactUs'
+export * from './appointment'
 export * from './serverActions'
 export * from './portfolio'

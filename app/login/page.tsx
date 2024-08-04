@@ -1,17 +1,17 @@
 'use client'
 import { Button, Error, Form, Input, UnauthenticatedRoute } from '@components'
+import { useLogin } from '@hooks'
 import { UserType, UserZodSchema } from '@types'
-import { signIn } from 'next-auth/react'
 import Image from 'next/image'
 import Link from 'next/link'
 import { useSearchParams } from 'next/navigation'
 
 const Login = () => {
+	const mutation = useLogin()
 	const searchParams = useSearchParams()
-	const callbackUrl = searchParams.get('callbackUrl') || '/'
 	const error = searchParams.get('error')
 
-	const onSubmit = (data: UserType) => signIn('credentials', { ...data, callbackUrl })
+	const onSubmit = async (data: UserType) => await mutation.mutateAsync(data)
 
 	return (
 		<UnauthenticatedRoute>
@@ -26,7 +26,12 @@ const Login = () => {
 							alt='logo'
 						/>
 					</Link>
-					<Form<UserType> className='w-full flex flex-col gap-4' onSubmit={onSubmit} schema={UserZodSchema}>
+					<Form<UserType>
+						className='w-full flex flex-col gap-4'
+						onSubmit={onSubmit}
+						schema={UserZodSchema}
+						recaptchaAction='login'
+					>
 						<Input name='username' type='text' label='Username' placeholder='Username' />
 						<Input name='password' type='password' label='Password' placeholder='Password' />
 						<Button type='submit'>Login</Button>
