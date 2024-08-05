@@ -1,5 +1,5 @@
 'use client'
-import { Button, Carousel, Modal, SidebarRight, Title } from '@components'
+import { Button, Carousel, DangerousHtml, Modal, SidebarRight, Title } from '@components'
 import { faPenToSquare } from '@fortawesome/free-regular-svg-icons'
 import { faTrash } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
@@ -45,7 +45,7 @@ export default function AdminServicePreview({ params }: { params: { id: string }
 						</span>
 					)}
 				</div>
-				<div className='text-body'>{description}</div>
+				<div className='text-body link'>{DangerousHtml(description)}</div>
 			</div>
 			{deleteModalOpen && (
 				<Modal className='bg-white rounded-md p-4 shadow-lg' onCancel={toggleDeleteModal}>

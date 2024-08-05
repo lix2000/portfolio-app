@@ -1,4 +1,4 @@
-import { Button, CheckBox, Dropzone, Form, Input, TextArea } from '@components'
+import { Button, CheckBox, Dropzone, Form, Input, TextArea, RichText } from '@components'
 import { FormServiceType, ServiceZodSchema } from '@types'
 
 type Props = {
@@ -20,7 +20,7 @@ const ServiceForm = ({ onSubmit, onCancel, defaultValues }: Props) => {
 				<Input name='price' type='number' label='Price' placeholder='Price' />
 				<Input name='priceDescription' label='Price Description' placeholder='Price Description' />
 			</div>
-			<TextArea name='description' label='Description' placeholder='Description' />
+			<RichText name='description' placeholder='Description' />
 			<CheckBox name='isAdditionalService' placeholder='Additional Service' />
 			<Dropzone name='images' label='Click or drag images' multiple />
 			<Button type='submit'>Save</Button>

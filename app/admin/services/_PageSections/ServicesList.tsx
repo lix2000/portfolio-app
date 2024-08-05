@@ -5,6 +5,7 @@ import { useServices } from '@hooks'
 import { Row, createColumnHelper } from '@tanstack/react-table'
 import { ServerServiceType } from '@types'
 import { useRouter } from 'next/navigation'
+import { extractContent } from '@utils'
 
 const columnHelper = createColumnHelper<ServerServiceType>()
 
@@ -21,7 +22,7 @@ const columns = [
 	}),
 	columnHelper.accessor('description', {
 		header: 'Description',
-		cell: info => <div className='truncate'>{info.renderValue()}</div>,
+		cell: info => <div className='truncate'>{extractContent(info.renderValue() ?? '')}</div>,
 	}),
 	columnHelper.accessor('isAdditionalService', {
 		header: 'Additional Service',

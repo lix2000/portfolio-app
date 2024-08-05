@@ -42,6 +42,10 @@ main {
 	@apply flex items-center justify-between;
 }
 
+.link a {
+	@apply text-primary underline;
+}
+
 .transition {
 	transition:
 		opacity 0.5s,

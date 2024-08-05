@@ -37,6 +37,7 @@
 		"react-hook-form": "^7.51.0",
 		"react-hot-toast": "^2.4.1",
 		"react-infinite-scroller": "^1.2.6",
+		"react-quill": "^2.0.0",
 		"zod": "^3.22.4",
 		"zustand": "^4.5.2"
 	},

@@ -231,7 +231,5 @@ export const getServiceNames = async () => {
 
 	const services: Partial<ServerServiceType>[] = await Service.find({}, { title: 1, _id: 1 }).lean()
 
-	log.success('getServiceNames', services)
-
-	return services
+	return JSON.parse(JSON.stringify(services))
 }
