@@ -1,4 +1,4 @@
-import { model, Model, models, Schema } from 'mongoose'
+import { model, Model, models, Schema, Types } from 'mongoose'
 import { ServerAppointmentType } from '@types'
 import { ImageSchema } from '@models/subschemas'
 
@@ -28,7 +28,8 @@ const AppointmentSchema = new Schema<ServerAppointmentType>(
 			required: true,
 		},
 		service: {
-			type: String,
+			type: Types.ObjectId,
+			ref: 'Service',
 			required: true,
 		},
 		budget: {

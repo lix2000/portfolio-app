@@ -2,7 +2,6 @@
 import { ContactForm, Title } from '@components'
 import { footerBlackList, footerContactIcons } from '@lib/settings'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { FormAppointmentType } from '@types'
 import { usePathname } from 'next/navigation'
 import Link from 'next/link'
 import { useCreateAppointment } from '@hooks'
@@ -21,6 +20,7 @@ const Footer = () => {
 				<div className='flex-center gap-2'>
 					{footerContactIcons.map(({ icon, href }) => (
 						<Link
+							key={href}
 							rel='noopener noreferrer '
 							target='_blank'
 							href={href}

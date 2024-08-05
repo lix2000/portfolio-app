@@ -1,9 +1,13 @@
+'use client'
 import { AppointmentZodSchema, FormAppointmentType } from '@types'
-import { Button, CheckBox, DatePicker, Radio, Input, Form, TextArea, Dropzone } from '@components'
+import { Button, CheckBox, DatePicker, Radio, Input, Form, TextArea, Dropzone, Select } from '@components'
 import Link from 'next/link'
 import { serviceTypes } from '@lib/settings'
+import { useServiceNames } from '@hooks'
 
 const ContactForm = ({ onSubmit }: { onSubmit: (data: FormAppointmentType) => any }) => {
+	const { data: services } = useServiceNames()
+
 	return (
 		<div className='min-w-[350px] max-w-[650px] w-full p-6 flex-col flex-center bg-white rounded-lg shadow-card hover:shadow-2xl'>
 			<div className='text-title my-2'>Contact Form</div>
@@ -24,7 +28,12 @@ const ContactForm = ({ onSubmit }: { onSubmit: (data: FormAppointmentType) => an
 					<Input name='phoneNumber' type='text' placeholder='Phone Number' />
 				</div>
 				<Input name='address' type='text' placeholder='Project Address' />
-				<Radio name='service' label='Desired Service' options={serviceTypes} />
+				<Select
+					name='service'
+					placeholder='Desired Service'
+					options={services?.map(({ _id, title }) => ({ value: _id, label: title }))}
+				/>
+				{/* <Radio name='service' label='Desired Service' options={serviceTypes} /> */}
 				<Input
 					name='budget'
 					type='text'

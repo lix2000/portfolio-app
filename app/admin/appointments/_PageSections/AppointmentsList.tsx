@@ -2,7 +2,7 @@
 import { TanStackTable, Title } from '@components'
 import { useAppointments } from '@hooks'
 import { Row, createColumnHelper } from '@tanstack/react-table'
-import { ServerAppointmentType } from '@types'
+import { ServerAppointmentType, ServerServiceType } from '@types'
 import { useRouter } from 'next/navigation'
 
 const columnHelper = createColumnHelper<ServerAppointmentType>()
@@ -18,6 +18,9 @@ const columns = [
 	}),
 	columnHelper.accessor('service', {
 		header: 'Service',
+		cell: info => (
+			<div className='truncate'>{(info.getValue() as Pick<ServerServiceType, 'title'>).title}</div>
+		),
 	}),
 	columnHelper.accessor('date', {
 		header: 'Date',

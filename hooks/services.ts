@@ -1,6 +1,6 @@
 'use client'
 
-import { createService, deleteService, editService, getServices, getService } from '@actions'
+import { createService, deleteService, editService, getServices, getService, getServiceNames } from '@actions'
 import { useInfiniteQuery, useMutation, useQuery } from '@tanstack/react-query'
 import { FormServiceType, ServerResponse, ServerServiceType } from '@types'
 import { UploadApiResponse } from 'cloudinary'
@@ -16,6 +16,15 @@ export const useServices = (params?: { filter?: FilterQuery<ServerServiceType> }
 		initialPageParam: 1,
 		getNextPageParam: (lastPage: ServerResponse<ServerServiceType[]>) =>
 			lastPage.hasMore ? (lastPage.page ?? 1) + 1 : null,
+	})
+
+	return result
+}
+
+export const useServiceNames = () => {
+	const result = useQuery({
+		queryKey: ['serviceNames'],
+		queryFn: () => getServiceNames(),
 	})
 
 	return result

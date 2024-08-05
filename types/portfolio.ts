@@ -1,4 +1,5 @@
 import { UploadApiResponse } from 'cloudinary'
+import { Document } from 'mongoose'
 import { z } from 'zod'
 
 export const PortfolioZodSchema = z.object({
@@ -13,7 +14,7 @@ export const PortfolioZodSchema = z.object({
 
 export type FormPortfolioType = z.infer<typeof PortfolioZodSchema>
 
-export type ServerPortfolioType = Omit<FormPortfolioType, 'images'> & {
-	_id: string
-	images: UploadApiResponse[]
-}
+export type ServerPortfolioType = Document &
+	Omit<FormPortfolioType, 'images'> & {
+		images: UploadApiResponse[]
+	}

@@ -1,5 +1,7 @@
 import { UploadApiResponse } from 'cloudinary'
 import { z } from 'zod'
+import { ServerServiceType } from './service'
+import { Document } from 'mongoose'
 
 export const AppointmentZodSchema = z.object({
 	fullName: z.string().min(3).max(32),
@@ -26,8 +28,9 @@ export const AppointmentZodSchema = z.object({
 
 export type FormAppointmentType = z.infer<typeof AppointmentZodSchema>
 
-export type ServerAppointmentType = Omit<FormAppointmentType, 'images'> & {
-	_id: string
-	images: UploadApiResponse[]
-	isViewed: boolean
-}
+export type ServerAppointmentType = Document &
+	Omit<FormAppointmentType, 'images' | 'service'> & {
+		service: ServerServiceType['_id']
+		images: UploadApiResponse[]
+		isViewed: boolean
+	}

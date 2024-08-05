@@ -1,5 +1,6 @@
 import { z } from 'zod'
 import { UploadApiResponse } from 'cloudinary'
+import { Document } from 'mongoose'
 
 export const ServiceZodSchema = z.object({
 	title: z.string().min(1),
@@ -19,7 +20,7 @@ export const ServiceZodSchema = z.object({
 
 export type FormServiceType = z.infer<typeof ServiceZodSchema>
 
-export type ServerServiceType = Omit<FormServiceType, 'images'> & {
-	_id: string
-	images: UploadApiResponse[]
-}
+export type ServerServiceType = Document &
+	Omit<FormServiceType, 'images'> & {
+		images: UploadApiResponse[]
+	}

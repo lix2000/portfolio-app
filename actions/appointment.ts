@@ -1,5 +1,5 @@
 'use server'
-import { FormAppointmentType, ServerAppointmentType } from '@types'
+import { FormAppointmentType, ServerAppointmentType, ServerServiceType } from '@types'
 import { Appointment } from '@models'
 import { compileTemplate, db, getCurrentSession, log, transporter } from '@lib'
 import { newAppointmentTemplate } from '@lib/mailTemplates'
@@ -24,7 +24,7 @@ export const createAppointment = async (data: AppointmentPayload, imagesFormData
 	const appointment = new Appointment({ ...data, images: uploadedImages })
 	await appointment
 		.save()
-		.then(async app => await sendNewAppointmentEmail(app.toObject()))
+		.then(async app => await sendNewAppointmentEmail((await app.populate('service', 'title')).toObject()))
 		.catch(async err => {
 			log.error('Appointment failed', err)
 			if (uploadedImages?.length) {
@@ -39,6 +39,8 @@ export const createAppointment = async (data: AppointmentPayload, imagesFormData
 }
 
 const sendNewAppointmentEmail = async (appointment: ServerAppointmentType) => {
+	const { _id, images, service, date } = appointment
+
 	const { OUTLOOK_EMAIL_ADDRESS, NEXT_PUBLIC_WEBSITE_URL } = process.env
 	const mailOptions = {
 		from: OUTLOOK_EMAIL_ADDRESS,
@@ -46,10 +48,11 @@ const sendNewAppointmentEmail = async (appointment: ServerAppointmentType) => {
 		subject: 'New appointment',
 		html: compileTemplate(newAppointmentTemplate, {
 			...appointment,
-			date: new Date(appointment.date).toLocaleDateString('en-US'),
-			redirectUrl: `${NEXT_PUBLIC_WEBSITE_URL}/admin/appointments/${appointment._id}`,
+			service: (service as Pick<ServerServiceType, 'title'>).title,
+			date: new Date(date).toLocaleDateString('en-US'),
+			redirectUrl: `${NEXT_PUBLIC_WEBSITE_URL}/admin/appointments/${_id}`,
 		}),
-		attachments: appointment.images.map(image => ({
+		attachments: images.map(image => ({
 			path: image.secure_url,
 			filename: `${image.original_filename}.${image.format}`,
 		})),
@@ -72,8 +75,8 @@ export const getAppointments = async (options?: { page?: number; limit?: number 
 	const offset = (page - 1) * limit
 
 	// Retrieve the services and count the number of documents that match the filter
-	const [services, count] = await Promise.all([
-		Appointment.find().skip(offset).limit(limit).lean(),
+	const [appointments, count] = await Promise.all([
+		Appointment.find().populate('service', 'title').skip(offset).limit(limit).lean(),
 		Appointment.countDocuments(),
 	])
 
@@ -83,7 +86,7 @@ export const getAppointments = async (options?: { page?: number; limit?: number 
 	// Determine whether there are more pages
 	const hasMore = page < pages
 
-	return { data: JSON.parse(JSON.stringify(services)) as ServerAppointmentType[], pages, page, hasMore }
+	return { data: JSON.parse(JSON.stringify(appointments)) as ServerAppointmentType[], pages, page, hasMore }
 }
 
 export const getAppointment = async (id: string) => {
@@ -103,7 +106,9 @@ export const updateIsViewed = async (id: string) => {
 	const session = await getCurrentSession()
 	if (!session?.user) throw new Error('Unauthorized')
 
-	const appointment = await Appointment.findByIdAndUpdate(id, { isViewed: true }, { new: true }).lean()
+	const appointment = await Appointment.findByIdAndUpdate(id, { isViewed: true }, { new: true })
+		.populate('service', 'title')
+		.lean()
 	if (!appointment) throw new Error('Appointment not found')
 
 	return appointment as ServerAppointmentType

@@ -219,3 +219,19 @@ export const updateServicesDev = async (newKeys: any) => {
 	await db.connect()
 	await connection.collection('services').updateMany({}, newKeys)
 }
+
+/**
+ * Retrieves the names of all services from the database.
+ * @returns A Promise that resolves to an array of service names.
+ * @throws An error if the services cannot be retrieved.
+ */
+export const getServiceNames = async () => {
+	log.warn('getServiceNames')
+	await db.connect()
+
+	const services: Partial<ServerServiceType>[] = await Service.find({}, { title: 1, _id: 1 }).lean()
+
+	log.success('getServiceNames', services)
+
+	return services
+}

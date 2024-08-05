@@ -1,5 +1,6 @@
+'use client'
 import { useController } from 'react-hook-form'
-import Error from './Error'
+import { Error } from '@components'
 
 type option = {
 	label: string

@@ -1,6 +1,6 @@
 'use client'
 import { Carousel, Title } from '@components'
-import { ServerAppointmentType } from '@types'
+import { ServerAppointmentType, ServerServiceType } from '@types'
 
 type Props = {
 	appointment: ServerAppointmentType
@@ -20,7 +20,9 @@ export default function AppointmentPreview({ appointment }: Props) {
 					<Carousel images={images.map(image => image.url)} />
 				</div>
 				<div className='my-4 text-body font-bold text-center'>
-					<span className='bg-primary text-primary-contrast rounded-xl p-2'>{service}</span>
+					<span className='bg-primary text-primary-contrast rounded-xl p-2'>
+						{(service as Pick<ServerServiceType, 'title'>).title}
+					</span>
 					<span className='bg-secondary text-secondary-contrast rounded-xl p-2 ml-2'>Budget: {budget}</span>
 				</div>
 				<div className='grid grid-cols-2 gap-4 text-base-800'>
