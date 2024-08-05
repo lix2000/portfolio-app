@@ -1,7 +1,14 @@
 'use client'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { Children, PropsWithChildren, cloneElement, isValidElement, useCallback, useMemo } from 'react'
-import { DefaultValues, FormProvider, UseFormHandleSubmit, useForm } from 'react-hook-form'
+import {
+	DefaultValues,
+	FormProvider,
+	Path,
+	UseFormHandleSubmit,
+	UseFormReturn,
+	useForm,
+} from 'react-hook-form'
 import { Loader } from '@components'
 import { useGoogleReCaptcha } from 'react-google-recaptcha-v3'
 
@@ -13,6 +20,7 @@ interface Props<FormValues extends DefaultFormValues> {
 	className?: string
 	defaultValues?: DefaultValues<FormValues>
 	recaptchaAction?: string
+	resetAfterSubmit?: boolean
 }
 
 const Form = <FormValues extends DefaultFormValues>({
@@ -21,6 +29,7 @@ const Form = <FormValues extends DefaultFormValues>({
 	className = '',
 	defaultValues,
 	recaptchaAction,
+	resetAfterSubmit,
 	children,
 }: PropsWithChildren<Props<FormValues>>) => {
 	const { executeRecaptcha } = useGoogleReCaptcha()
@@ -29,6 +38,7 @@ const Form = <FormValues extends DefaultFormValues>({
 		...(defaultValues && { defaultValues }),
 	})
 	const {
+		reset,
 		register,
 		handleSubmit,
 		formState: { errors, isSubmitting },
@@ -62,20 +72,31 @@ const Form = <FormValues extends DefaultFormValues>({
 
 	const executeRecaptchaAndSubmit = useCallback(
 		async (data: FormValues) => {
-			if (!recaptchaAction || !executeRecaptcha) return onSubmit(data)
+			if (!recaptchaAction || !executeRecaptcha) {
+				const response = await onSubmit(data)
+				if (resetAfterSubmit) resetFormByTouchedFields(formMethods)
+
+				return response
+			}
 			const token = await executeRecaptcha(recaptchaAction)
 			if (!token) return
-			return onSubmit({
+			const formData = {
 				...data,
 				recaptchaToken: token,
-			})
+			}
+			const response = await onSubmit(formData)
+			if (resetAfterSubmit) resetFormByTouchedFields(formMethods)
+
+			return response
 		},
-		[executeRecaptcha, onSubmit, recaptchaAction]
+		[executeRecaptcha, onSubmit, reset, recaptchaAction, resetAfterSubmit]
 	)
+
+	const classNames = ['relative', className]
 
 	return (
 		<FormProvider {...formMethods}>
-			<form onSubmit={handleSubmit(executeRecaptchaAndSubmit)} className={className}>
+			<form onSubmit={handleSubmit(executeRecaptchaAndSubmit)} className={classNames.join(' ')}>
 				{isSubmitting && (
 					<div
 						className='absolute top-0 left-0 w-full h-full  bg-opacity-50 flex items-center justify-center z-50'
@@ -91,3 +112,9 @@ const Form = <FormValues extends DefaultFormValues>({
 }
 
 export default Form
+
+export const resetFormByTouchedFields = <ObjType extends object>(form: UseFormReturn<ObjType>) => {
+	const fields = Object.keys(form.getValues())
+
+	fields.forEach(field => form.resetField(field as Path<ObjType>))
+}

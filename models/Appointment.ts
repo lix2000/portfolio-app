@@ -47,6 +47,11 @@ const AppointmentSchema = new Schema<ServerAppointmentType>(
 			type: [ImageSchema],
 			required: true,
 		},
+		isViewed: {
+			type: Boolean,
+			required: true,
+			default: false,
+		},
 	},
 	{ timestamps: true }
 )

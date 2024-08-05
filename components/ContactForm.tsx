@@ -16,6 +16,7 @@ const ContactForm = ({ onSubmit }: { onSubmit: (data: FormAppointmentType) => an
 				onSubmit={onSubmit}
 				schema={AppointmentZodSchema}
 				recaptchaAction='appointment'
+				resetAfterSubmit
 			>
 				<div className='w-full flex gap-4'>
 					<Input name='fullName' type='text' placeholder='Full Name' />

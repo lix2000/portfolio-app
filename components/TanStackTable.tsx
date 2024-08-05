@@ -52,10 +52,8 @@ const TanStackTable = ({ data, columns, hasMore, loadMore, onRowClick, ...tableO
 						const canSort = header.column.getCanSort()
 						const isSorted = header.column.getIsSorted()
 						const classNames = ['relative', 'flex', 'justify-between', 'items-center', 'p-3']
-						// const classNames = ['ta-ts-table__th']
 						if (canSort) classNames.push('cursor-pointer text-[#385f87]')
 						if (isSorted) classNames.push('text-[#51667b]')
-						// const resizerClassNames = ['ta-ts-table__resizer']
 						const resizerClassNames = [
 							'absolute',
 							'opacity-0',
@@ -70,15 +68,12 @@ const TanStackTable = ({ data, columns, hasMore, loadMore, onRowClick, ...tableO
 							'flex',
 							'items-center',
 							'justify-center',
-							// .ta-ts-table__resizer.is-resizing
 							header.column.getIsResizing() && 'opacity-30',
-							// .ta-ts-table__resizer:after
 							'after:block',
-							'bg-[#25272980]', // background: #25272980
-							'w-[3px]', // width: 3px
-							'h-[50%]', // height: 50%
-							// .ta-ts-table__tr.header:hover .ta-ts-table__resizer
-							'group-hover:opacity-30', // opacity: 30% on hover
+							'bg-[#25272980]',
+							'w-[3px]',
+							'h-[50%]',
+							'group-hover:opacity-30',
 						]
 						return (
 							<div

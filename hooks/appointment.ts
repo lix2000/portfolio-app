@@ -1,7 +1,19 @@
-import { createAppointment } from '@actions'
-import { useMutation } from '@tanstack/react-query'
-import { FormAppointmentType } from '@types'
+import { createAppointment, getAppointments } from '@actions'
+import { useInfiniteQuery, useMutation } from '@tanstack/react-query'
+import { FormAppointmentType, ServerAppointmentType, ServerResponse } from '@types'
 import toast from 'react-hot-toast'
+
+export const useAppointments = () => {
+	const result = useInfiniteQuery({
+		queryKey: ['appointments'],
+		queryFn: ({ pageParam }) => getAppointments({ page: pageParam }),
+		initialPageParam: 1,
+		getNextPageParam: (lastPage: ServerResponse<ServerAppointmentType[]>) =>
+			lastPage.hasMore ? (lastPage.page ?? 1) + 1 : null,
+	})
+
+	return result
+}
 
 export const useCreateAppointment = () => {
 	const mutation = useMutation({

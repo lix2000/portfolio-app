@@ -26,4 +26,8 @@ export const AppointmentZodSchema = z.object({
 
 export type FormAppointmentType = z.infer<typeof AppointmentZodSchema>
 
-export type ServerAppointmentType = Omit<FormAppointmentType, 'images'> & { images: UploadApiResponse[] }
+export type ServerAppointmentType = Omit<FormAppointmentType, 'images'> & {
+	_id: string
+	images: UploadApiResponse[]
+	isViewed: boolean
+}

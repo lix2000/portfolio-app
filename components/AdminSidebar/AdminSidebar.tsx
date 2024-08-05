@@ -2,9 +2,8 @@
 import {
 	faArrowRightFromBracket,
 	faBriefcase,
+	faCalendarCheck,
 	faGauge,
-	faLayerGroup,
-	faList,
 	faListCheck,
 } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
@@ -26,6 +25,11 @@ const adminSidebarItems: AdminSidebarItem[] = [
 		name: 'Dashboard',
 		path: '/admin',
 		icon: faGauge,
+	},
+	{
+		name: 'Appointments',
+		path: '/admin/appointments',
+		icon: faCalendarCheck,
 	},
 	{
 		name: 'Services',

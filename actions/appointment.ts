@@ -1,7 +1,7 @@
 'use server'
 import { FormAppointmentType, ServerAppointmentType } from '@types'
 import { Appointment } from '@models'
-import { compileTemplate, db, log, transporter } from '@lib'
+import { compileTemplate, db, getCurrentSession, log, transporter } from '@lib'
 import { newAppointmentTemplate } from '@lib/mailTemplates'
 import { deleteFiles, deleteFolder, upload, verifyRecaptcha } from '@actions'
 import { spaceToDash } from '@utils'
@@ -24,30 +24,7 @@ export const createAppointment = async (data: AppointmentPayload, imagesFormData
 	const appointment = new Appointment({ ...data, images: uploadedImages })
 	await appointment
 		.save()
-		.then(async () => {
-			const mailOptions = {
-				from: 'xprienti@outlook.com',
-				to: 'xprienti@outlook.com',
-				subject: 'New appointment',
-				html: compileTemplate(newAppointmentTemplate, {
-					...data,
-					date: new Date(data.date).toLocaleDateString('en-US', {
-						month: '2-digit',
-						day: '2-digit',
-						year: 'numeric',
-					}),
-					redirectUrl: 'https://youtube.com',
-				}),
-				attachments: uploadedImages.map(image => ({
-					path: image.secure_url,
-					filename: `${image.original_filename}.${image.format}`,
-				})),
-			}
-			await transporter
-				.sendMail(mailOptions)
-				.then(() => log.warn('Appointment email sent'))
-				.catch(err => log.error('Appointment email failed', err))
-		})
+		.then(async app => await sendNewAppointmentEmail(app.toObject()))
 		.catch(async err => {
 			log.error('Appointment failed', err)
 			if (uploadedImages?.length) {
@@ -59,4 +36,75 @@ export const createAppointment = async (data: AppointmentPayload, imagesFormData
 		})
 
 	return appointment.toObject() as ServerAppointmentType
+}
+
+const sendNewAppointmentEmail = async (appointment: ServerAppointmentType) => {
+	const { OUTLOOK_EMAIL_ADDRESS, NEXT_PUBLIC_WEBSITE_URL } = process.env
+	const mailOptions = {
+		from: OUTLOOK_EMAIL_ADDRESS,
+		to: OUTLOOK_EMAIL_ADDRESS,
+		subject: 'New appointment',
+		html: compileTemplate(newAppointmentTemplate, {
+			...appointment,
+			date: new Date(appointment.date).toLocaleDateString('en-US'),
+			redirectUrl: `${NEXT_PUBLIC_WEBSITE_URL}/admin/appointments/${appointment._id}`,
+		}),
+		attachments: appointment.images.map(image => ({
+			path: image.secure_url,
+			filename: `${image.original_filename}.${image.format}`,
+		})),
+	}
+	await transporter
+		.sendMail(mailOptions)
+		.then(() => log.warn('Appointment email sent'))
+		.catch(err => log.error('Appointment email failed', err))
+}
+
+export const getAppointments = async (options?: { page?: number; limit?: number }) => {
+	await db.connect()
+
+	const session = await getCurrentSession()
+	if (!session?.user) throw new Error('Unauthorized')
+
+	const { page = 1, limit = 10 } = options || {}
+
+	// Calculate the offset for pagination
+	const offset = (page - 1) * limit
+
+	// Retrieve the services and count the number of documents that match the filter
+	const [services, count] = await Promise.all([
+		Appointment.find().skip(offset).limit(limit).lean(),
+		Appointment.countDocuments(),
+	])
+
+	// Calculate the number of pages
+	const pages = Math.ceil(count / limit)
+
+	// Determine whether there are more pages
+	const hasMore = page < pages
+
+	return { data: JSON.parse(JSON.stringify(services)) as ServerAppointmentType[], pages, page, hasMore }
+}
+
+export const getAppointment = async (id: string) => {
+	await db.connect()
+
+	const session = await getCurrentSession()
+	if (!session?.user) throw new Error('Unauthorized')
+
+	const appointment = await updateIsViewed(id)
+
+	return appointment as ServerAppointmentType
+}
+
+export const updateIsViewed = async (id: string) => {
+	await db.connect()
+
+	const session = await getCurrentSession()
+	if (!session?.user) throw new Error('Unauthorized')
+
+	const appointment = await Appointment.findByIdAndUpdate(id, { isViewed: true }, { new: true }).lean()
+	if (!appointment) throw new Error('Appointment not found')
+
+	return appointment as ServerAppointmentType
 }

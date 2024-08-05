@@ -2,10 +2,10 @@ import nodemailer from 'nodemailer'
 import * as handlebars from 'handlebars'
 
 export const transporter = nodemailer.createTransport({
-	service: 'Outlook365', // You can also use 'hotmail' or 'live' if needed
+	service: 'Outlook365',
 	auth: {
-		user: 'xprienti@outlook.com', // your Outlook email address
-		pass: 'Moseharro1', // your Outlook email password
+		user: process.env.OUTLOOK_EMAIL_ADDRESS,
+		pass: process.env.OUTLOOK_EMAIL_PASSWORD,
 	},
 	tls: {
 		ciphers: 'SSLv3',
