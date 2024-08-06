@@ -53,11 +53,11 @@ const Services = () => {
 						<div className='w-full flex flex-row flex-wrap gap-4 justify-center'>
 							{allServices.map((service, index) => (
 								<Card
-									key={service?._id}
+									key={service?._id as string}
 									{...{
-										label:'Learn More',
+										label: 'Learn More',
 										...service,
-										onClick: () => goToService(service?._id),
+										onClick: () => goToService(service?._id as string),
 										delay: index * 1000,
 									}}
 								/>
@@ -81,11 +81,11 @@ const Services = () => {
 						<div className='w-full flex flex-row flex-wrap gap-4 justify-center'>
 							{additionalServices.map((service, index) => (
 								<Card
-									key={service?._id}
+									key={service?._id as string}
 									{...{
-										label:'Learn More',
+										label: 'Learn More',
 										...service,
-										onClick: () => goToService(service?._id),
+										onClick: () => goToService(service?._id as string),
 										delay: index * 1000,
 									}}
 								/>

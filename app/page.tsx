@@ -3,7 +3,7 @@ import { Antic_Didone } from 'next/font/google'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faAward } from '@fortawesome/free-solid-svg-icons'
 import { homepageReasonIcons } from '@lib/settings'
-import { ReasonCard, ReviewCard, Title } from '@components'
+import { ReasonCard, Title } from '@components'
 import AboutUses from './about-us/page'
 import Services from './services/page'
 import Image from 'next/image'
@@ -22,7 +22,7 @@ const Home = () => {
 					width={0}
 					height={0}
 					sizes='100vw'
-					style={{ width: '100%', height: 'auto' }}
+					style={{ width: '100%', height: '100%' }}
 				/>
 				<div className='w-full h-full flex-center flex-col text-primary-contrast'>
 					<Image

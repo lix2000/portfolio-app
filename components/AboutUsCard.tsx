@@ -24,7 +24,7 @@ const AboutUsCard = ({ aboutUs, delay, onClick }: Props) => {
 					</div>
 				</div>
 				<div className='flex justify-end '>
-					<Button onClick={() => onClick(_id)}>Read More</Button>
+					<Button onClick={() => onClick(_id as string)}>Read More</Button>
 				</div>
 			</div>
 		</div>
