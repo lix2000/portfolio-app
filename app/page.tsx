@@ -1,22 +1,35 @@
 'use client'
-
+import { Antic_Didone } from 'next/font/google'
+import { ReasonCard, Title } from '@components'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faAward } from '@fortawesome/free-solid-svg-icons'
 import { homepageReasonIcons } from '@lib/settings'
-import { ReasonCard, Title } from '@components'
 import AboutUses from './about-us/page'
 import Services from './services/page'
 import Image from 'next/image'
 
+const anticDidone = Antic_Didone({ weight: '400', subsets: ['latin'] })
+
 const Home = () => {
 	return (
 		<div className='flex column flex-col min-h-full min-w-full'>
-			<div className='w-full h-[666px] relative'>
+			<div className={`w-full h-[666px] relative ${anticDidone.className}`}>
 				<img
-					alt='aaaa'
+					alt='homeBackground'
 					src='/images/homeBackground.jpeg'
 					className='w-full h-full object-cover absolute inset-0 -z-10 filter brightness-50'
 				/>
+				<div className='w-full h-full flex-center flex-col text-primary-contrast'>
+					<Image
+						className='ring-1 ring-primary rounded-full'
+						src='/images/logo.png'
+						height={140}
+						width={140}
+						alt='logo'
+					/>
+					<p className='text-title-mega block'>CSH Greenwich Advisory</p>
+					<p className='text-title-xl block'>Interior Design | Project Management | Real Estate</p>
+				</div>
 			</div>
 			<AboutUses />
 			<Services />
