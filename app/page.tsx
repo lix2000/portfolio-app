@@ -8,14 +8,6 @@ import Services from './services/page'
 import Image from 'next/image'
 import { useAboutUses } from '@hooks'
 
-interface AboutUsObject {
-	title: String
-	description: String
-	images: Array<string>
-	longDescription: string
-	id: String
-}
-
 const Home = () => {
 	const { data } = useAboutUses()
 	const aboutUs = data?.pages.flatMap(page => page.data) ?? []
