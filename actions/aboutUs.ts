@@ -201,3 +201,9 @@ export const checkAboutUsExists = async (title: string | undefined) => {
 		throw new Error('AboutUs already exists')
 	}
 }
+
+export const getAboutUsCount = async () => {
+	await db.connect()
+	const count = await AboutUs.countDocuments()
+	return count
+}

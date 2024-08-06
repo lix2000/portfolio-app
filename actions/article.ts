@@ -213,3 +213,12 @@ export const checkArticleExists = async (title: string | undefined) => {
 		throw new Error('Article already exists')
 	}
 }
+
+export const getArticleCount = async () => {
+	log.success('getArticleCount')
+	// Connect to the database
+	await db.connect()
+
+	const count = await Article.countDocuments()
+	return count
+}

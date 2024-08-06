@@ -113,3 +113,14 @@ export const updateIsViewed = async (id: string) => {
 
 	return appointment as ServerAppointmentType
 }
+
+export const getAppointmentsCountByIsViewed = async (isViewed: boolean) => {
+	await db.connect()
+
+	const session = await getCurrentSession()
+	if (!session?.user) throw new Error('Unauthorized')
+
+	const count = await Appointment.countDocuments({ isViewed })
+
+	return count
+}

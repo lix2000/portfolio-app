@@ -233,3 +233,14 @@ export const getServiceNames = async () => {
 
 	return JSON.parse(JSON.stringify(services))
 }
+
+/**
+ * Returns the count of services in the database
+ * @returns The count of services
+ */
+export const getServiceCount = async () => {
+	await db.connect()
+	const count = await Service.countDocuments()
+
+	return count
+}

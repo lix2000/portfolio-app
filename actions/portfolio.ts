@@ -204,3 +204,14 @@ export const updatePortfoliosDev = async (newKeys: any) => {
 	await db.connect()
 	await connection.collection('portfolios').updateMany({}, newKeys)
 }
+
+/**
+ * Returns the count of portfolios in the database
+ * @returns The count of portfolios
+ */
+export const getPortfolioCount = async () => {
+	await db.connect()
+	const count = await Portfolio.countDocuments()
+
+	return count
+}

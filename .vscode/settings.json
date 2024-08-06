@@ -5,6 +5,7 @@
 	"prettier.configPath": ".prettierrc.json",
 	"cSpell.words": [
 		"cloudinary",
+		"countup",
 		"cshgreenwichadvisory",
 		"fontawesome",
 		"fortawesome",
