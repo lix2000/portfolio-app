@@ -1,26 +1,24 @@
-import { AboutUsType } from '@types'
+import { ServerAboutUsType } from '@types'
 import { Model, Schema, model, models } from 'mongoose'
+import { ImageSchema } from './subschemas'
 
-const AboutUsSchema = new Schema<AboutUsType>({
+const AboutUsSchema = new Schema<ServerAboutUsType>({
 	title: {
 		type: String,
 		required: true,
 		unique: true,
 	},
 	images: {
-		type: [String],
+		type: [ImageSchema],
 		required: true,
 	},
 	description: {
 		type: String,
 		required: true,
 	},
-	longDescription: {
-		type: String,
-		required: true,
-	},
 })
 
-const AboutUs: Model<AboutUsType> = models?.AboutUs || model<AboutUsType>('AboutUs', AboutUsSchema)
+const AboutUs: Model<ServerAboutUsType> =
+	models?.AboutUs || model<ServerAboutUsType>('AboutUs', AboutUsSchema)
 
 export default AboutUs

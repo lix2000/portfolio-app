@@ -109,9 +109,10 @@ export const CLOUDINARY_FOLDERS = {
 	SERVICES: 'services',
 	PORTFOLIO: 'portfolio',
 	APPOINTMENTS: 'appointments',
+	ABOUT_US: 'about-us',
 }
 
-// we have to delete it after connecting to BE
+//todo: we have to delete it after connecting to BE
 export const homepageReasonIcons = [
 	{
 		id: '1',
@@ -140,126 +141,6 @@ export const homepageReasonIcons = [
 		title: 'Expert Vendor Selection',
 		description:
 			'In order to ensure that your renovation project is of the highest possible quality and reliability, we take great care in selecting both the vendors we work with and the materials we suggest for each project.',
-	},
-]
-
-// we have to delete it after connecting to BE
-export const aboutUsMock = [
-	{
-		title: 'Where Design Meets Functionality',
-		description:
-			'Located in Greenwich, CT, CSH Greenwich Advisory serves clients in-person in Fairfield County, CT, or nationally via online services. We take pride in our competitive pricing, realistic renderings, and the ability to pass on trade discounts to our valued clients.',
-		longDescription:
-			"Located in Greenwich, CT, CSH Greenwich Advisory serves clients in-person in Fairfield County, CT, or nationally via online services. We take pride in our competitive pricing, realistic renderings, and the ability to pass on trade discounts to our valued clients.<br/>With an international background, we're passionate about respecting the history of your home while delivering designs that marry French elegance with minimalism.<br/>We offer a wide array of services to transform your living spaces. From comprehensive interior design packages to a la carte services, we cater to your unique needs. We will work closely with you to create stunning interiors that reflect your personality and lifestyle.<br/>Whether you're envisioning a complete home renovation, a single-room makeover, or simply seeking design advice, we're here to make it happen.<br/>Our services include in-home or virtual brainstorming sessions, space planning with meticulously crafted floor plans, paint color palette selection, and the curation of furniture and accessories to elevate your space. We even offer pre-purchase renovation ideas with realistic renderings, ensuring you make informed decisions.<br/>Ready to embark on your design journey with us? Schedule a consultation today calling or texting us at (203) 900-4336, and let's bring your vision to life.",
-		images: [
-			'https://speedy.uenicdn.com/dcfee9f4-05b9-4aa8-a6ce-f219c99188eb/c940_a/image/upload/v1699768118/business/dcfee9f4-05b9-4aa8-a6ce-f219c99188eb/Molly---Jeff--1st-flr--Kitchen-and-Dining-Room-116--1-jpeg.jpg',
-		],
-	},
-	{
-		title: 'Tailored Solutions for Your Design Needs',
-		description:
-			"At CSH Greenwich Advisory, we're your partners in creating functional and beautiful spaces. Our commitment to excellence extends to a range of services and packages designed to meet your specific needs.",
-		longDescription:
-			"At CSH Greenwich Advisory, we're your partners in creating functional and beautiful spaces. Our commitment to excellence extends to a range of services and packages designed to meet your specific needs.<br/>Explore our additional services, including contractor bid management, project management, and installation services. Whether you need assistance with contractor selection, project oversight, material sourcing, or seamless installations, our expert team has you covered.<br/>Whichever service or package you choose, you'll benefit from our expertise and dedication to making your vision a reality. Join us in creating spaces that reflect your unique style and personality. Your dream home is just a click away. Schedule a consultation, and let's begin your design journey today!",
-		images: [
-			'https://speedy.uenicdn.com/dcfee9f4-05b9-4aa8-a6ce-f219c99188eb/c940_a/image/upload/v1700600975/business/15d3f5fa-ff18-43ce-a1b0-8193ad7b5e07.jpg',
-		],
-	},
-	{
-		title: "Maximizing Your Home's Value: Comprehensive Selling Solutions",
-		description:
-			"At CSH Greenwich Advisory, we understand that selling your home is about more than just a transaction; it's about realizing the full potential of your property. That's why we've established strategic partnerships with leading real estate brokers to ensure your home sells for the highest possible price",
-		longDescription:
-			"At CSH Greenwich Advisory, we understand that selling your home is about more than just a transaction; it's about realizing the full potential of your property. That's why we've established strategic partnerships with leading real estate brokers to ensure your home sells for the highest possible price. Our unique approach includes advising on targeted renovations and enhancements that significantly increase buyer appeal.<br/>We don't just stop at renovations. We also collaborate with professional organizers who specialize in decluttering and optimizing your space, making your home more attractive and inviting to potential buyers. This comprehensive approach ensures your home stands out in the market, attracting a wider pool of buyers and securing the best possible deal. Trust CSH Greenwich Advisory to be your partner in maximizing your home's value and appeal.",
-		images: [
-			'https://speedy.uenicdn.com/dcfee9f4-05b9-4aa8-a6ce-f219c99188eb/c940_a/image/upload/v1681392279/service_images/shutterstock_1712828755.jpg',
-		],
-	},
-]
-
-export const servicesMock = [
-	{
-		id: '1',
-		title: 'Full Service',
-		description:
-			'Looking for a full transformation of one room or the entire house? We start with an initial consultation to understand t...',
-		longDescription:
-			'Looking for a full transformation of one room or the entire house?<br/>We start with an initial consultation to understand the extend of the project. You will then receive a customized proposal based on your needs.<br/>In-Home Visit with Precise Measurements: We will visit your home to take precise measurements, ensuring a customized design.<br/>Comprehensive Design Presentation: Receive a detailed design presentation, featuring a thoughtfully planned floor plan, a mood board and realistic renderings.<br/>Curated Shopping List: We curate a shopping list including furniture pieces and accessories.<br/>Procurement Service: We handle the intricate process of procuring building materials, furniture, and accessories for your project. You can trust that the right materials and furnishings will be ordered with accuracy and on time. We can provide a white-glove delivery service for added convenience through our receiver partner.<br/>Designer-Managed Installation Day: Leave it to us to manage the entire installation process, ensuring that your design vision comes to life without any stress or hassle.<br/>Access to Vetted Local Trade List: Gain access to our trusted list of local tradespeople to ensure your vision is brought to life and that every detail of your design is flawlessly executed.<br/>Ongoing Support: We maintain open lines of communication ensuring your complete satisfaction with your transformed space.<br/>Initial Consultation is $150 for up to 90 Min. The project is billed hourly at $85/hour with a number of hours estimated on our proposal. ',
-		price: 2500,
-		priceDescription: 'Starting Price',
-		images: [
-			'https://speedy.uenicdn.com/dcfee9f4-05b9-4aa8-a6ce-f219c99188eb/c940_a/image/upload/v1700601339/business/d1d936fd-05bf-45e5-adfe-84370dd2aacb.jpg',
-			'https://speedy.uenicdn.com/dcfee9f4-05b9-4aa8-a6ce-f219c99188eb/c940_a/image/upload/v1700921765/business/cf47e7ce-2c12-4d1c-b2a1-c17afa065c17.jpg',
-			'https://speedy.uenicdn.com/dcfee9f4-05b9-4aa8-a6ce-f219c99188eb/c940_a/image/upload/v1700921842/business/9c2ad124-9bca-4fb7-95d5-1f3677c3e3e3.jpg',
-			'https://speedy.uenicdn.com/dcfee9f4-05b9-4aa8-a6ce-f219c99188eb/c940_a/image/upload/v1700921766/business/11d6f71a-df29-4689-96a2-3e0bc723bc5d.jpg',
-			'https://speedy.uenicdn.com/dcfee9f4-05b9-4aa8-a6ce-f219c99188eb/c940_a/image/upload/v1700600975/business/6aa1c19d-4b0a-495f-8ebc-d9ca620043f5.jpg',
-			'https://speedy.uenicdn.com/dcfee9f4-05b9-4aa8-a6ce-f219c99188eb/c940_a/image/upload/v1700600978/business/3ac3a32c-3b1e-403b-a0fa-5b6c717fb622.jpg',
-			'https://speedy.uenicdn.com/dcfee9f4-05b9-4aa8-a6ce-f219c99188eb/c940_a/image/upload/v1699768115/business/dcfee9f4-05b9-4aa8-a6ce-f219c99188eb/Molly---Jeff---Master-Suite-Unnamed-Space-44jpeg.jpg',
-			'https://speedy.uenicdn.com/dcfee9f4-05b9-4aa8-a6ce-f219c99188eb/c940_a/image/upload/v1699768115/business/dcfee9f4-05b9-4aa8-a6ce-f219c99188eb/Molly---Jeff---Master-Suite-Unnamed-Space-44jpeg.jpg',
-			'https://speedy.uenicdn.com/dcfee9f4-05b9-4aa8-a6ce-f219c99188eb/c940_a/image/upload/v1700919319/business/5d0f2f3f-5be0-4730-ab72-509392dc53d4.jpg',
-			'https://speedy.uenicdn.com/dcfee9f4-05b9-4aa8-a6ce-f219c99188eb/c940_a/image/upload/v1700921459/business/0f723d47-d3dd-442f-a45f-12980050611d.jpg',
-			'https://speedy.uenicdn.com/dcfee9f4-05b9-4aa8-a6ce-f219c99188eb/c940_a/image/upload/v1699812404/business/dcfee9f4-05b9-4aa8-a6ce-f219c99188eb/Baby-Room--3-jpeg.jpg',
-		],
-	},
-	{
-		id: '2',
-		title: 'Design Day',
-		description:
-			"You'd be surprised at how much we can get done in one day!  This service starts with a 1 hour video call to prepare...",
-		longDescription:
-			"You'd be surprised at how much we can get done in one day! <br/>This service starts with a 1 hour video call to prepare the in-home visit. Then you will have 6 hours of one-on-one together (this can be split in 2 sessions if preferred).<br/>I will provide my expert guidance on how to best reimagine your space. We will work together on a vision and style, and then create a basic design plan. We will also select the main furniture pieces needed, finishes, paint colors, fabrics, rugs, and/or accessories needed to achieve this vision.<br/>This service also includes two hours of follow up time, which you can use for any questions or additional assistance you might need in bringing the vision to life.<br/>Additionally, you will have access to trade preferred pricing for up to three furniture pieces. If you need more, you have the option to add-on our Procurement Service to take advantage of our exclusive trade pricing on merchandise.",
-		price: 850,
-		priceDescription: '',
-		images: [
-			'https://speedy.uenicdn.com/dcfee9f4-05b9-4aa8-a6ce-f219c99188eb/c940_a/image/upload/v1699768092/business/dcfee9f4-05b9-4aa8-a6ce-f219c99188eb/Installation-Dayjpg.jpg',
-			'https://speedy.uenicdn.com/dcfee9f4-05b9-4aa8-a6ce-f219c99188eb/c940_a/image/upload/v1699812452/business/dcfee9f4-05b9-4aa8-a6ce-f219c99188eb/Dining-Room--2-jpeg.jpg',
-			'https://speedy.uenicdn.com/dcfee9f4-05b9-4aa8-a6ce-f219c99188eb/c940_a/image/upload/v1699768112/business/dcfee9f4-05b9-4aa8-a6ce-f219c99188eb/Molly---Jeff---Master-Suite-Unnamed-Space-41jpeg.jpg',
-			'https://speedy.uenicdn.com/dcfee9f4-05b9-4aa8-a6ce-f219c99188eb/c940_a/image/upload/v1699768115/business/dcfee9f4-05b9-4aa8-a6ce-f219c99188eb/Molly---Jeff---Master-Suite-Unnamed-Space-44jpeg.jpg',
-			'https://speedy.uenicdn.com/dcfee9f4-05b9-4aa8-a6ce-f219c99188eb/c940_a/image/upload/v1700918042/business/282217fb-b89b-4f3b-8ad3-bd952ebcd142.jpg',
-			'https://speedy.uenicdn.com/dcfee9f4-05b9-4aa8-a6ce-f219c99188eb/c940_a/image/upload/v1712194436/business/efc49491-d759-4275-a20f-9c638d7a784b.jpg',
-			'https://speedy.uenicdn.com/dcfee9f4-05b9-4aa8-a6ce-f219c99188eb/c940_a/image/upload/v1712194436/business/f71e0dac-d49b-4478-b744-1c5d9541ac5a.jpg',
-		],
-	},
-	{
-		id: '3',
-		title: 'Bathroom Renovation',
-		description:
-			'Revitalize your bathroom with our Bathroom Renovation package. This comprehensive package includes:...',
-		longDescription:
-			'Revitalize your bathroom with our Bathroom Renovation package. This comprehensive package includes:<br/>In-Home Visit with Precise Measurements: Our team will visit your home to take accurate measurements, ensuring a tailored design.<br/>Detailed Design Presentation: Receive a comprehensive design presentation featuring a floor plan, realistic renderings, and a selection of top-quality building materials.<br/>Shopping Day: Field Trip to our vetted distributor to select all plumbing fixtures (1hr included).<br/>Convenient Shopping List: Access a curated shopping list with building materials, plumbing fixtures and accessories.<br/>Ongoing Follow-Up: We provide continuous support ensuring your satisfaction throughout the renovation process.<br/>Access to Trade Preferential Pricing: Add-on the Procurement Service to benefit from our exclusive trade discounts, helping you save on your renovation expenses.',
-		price: 799,
-		priceDescription: 'Starting Price',
-		images: [
-			'https://speedy.uenicdn.com/dcfee9f4-05b9-4aa8-a6ce-f219c99188eb/c940_a/image/upload/v1699812421/business/dcfee9f4-05b9-4aa8-a6ce-f219c99188eb/Master-Bathroom--3-jpeg.jpg',
-			'https://speedy.uenicdn.com/dcfee9f4-05b9-4aa8-a6ce-f219c99188eb/c940_a/image/upload/v1699812415/business/dcfee9f4-05b9-4aa8-a6ce-f219c99188eb/Master-Bathroom--6-jpeg.jpg',
-			'https://speedy.uenicdn.com/dcfee9f4-05b9-4aa8-a6ce-f219c99188eb/c940_a/image/upload/v1699812428/business/dcfee9f4-05b9-4aa8-a6ce-f219c99188eb/Master-Bathroom--7-jpeg.jpg',
-			'https://speedy.uenicdn.com/dcfee9f4-05b9-4aa8-a6ce-f219c99188eb/c940_a/image/upload/v1699812390/business/dcfee9f4-05b9-4aa8-a6ce-f219c99188eb/Bathroom--1-jpeg.jpg',
-			'https://speedy.uenicdn.com/dcfee9f4-05b9-4aa8-a6ce-f219c99188eb/c940_a/image/upload/v1699812397/business/dcfee9f4-05b9-4aa8-a6ce-f219c99188eb/Bathroom--3-jpeg.jpg',
-			'https://speedy.uenicdn.com/dcfee9f4-05b9-4aa8-a6ce-f219c99188eb/c940_a/image/upload/v1699812393/business/dcfee9f4-05b9-4aa8-a6ce-f219c99188eb/Bathroom--2-jpeg.jpg',
-			'https://speedy.uenicdn.com/dcfee9f4-05b9-4aa8-a6ce-f219c99188eb/c940_a/image/upload/v1699768108/business/dcfee9f4-05b9-4aa8-a6ce-f219c99188eb/J-J-bathroom-Bathroom-Dry-Area-23--1-jpeg.jpg',
-			'https://speedy.uenicdn.com/dcfee9f4-05b9-4aa8-a6ce-f219c99188eb/c940_a/image/upload/v1700920610/business/be3b204b-b305-4f73-a9fc-4a39d8100119.jpg',
-			'https://speedy.uenicdn.com/dcfee9f4-05b9-4aa8-a6ce-f219c99188eb/c940_a/image/upload/v1699768122/business/dcfee9f4-05b9-4aa8-a6ce-f219c99188eb/Molly---Jeff--1st-flr--Unnamed-Space-74--2-jpeg.jpg',
-			'https://speedy.uenicdn.com/dcfee9f4-05b9-4aa8-a6ce-f219c99188eb/c940_a/image/upload/v1699812401/business/dcfee9f4-05b9-4aa8-a6ce-f219c99188eb/Bathroom--4-jpeg.jpg',
-		],
-	},
-	{
-		id: '4',
-		title: 'A La Carte Services',
-		description:
-			'Are you looking to enhance your living space? Our A La Carte Services are tailored to meet your specific need...',
-		longDescription:
-			"Are you looking to enhance your living space? Our A La Carte Services are tailored to meet your specific needs, starting at $85 per hour. <br/>Choose from a range of offerings, including:<br/>In-Home or Virtual Brainstorming Session: Collaborate with our expert designers to generate creative ideas and concepts for your space.<br/>Space Planning (Floorplans with Furniture Placement): Optimize the layout of your rooms with professionally designed floorplans, ensuring that every piece of furniture fits seamlessly.<br/>Paint Colors Palette Selection: Whether it's a single room or your entire house, we'll help you select the perfect color palette to create the atmosphere you desire.<br/>Style Your Space (Furniture/Accessory Selection): Let us curate a selection of furniture and accessories that complement your style and vision.<br/>Pre-Purchase Renovation Ideas and Renderings: Visualize your renovation ideas with detailed renderings, allowing you to make informed decisions before starting any work.<br/>Whether it's a minor refresh or a major renovation, we're here to turn your vision into a reality. No project is too big or too small.",
-		price: 85,
-		priceDescription: 'per Hour (minimum 3 hours)',
-		images: [
-			'https://speedy.uenicdn.com/dcfee9f4-05b9-4aa8-a6ce-f219c99188eb/c940_a/image/upload/v1712194441/business/a60e71a6-f6d3-4368-a81a-ed721c31cf19.jpg',
-			'https://speedy.uenicdn.com/dcfee9f4-05b9-4aa8-a6ce-f219c99188eb/c940_a/image/upload/v1712194436/business/3c4c3feb-c82f-4ba9-b7c5-6bfdacdaa13c.jpg',
-			'https://speedy.uenicdn.com/dcfee9f4-05b9-4aa8-a6ce-f219c99188eb/c940_a/image/upload/v1700604496/business/d1243996-2529-4190-9293-7bdb2ceaa0b8.jpg',
-			'https://speedy.uenicdn.com/dcfee9f4-05b9-4aa8-a6ce-f219c99188eb/c940_a/image/upload/v1700603726/business/5b1aafdb-0374-4ba7-b5f0-e60fb5ce3969.jpg',
-			'https://speedy.uenicdn.com/dcfee9f4-05b9-4aa8-a6ce-f219c99188eb/c940_a/image/upload/v1699812404/business/dcfee9f4-05b9-4aa8-a6ce-f219c99188eb/Baby-Room--3-jpeg.jpg',
-			'https://speedy.uenicdn.com/dcfee9f4-05b9-4aa8-a6ce-f219c99188eb/c940_a/image/upload/v1699812446/business/dcfee9f4-05b9-4aa8-a6ce-f219c99188eb/Master-Bedroom--4-jpeg.jpg',
-			'https://speedy.uenicdn.com/dcfee9f4-05b9-4aa8-a6ce-f219c99188eb/c940_a/image/upload/v1700571908/business/e927b633-693a-4bfd-a59a-0df08c2cd130.jpg',
-		],
 	},
 ]
 

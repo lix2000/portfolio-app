@@ -4,6 +4,7 @@ import {
 	faBriefcase,
 	faCalendarCheck,
 	faGauge,
+	faInfoCircle,
 	faListCheck,
 } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
@@ -40,6 +41,11 @@ const adminSidebarItems: AdminSidebarItem[] = [
 		name: 'Portfolio',
 		path: '/admin/portfolio',
 		icon: faBriefcase,
+	},
+	{
+		name: 'About Us',
+		path: '/admin/about-us',
+		icon: faInfoCircle,
 	},
 ]
 

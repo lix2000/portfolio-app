@@ -1,5 +1,12 @@
 'use client'
-import { FormPortfolioType, FormServiceType, ServerPortfolioType, ServerServiceType } from '@types'
+import {
+	FormAboutUsType,
+	FormPortfolioType,
+	FormServiceType,
+	ServerAboutUsType,
+	ServerPortfolioType,
+	ServerServiceType,
+} from '@types'
 
 export const transformServiceToFormValues = (service: ServerServiceType) => {
 	const { images, ...rest } = service || {}
@@ -26,4 +33,18 @@ export const transformPortfolioToFormValues = (portfolio?: ServerPortfolioType) 
 	}
 
 	return transformedPortfolio
+}
+
+export const transformAboutUsToFormValues = (aboutUs?: ServerAboutUsType) => {
+	if (!aboutUs) return
+	const { images, ...rest } = aboutUs || {}
+	const transformedAboutUs: FormAboutUsType = {
+		...rest,
+		images: {
+			newFiles: [],
+			existingFiles: images,
+		},
+	}
+
+	return transformedAboutUs
 }

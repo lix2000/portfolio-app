@@ -3,9 +3,10 @@
 import { AboutUsCard, ReasonCard, Title } from '@components'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faAward } from '@fortawesome/free-solid-svg-icons'
-import { aboutUsMock, homepageReasonIcons } from '@lib/settings'
+import { homepageReasonIcons } from '@lib/settings'
 import Services from './services/page'
 import Image from 'next/image'
+import { useAboutUses } from '@hooks'
 
 interface AboutUsObject {
 	title: String
@@ -16,8 +17,8 @@ interface AboutUsObject {
 }
 
 const Home = () => {
-	// we are using it for testing, server actions will not work until we connect the DB
-	const aboutUs = aboutUsMock
+	const { data } = useAboutUses()
+	const aboutUs = data?.pages.flatMap(page => page.data) ?? []
 
 	return (
 		<div className='flex column flex-col min-h-full min-w-full'>
@@ -30,9 +31,7 @@ const Home = () => {
 			</div>
 			<Title>Who We Are</Title>
 			<div className='flex flex-col gap-8 p-[58px] items-center'>
-				{aboutUs?.map((item, index) => (
-					<AboutUsCard key={index} {...item} />
-				))}
+				{aboutUs?.map((item, index) => <AboutUsCard key={index} aboutUs={item} />)}
 			</div>
 			<Services />
 			<Title>Why Choose Us?</Title>
