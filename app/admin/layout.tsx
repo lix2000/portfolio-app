@@ -3,8 +3,8 @@ import { AdminSidebar, ProtectedRoute } from '@components'
 import { PropsWithChildren, ReactNode } from 'react'
 
 interface Props {
-	modal?: ReactNode
-	rightSidebar?: ReactNode
+	modal: ReactNode
+	rightSidebar: ReactNode
 }
 
 const AdminLayout = ({ children, modal, rightSidebar }: PropsWithChildren<Props>) => (
