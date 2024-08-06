@@ -5,10 +5,11 @@ import { ServerAboutUsType } from '@types'
 interface Props {
 	delay?: number
 	aboutUs: ServerAboutUsType
+	onClick: (id: string) => void
 }
 
-const AboutUsCard = ({ aboutUs, delay }: Props) => {
-	const { title, description, images } = aboutUs
+const AboutUsCard = ({ aboutUs, delay, onClick }: Props) => {
+	const { title, description, images, _id = '' } = aboutUs || {}
 
 	return (
 		<div className='flex even:flex-row-reverse max-w-[1040px] min-w-[750px] h-[400px] border-solid overflow-hidden	rounded-md group shadow-lg hover:shadow-2xl transition-all duration-500 even:bg-gradient-to-r odd:bg-gradient-to-l from-white to-tertiary-10'>
@@ -23,7 +24,7 @@ const AboutUsCard = ({ aboutUs, delay }: Props) => {
 					</div>
 				</div>
 				<div className='flex justify-end '>
-					<Button>Read More</Button>
+					<Button onClick={() => onClick(_id)}>Read More</Button>
 				</div>
 			</div>
 		</div>
