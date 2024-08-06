@@ -12,7 +12,7 @@ const ContactForm = ({ onSubmit }: { onSubmit: (data: FormAppointmentType) => an
 			<div className='text-title my-2'>Contact Form</div>
 			<div className='text-subtitle mb-3 text-center'>
 				Please fill up this contact form with your project address and tell us a little bit more about what
-				you're looking to do in your home.
+				you&apos;re looking to do in your home.
 			</div>
 			<Form<FormAppointmentType>
 				className='w-full flex flex-col gap-4'

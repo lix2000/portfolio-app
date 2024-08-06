@@ -15,10 +15,14 @@ const Home = () => {
 	return (
 		<div className='flex column flex-col min-h-full min-w-full'>
 			<div className={`w-full h-[666px] relative ${anticDidone.className}`}>
-				<img
+				<Image
 					alt='homeBackground'
 					src='/images/homeBackground.jpeg'
 					className='w-full h-full object-cover absolute inset-0 -z-10 filter brightness-50'
+					width={0}
+					height={0}
+					sizes='100vw'
+					style={{ width: '100%', height: 'auto' }}
 				/>
 				<div className='w-full h-full flex-center flex-col text-primary-contrast'>
 					<Image

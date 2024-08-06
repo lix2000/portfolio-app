@@ -12,6 +12,7 @@ const Title = ({ children }: PropsWithChildren) => (
 	</div>
 )
 
+// eslint-disable-next-line react/display-name
 Title.Label = ({ children, className = '' }: PropsWithChildren<Props>) => (
 	<div className={`text-primary font-bold text-title-xl px-8 py-2 ${className}`}>{children}</div>
 )

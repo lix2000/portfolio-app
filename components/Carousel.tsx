@@ -1,7 +1,8 @@
 'use client'
-import React, { useState, useEffect, useRef, ReactNode } from 'react'
+import React, { useState, useEffect, useRef, ReactNode, useCallback } from 'react'
 import { faAngleRight, faAngleLeft } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import Image from 'next/image'
 
 interface CarouselProps {
 	interval?: number
@@ -43,8 +44,9 @@ const Carousel: React.FC<CarouselProps> = ({
 		hideDots = true
 	}
 
-	const nextSlide = () =>
-		setCurrentChildIndex(prevIndex => (prevIndex == totalSlides - 1 ? 0 : prevIndex + 1))
+	const nextSlide = useCallback(() => {
+		setCurrentChildIndex(prevIndex => (prevIndex === totalSlides - 1 ? 0 : prevIndex + 1))
+	}, [totalSlides])
 
 	const prevSlide = () =>
 		setCurrentChildIndex(prevIndex => (prevIndex === 0 ? totalSlides - 1 : prevIndex - 1))
@@ -64,7 +66,7 @@ const Carousel: React.FC<CarouselProps> = ({
 			clearTimeout(timeoutId)
 			if (intervalRef.current) clearInterval(intervalRef.current)
 		}
-	}, [])
+	}, [delay, interval, totalSlides, nextSlide])
 
 	return (
 		<div className={carouselClasses.join(' ')}>
@@ -94,13 +96,17 @@ const Carousel: React.FC<CarouselProps> = ({
 			>
 				{images
 					? images.map((image, index) => (
-							<img
+							<Image
 								key={index}
 								src={image}
+								width={0}
+								height={0}
+								sizes='100vw'
+								style={{ width: '100%', height: 'auto' }}
 								alt={`carousel-${index}`}
 								className='min-w-full w-full min-h-full h-full object-cover'
 							/>
-					  ))
+						))
 					: children.map((child, index) => (
 							<div
 								className='
@@ -110,7 +116,7 @@ const Carousel: React.FC<CarouselProps> = ({
 							>
 								{child}
 							</div>
-					  ))}
+						))}
 			</div>
 			{!hideDots && (
 				<div className='absolute z-5 bottom-0 left-0 right-0 flex justify-center mb-4'>

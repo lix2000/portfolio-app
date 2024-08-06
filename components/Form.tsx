@@ -38,7 +38,6 @@ const Form = <FormValues extends DefaultFormValues>({
 		...(defaultValues && { defaultValues }),
 	})
 	const {
-		reset,
 		register,
 		handleSubmit,
 		formState: { errors, isSubmitting },
@@ -89,7 +88,7 @@ const Form = <FormValues extends DefaultFormValues>({
 
 			return response
 		},
-		[executeRecaptcha, onSubmit, reset, recaptchaAction, resetAfterSubmit]
+		[executeRecaptcha, onSubmit, recaptchaAction, resetAfterSubmit, formMethods]
 	)
 
 	const classNames = ['relative', className]
