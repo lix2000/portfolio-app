@@ -2,7 +2,7 @@ import { UploadApiResponse } from 'cloudinary'
 import { Document } from 'mongoose'
 import { z } from 'zod'
 
-export const AboutUsZodSchema = z.object({
+export const ArticleZodSchema = z.object({
 	title: z.string().min(1),
 	description: z.string().min(1),
 	images: z
@@ -13,9 +13,9 @@ export const AboutUsZodSchema = z.object({
 		.refine(images => !!Object.values(images).flat().length, { message: 'Please upload at least one image' }),
 })
 
-export type FormAboutUsType = z.infer<typeof AboutUsZodSchema>
+export type FormArticleType = z.infer<typeof ArticleZodSchema>
 
-export type ServerAboutUsType = Document &
-	Omit<FormAboutUsType, 'images'> & {
+export type ServerArticleType = Document &
+	Omit<FormArticleType, 'images'> & {
 		images: UploadApiResponse[]
 	}

@@ -1,3 +1,4 @@
+'use client'
 import { useCallback, useEffect, useRef } from 'react'
 
 export const useClickedOutside = (close: () => void, isOpen: boolean) => {

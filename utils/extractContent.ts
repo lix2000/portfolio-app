@@ -1,3 +1,4 @@
+'use client'
 export const extractContent = (s: string) => {
 	var span = document.createElement('span')
 	span.innerHTML = s

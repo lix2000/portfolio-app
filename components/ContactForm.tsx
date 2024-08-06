@@ -1,8 +1,7 @@
 'use client'
-import { AppointmentZodSchema, FormAppointmentType } from '@types'
-import { Button, CheckBox, DatePicker, Radio, Input, Form, TextArea, Dropzone, Select } from '@components'
+import { AppointmentZodSchema, FormAppointmentType, ServerServiceType } from '@types'
+import { Button, CheckBox, DatePicker, Input, Form, TextArea, Dropzone, Select } from '@components'
 import Link from 'next/link'
-import { serviceTypes } from '@lib/settings'
 import { useServiceNames } from '@hooks'
 
 const ContactForm = ({ onSubmit }: { onSubmit: (data: FormAppointmentType) => any }) => {
@@ -31,9 +30,11 @@ const ContactForm = ({ onSubmit }: { onSubmit: (data: FormAppointmentType) => an
 				<Select
 					name='service'
 					placeholder='Desired Service'
-					options={services?.map(({ _id, title }) => ({ value: _id, label: title }))}
+					options={(services as Pick<ServerServiceType, '_id' | 'title'>[])?.map(({ _id, title }) => ({
+						value: _id,
+						label: title,
+					}))}
 				/>
-				{/* <Radio name='service' label='Desired Service' options={serviceTypes} /> */}
 				<Input
 					name='budget'
 					type='text'
@@ -41,7 +42,7 @@ const ContactForm = ({ onSubmit }: { onSubmit: (data: FormAppointmentType) => an
 				/>
 				<DatePicker name='date' />
 				<TextArea name='description' placeholder='Project Description' />
-				<Dropzone name='images' label='Upload Images' />
+				<Dropzone name='images' label='Add inspiration pictures and/or pictures of your home.' multiple />
 				<CheckBox
 					name='termsAndConditions'
 					placeholder={

@@ -1,4 +1,4 @@
-import { Button, Carousel } from '@components'
+import { Button, Carousel, DangerousHtml } from '@components'
 import { ServerServiceType } from '@types'
 
 interface Props extends ServerServiceType {
@@ -11,7 +11,16 @@ interface Props extends ServerServiceType {
 	label?: string
 	className?: string
 }
-const Card = ({ title, description, images, delay, price, onClick, label = 'Read More',className }: Props) => {
+const Card = ({
+	title,
+	description,
+	images,
+	delay,
+	price,
+	onClick,
+	label = 'Read More',
+	className,
+}: Props) => {
 	const classes = [
 		'flex',
 		'flex-col',
@@ -28,8 +37,8 @@ const Card = ({ title, description, images, delay, price, onClick, label = 'Read
 		'bg-gradient-to-t',
 		'from-white',
 		'to-tertiary-10',
-		
-		className
+
+		className,
 	]
 	const imageURLs = images.map(image => image.url)
 
@@ -42,8 +51,8 @@ const Card = ({ title, description, images, delay, price, onClick, label = 'Read
 				<div className='flex flex-col gap-4'>
 					<div className='text-title text-center min-h-[36px] text-ellipsis ... '>{title}</div>
 					{description && (
-						<div className='text-header text-center ... overflow-hidden h-[74px]'>
-							{description}
+						<div className='text-header text-center truncate ... overflow-hidden h-[74px]'>
+							{DangerousHtml(description)}
 						</div>
 					)}
 					{price && (

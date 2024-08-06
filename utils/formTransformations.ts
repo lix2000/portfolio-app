@@ -1,9 +1,11 @@
 'use client'
 import {
 	FormAboutUsType,
+	FormArticleType,
 	FormPortfolioType,
 	FormServiceType,
 	ServerAboutUsType,
+	ServerArticleType,
 	ServerPortfolioType,
 	ServerServiceType,
 } from '@types'
@@ -47,4 +49,18 @@ export const transformAboutUsToFormValues = (aboutUs?: ServerAboutUsType) => {
 	}
 
 	return transformedAboutUs
+}
+
+export const transformArticleToFormValues = (article?: ServerArticleType) => {
+	if (!article) return
+	const { images, ...rest } = article || {}
+	const transformedArticle: FormArticleType = {
+		...rest,
+		images: {
+			newFiles: [],
+			existingFiles: images,
+		},
+	}
+
+	return transformedArticle
 }

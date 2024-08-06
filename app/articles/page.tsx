@@ -1,14 +1,15 @@
 'use client'
-import { articleMock } from '@lib/settings'
-import { Card, Title } from '@components'
+import { Card, Loader, Title } from '@components'
+import { useArticles } from '@hooks'
 import { useRouter } from 'next/navigation'
+import InfiniteScroll from 'react-infinite-scroller'
 
 const Articles = () => {
-	//to do remove this when api is ready
-	const articles = articleMock
+	const { data, fetchNextPage, hasNextPage } = useArticles()
+	const articles = data?.pages.flatMap(page => page.data) ?? []
 	const router = useRouter()
 	const goToArticle = (id: string) => {
-		router.push(`/portfolio/${id}`)
+		router.push(`/articles/${id}`)
 	}
 
 	return (
@@ -16,12 +17,19 @@ const Articles = () => {
 			<Title>Articles</Title>
 			<div className='w-fill h-fill min-w-[310px] max-w-[1040px] m-10 '>
 				<div className='w-full flex flex-row flex-wrap gap-4 justify-center'>
-					{articles.map((article, index) => (
-						<Card
-							key={index}
-							{...{ ...article, delay: index * 1000, onClick: () => goToArticle(article.id) }}
-						/>
-					))}
+					<InfiniteScroll
+						useWindow={false}
+						hasMore={hasNextPage}
+						loadMore={() => fetchNextPage()}
+						loader={<Loader key='table-loader' size='3x' />}
+					>
+						{articles.map((article, index) => (
+							<Card
+								key={index}
+								{...{ ...article, delay: index * 1000, onClick: () => goToArticle(article._id as string) }}
+							/>
+						))}
+					</InfiniteScroll>
 				</div>
 			</div>
 		</div>
