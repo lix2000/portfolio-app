@@ -1,17 +1,14 @@
 'use client'
 
-import { AboutUsCard, ReasonCard, Title } from '@components'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faAward } from '@fortawesome/free-solid-svg-icons'
 import { homepageReasonIcons } from '@lib/settings'
+import { ReasonCard, Title } from '@components'
+import AboutUses from './about-us/page'
 import Services from './services/page'
 import Image from 'next/image'
-import { useAboutUses } from '@hooks'
 
 const Home = () => {
-	const { data } = useAboutUses()
-	const aboutUs = data?.pages.flatMap(page => page.data) ?? []
-
 	return (
 		<div className='flex column flex-col min-h-full min-w-full'>
 			<div className='w-full h-[666px] relative'>
@@ -21,10 +18,7 @@ const Home = () => {
 					className='w-full h-full object-cover absolute inset-0 -z-10 filter brightness-50'
 				/>
 			</div>
-			<Title>Who We Are</Title>
-			<div className='flex flex-col gap-8 p-[58px] items-center'>
-				{aboutUs?.map((item, index) => <AboutUsCard key={index} aboutUs={item} />)}
-			</div>
+			<AboutUses />
 			<Services />
 			<Title>Why Choose Us?</Title>
 			<div className='flex flex-col gap-8 p-[58px] items-center'>
