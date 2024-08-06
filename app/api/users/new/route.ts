@@ -1,4 +1,4 @@
-import { db, hashPassword } from '@lib'
+import { db, getCurrentSession, hashPassword } from '@lib'
 import { User } from '@models'
 import { UserType, UserZodSchema } from '@types'
 import { NextResponse } from 'next/server'
@@ -6,10 +6,12 @@ import { z } from 'zod'
 
 export async function POST(request: Request) {
 	try {
+		await db.connect()
+		const session = await getCurrentSession()
+		if (!session?.user) throw new Error('Unauthorized')
 		// Validate the request body
 		const userData = await validateUserRequest(request)
 		// Check if user already exists
-		await db.connect()
 		await checkUserExists(userData.username)
 		// Create new user
 		const user = await saveNewUser(userData)
