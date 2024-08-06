@@ -1,0 +1,25 @@
+{
+	"editor.defaultFormatter": "esbenp.prettier-vscode",
+	"editor.formatOnSave": true,
+	"editor.formatOnPaste": false,
+	"prettier.configPath": ".prettierrc.json",
+	"cSpell.words": [
+		"cloudinary",
+		"countup",
+		"cshgreenwichadvisory",
+		"fontawesome",
+		"fortawesome",
+		"hookform",
+		"Parens",
+		"picocolors",
+		"Prefetcher",
+		"recaptcha",
+		"signin",
+		"subschemas",
+		"tailwindcss",
+		"tanstack",
+		"tiptap",
+		"Unicons",
+		"zustand"
+	]
+}

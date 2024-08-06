@@ -1,4 +1,5 @@
 import mongoose from 'mongoose'
+import { log } from '@lib'
 
 const MONGODB_URI = process.env.MONGODB_URI!
 
@@ -12,6 +13,7 @@ if (!cached) {
 
 async function connect() {
 	if (cached.conn) {
+		log.success('Connection to db already established')
 		return cached.conn
 	}
 
@@ -20,13 +22,16 @@ async function connect() {
 			bufferCommands: false,
 		}
 
+		log.info('Connecting to db...')
+
 		cached.promise = mongoose
 			.connect(MONGODB_URI, opts)
 			.then(mongoose => {
+				log.success('Connected to db')
 				return mongoose
 			})
 			.catch(err => {
-				console.error('Error connecting to db:', err)
+				log.error('Error connecting to db:', err)
 				throw err
 			})
 	}
@@ -36,7 +41,9 @@ async function connect() {
 }
 
 async function disconnect() {
+	log.info('Disconnecting from db...')
 	await mongoose.disconnect()
+	log.success('Disconnected from db')
 }
 
 const db = { connect, disconnect }
