@@ -396,3 +396,25 @@ export const portfolioMock = [
 		],
 	},
 ]
+
+export const reviewMockData = [
+	{
+		id: 1,
+		name: 'Ilir Laska',
+		description:
+			'Working with Charlotte is such a bless. Charlotte is very knowledgeable and easy to work with. She helped us narrow down beautiful choices and provide advices with something that was cost effective.',
+		createdAt: 'Aug 6, 2024',
+		rating: 5,
+	},
+	{
+		id: 2,
+		name: 'Molly',
+		description:
+			'We loved working with Charlotte! She did an excellent job guiding us through decorating our home and updating the interior spaces - everything from paint, to hardware, to appliances, to furniture. We highly recommend her if you are looking for a highly organized, inspired, and fun designer!',
+		createdAt: 'Jul 16, 2024',
+		rating: 5,
+	},
+]
+
+export const addReviewHref =
+	'https://www.google.com/search?hl=en-AL&gl=al&q=CSH+Greenwich+Advisory+%7C+Interior+Design&ludocid=10028635039505282996&lsig=AB86z5V_YdSpv7RLGNd1UOern33k#lrd=0xd01de75b6b6defd:0x8b2cde6f37bf77b4,3'

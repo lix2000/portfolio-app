@@ -11,7 +11,16 @@ interface Props extends ServerServiceType {
 	label?: string
 	className?: string
 }
-const Card = ({ title, description, images, delay, price, onClick, label = 'Read More',className }: Props) => {
+const Card = ({
+	title,
+	description,
+	images,
+	delay,
+	price,
+	onClick,
+	label = 'Read More',
+	className,
+}: Props) => {
 	const classes = [
 		'flex',
 		'flex-col',
@@ -27,9 +36,8 @@ const Card = ({ title, description, images, delay, price, onClick, label = 'Read
 		'duration-500',
 		'bg-gradient-to-t',
 		'from-white',
-		'to-tertiary-10',
-		
-		className
+		'to-gray-200',
+		className,
 	]
 	const imageURLs = images.map(image => image.url)
 
@@ -42,9 +50,7 @@ const Card = ({ title, description, images, delay, price, onClick, label = 'Read
 				<div className='flex flex-col gap-4'>
 					<div className='text-title text-center min-h-[36px] text-ellipsis ... '>{title}</div>
 					{description && (
-						<div className='text-header text-center ... overflow-hidden h-[74px]'>
-							{description}
-						</div>
+						<div className='text-header text-center ... overflow-hidden h-[74px]'>{description}</div>
 					)}
 					{price && (
 						<div className='text-header text-center text-ellipsis overflow-hidden truncate h-[26px]'>
@@ -53,7 +59,7 @@ const Card = ({ title, description, images, delay, price, onClick, label = 'Read
 					)}
 					{onClick && (
 						<div className='flex w-full'>
-							<Button className='w-full' theme='tertiary' onClick={onClick}>
+							<Button className='w-full' onClick={onClick}>
 								{label}
 							</Button>
 						</div>
