@@ -36,8 +36,7 @@ const Card = ({
 		'duration-500',
 		'bg-gradient-to-t',
 		'from-white',
-		'to-tertiary-10',
-
+		'to-gray-200',
 		className,
 	]
 	const imageURLs = images.map(image => image.url)
@@ -51,9 +50,7 @@ const Card = ({
 				<div className='flex flex-col gap-4'>
 					<div className='text-title text-center min-h-[36px] text-ellipsis ... '>{title}</div>
 					{description && (
-						<div className='text-header text-center truncate ... overflow-hidden h-[74px]'>
-							{DangerousHtml(description)}
-						</div>
+						<div className='text-header text-center ... overflow-hidden h-[74px]'>{description}</div>
 					)}
 					{price && (
 						<div className='text-header text-center text-ellipsis overflow-hidden truncate h-[26px]'>
@@ -62,7 +59,7 @@ const Card = ({
 					)}
 					{onClick && (
 						<div className='flex w-full'>
-							<Button className='w-full' theme='tertiary' onClick={onClick}>
+							<Button className='w-full' onClick={onClick}>
 								{label}
 							</Button>
 						</div>

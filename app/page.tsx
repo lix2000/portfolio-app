@@ -1,12 +1,13 @@
 'use client'
 import { Antic_Didone } from 'next/font/google'
-import { ReasonCard, Title } from '@components'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faAward } from '@fortawesome/free-solid-svg-icons'
 import { homepageReasonIcons } from '@lib/settings'
+import { ReasonCard, ReviewCard, Title } from '@components'
 import AboutUses from './about-us/page'
 import Services from './services/page'
 import Image from 'next/image'
+import Reviews from './reviews/page'
 
 const anticDidone = Antic_Didone({ weight: '400', subsets: ['latin'] })
 
@@ -46,6 +47,7 @@ const Home = () => {
 				<Image src='/images/french.png' alt='flag' width={24} height={24} />
 				French
 			</div>
+			<Reviews />
 			<div className='w-full h-[280px] bg-tertiary-10 flex-center'>
 				<div className='w-[650px] h-[168px] flex bg-primary rounded-lg shadow-lg'>
 					<div className='w-[78px] h-[108px] bg-secondary mx-10 flex-center relative before:content-[""] before:w-0 before:h-0 before:absolute before:bottom-0 before:left-0 before:right-0 border-l-[50px] border-l-transparent border-b-[35px] border-primary border-r-[50px] border-r-transparent'>

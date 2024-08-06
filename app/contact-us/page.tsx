@@ -7,7 +7,7 @@ const Contact = () => {
 	return (
 		<div className='w-full pt-[60px] flex flex-col items-center'>
 			<Title>Working Hours</Title>
-			<div className='flex overflow-hidden rounded-md shadow-lg hover:shadow-2xl transition-all duration-500 bg-gradient-to-l from-white to-tertiary-10 px-[20px] py-[30px] my-[100px]'>
+			<div className='flex overflow-hidden rounded-md shadow-lg hover:shadow-2xl transition-all duration-500 bg-gradient-to-t from-white to-gray-200 px-[20px] py-[30px] my-[100px]'>
 				{workingHr.map(({ id, day, from, to }) => (
 					<div className='w-[80px] h-[130px] flex flex-col items-center gap-[0px]' key={id}>
 						<FontAwesomeIcon
