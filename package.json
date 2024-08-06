@@ -22,7 +22,6 @@
 		"cloudinary": "^2.2.0",
 		"framer-motion": "^11.0.12",
 		"handlebars": "^4.7.8",
-		"html-to-text": "^9.0.5",
 		"jsonwebtoken": "^9.0.2",
 		"mongodb": "^6.3.0",
 		"mongoose": "^8.1.1",
@@ -46,7 +45,6 @@
 	"devDependencies": {
 		"@types/bcrypt": "^5.0.2",
 		"@types/handlebars": "^4.1.0",
-		"@types/html-to-text": "^9.0.4",
 		"@types/node": "^20",
 		"@types/nodemailer": "^6.4.15",
 		"@types/react": "^18",
