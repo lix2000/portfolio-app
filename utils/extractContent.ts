@@ -1,6 +1,3 @@
-import { JSDOM } from 'jsdom'
+import { htmlToText } from 'html-to-text'
 
-export const extractContent = (s: string) => {
-	const dom = new JSDOM(s)
-	return dom.window.document.body.textContent || ''
-}
+export const extractContent = (s: string) => htmlToText(s)
