@@ -8,8 +8,8 @@ import {
 	MobileNavbar,
 	ReactQueryClientProvider,
 	GoogleReCaptchaWrapper,
+	Toaster,
 } from '@components'
-import { Toaster } from 'react-hot-toast'
 import '@lib/fontawesome'
 
 import '@styles/globals.css'
