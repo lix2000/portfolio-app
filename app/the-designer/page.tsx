@@ -1,16 +1,37 @@
+'use client'
 import { DangerousHtml, Title } from '@components'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { useIsMobile } from '@hooks'
 import { theDesignerContactIcons, theDesignerMock } from '@lib/settings'
 import Image from 'next/image'
 import Link from 'next/link'
 
 const TheDesigner = () => {
 	const { name, description, profile } = theDesignerMock
+	const isMobile = useIsMobile()
+	const classes = [
+		'w-fill',
+		'min-h-full',
+		'gap-[50px]',
+		'w-full',
+		'py-[30px]',
+		isMobile ? 'flex flex-col justify-center items-center px-[30px]' : 'flex-center px-[50px]',
+	]
+	const descriptionClasses = [isMobile ? 'text-center' : 'text-start']
+	const imageCLasses = [
+		'max-w-[300px]',
+		'min-w-[300px]',
+		'max-h-[300px]',
+		'min-h-[300px]',
+		'bg-red',
+		'overflow-hidden',
+		'rounded-full',
+	]
 	return (
 		<div className='w-full pt-[60px] flex flex-col items-center'>
 			<Title>Designer & Founder</Title>
-			<div className='w-fill min-h-full flex-center gap-[50px] w-full py-[30px]'>
-				<div className='max-w-[300px] min-w-[300px] max-h-[300px] min-h-[300px] bg-red overflow-hidden rounded-full'>
+			<div className={classes.join(' ')}>
+				<div className={imageCLasses.join(' ')}>
 					<Image
 						className='rounded-full hover:scale-110 transition-all duration-500'
 						src={profile}
@@ -19,9 +40,11 @@ const TheDesigner = () => {
 						alt='logo'
 					/>
 				</div>
-				<div className='w-full flex flex-col gap-[30px] max-w-[700px]'>
+				<div
+					className={`w-fit flex flex-col gap-[30px] max-w-[700px] ${isMobile ? 'text-center' : 'text-start'}`}
+				>
 					<div className='text-title text-tertiary-contrast-20'>{name}</div>
-					<div className='flex gap-2'>
+					<div className={`flex gap-2 ${isMobile ? 'flex-center' : 'flex'}`}>
 						{theDesignerContactIcons.map(({ icon, href }) => (
 							<Link
 								key={href}
@@ -34,7 +57,7 @@ const TheDesigner = () => {
 							</Link>
 						))}
 					</div>
-					{DangerousHtml(description)}
+					<div className={descriptionClasses.join(' ')}>{DangerousHtml(description)}</div>
 				</div>
 			</div>
 		</div>
