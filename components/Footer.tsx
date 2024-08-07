@@ -4,11 +4,11 @@ import { footerBlackList, footerContactIcons } from '@lib/settings'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { usePathname } from 'next/navigation'
 import Link from 'next/link'
-import { useCreateAppointment } from '@hooks'
+import { useCreateRequest } from '@hooks'
 
 const Footer = () => {
 	const pathName = usePathname()
-	const mutation = useCreateAppointment()
+	const mutation = useCreateRequest()
 
 	if (footerBlackList.some(item => pathName.includes(item))) return null
 

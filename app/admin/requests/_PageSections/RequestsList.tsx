@@ -1,11 +1,11 @@
 'use client'
 import { TanStackTable, Title } from '@components'
-import { useAppointments } from '@hooks'
+import { useRequests } from '@hooks'
 import { Row, createColumnHelper } from '@tanstack/react-table'
-import { ServerAppointmentType, ServerServiceType } from '@types'
+import { ServerRequestType, ServerServiceType } from '@types'
 import { useRouter } from 'next/navigation'
 
-const columnHelper = createColumnHelper<ServerAppointmentType>()
+const columnHelper = createColumnHelper<ServerRequestType>()
 
 const columns = [
 	columnHelper.accessor('fullName', {
@@ -45,17 +45,17 @@ const columns = [
 	}),
 ]
 
-const AppointmentsList = () => {
+const RequestsList = () => {
 	const router = useRouter()
-	const { data, fetchNextPage, hasNextPage } = useAppointments()
+	const { data, fetchNextPage, hasNextPage } = useRequests()
 	const tableData = data?.pages.flatMap(page => page.data) ?? []
 
-	const onRowClick = (row: Row<ServerAppointmentType>) =>
-		router.push(`/admin/appointments/${row.original._id}`, { scroll: false })
+	const onRowClick = (row: Row<ServerRequestType>) =>
+		router.push(`/admin/requests/${row.original._id}`, { scroll: false })
 
 	return (
 		<div className='w-full h-full flex flex-col'>
-			<Title.Label>Appointments</Title.Label>
+			<Title.Label>Requests</Title.Label>
 			<div className='mx-8 rounded-t-lg flex-1 overflow-y-auto'>
 				<TanStackTable
 					data={tableData}
@@ -69,4 +69,4 @@ const AppointmentsList = () => {
 	)
 }
 
-export default AppointmentsList
+export default RequestsList

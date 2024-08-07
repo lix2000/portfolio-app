@@ -108,7 +108,7 @@ export const serviceTypes = [
 export const CLOUDINARY_FOLDERS = {
 	SERVICES: 'services',
 	PORTFOLIO: 'portfolio',
-	APPOINTMENTS: 'appointments',
+	REQUESTS: 'requests',
 	ABOUT_US: 'about-us',
 	ARTICLES: 'articles',
 }

@@ -29,8 +29,8 @@ const adminSidebarItems: AdminSidebarItem[] = [
 		icon: faGauge,
 	},
 	{
-		name: 'Appointments',
-		path: '/admin/appointments',
+		name: 'Requests',
+		path: '/admin/requests',
 		icon: faCalendarCheck,
 	},
 	{

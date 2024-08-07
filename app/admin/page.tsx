@@ -32,14 +32,14 @@ const Admin = () => {
 		{ data: articleCount = 0 },
 		{ data: serviceCount = 0 },
 		{ data: portfolioCount = 0 },
-		{ data: newAppointmentsCount = 0 },
+		{ data: newRequestsCount = 0 },
 	] = useDocumentCounts()
 
 	return (
 		<div className='w-full h-full max-h-screen flex flex-col'>
 			<Title.Label>Welcome, {session?.user?.name}</Title.Label>
 			<div className='w-full flex-1 grid grid-rows-2 min-h-0 grid-cols-1 sm:grid-cols-2 gap-6 p-4'>
-				<Card title='New Appointment' count={newAppointmentsCount} to='admin/appointments' />
+				<Card title='New Requests' count={newRequestsCount} to='admin/requests' />
 				<Card title='Articles' count={articleCount} to='admin/articles' />
 				<Card title='Services' count={serviceCount} to='admin/services' />
 				<Card title='Portfolio' count={portfolioCount} to='admin/portfolio' />

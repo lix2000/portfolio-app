@@ -1,19 +1,19 @@
 'use client'
 import { Carousel, Title } from '@components'
-import { ServerAppointmentType, ServerServiceType } from '@types'
+import { ServerRequestType, ServerServiceType } from '@types'
 
 type Props = {
-	appointment: ServerAppointmentType
+	request: ServerRequestType
 }
 
-export default function AppointmentPreview({ appointment }: Props) {
+export default function RequestPreview({ request }: Props) {
 	const { fullName, email, description, date, service, budget, address, phoneNumber, images, isViewed } =
-		appointment ?? {}
+		request ?? {}
 
 	return (
 		<div className='flex flex-col'>
 			<div className='px-4 py-2'>
-				<Title.Label>Appointment Preview</Title.Label>
+				<Title.Label>Request Preview</Title.Label>
 			</div>
 			<div className='flex-1 px-8 py-2 overflow-y-auto'>
 				<div className='h-[250px] mb-2'>

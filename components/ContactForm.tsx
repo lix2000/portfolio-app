@@ -1,10 +1,10 @@
 'use client'
-import { AppointmentZodSchema, FormAppointmentType, ServerServiceType } from '@types'
+import { RequestZodSchema, FormRequestType, ServerServiceType } from '@types'
 import { Button, CheckBox, DatePicker, Input, Form, TextArea, Dropzone, Select } from '@components'
 import Link from 'next/link'
 import { useServiceNames } from '@hooks'
 
-const ContactForm = ({ onSubmit }: { onSubmit: (data: FormAppointmentType) => any }) => {
+const ContactForm = ({ onSubmit }: { onSubmit: (data: FormRequestType) => any }) => {
 	const { data: services } = useServiceNames()
 
 	return (
@@ -14,11 +14,11 @@ const ContactForm = ({ onSubmit }: { onSubmit: (data: FormAppointmentType) => an
 				Please fill up this contact form with your project address and tell us a little bit more about what
 				you&apos;re looking to do in your home.
 			</div>
-			<Form<FormAppointmentType>
+			<Form<FormRequestType>
 				className='w-full flex flex-col gap-4'
 				onSubmit={onSubmit}
-				schema={AppointmentZodSchema}
-				recaptchaAction='appointment'
+				schema={RequestZodSchema}
+				recaptchaAction='request'
 				resetAfterSubmit
 			>
 				<div className='w-full flex gap-4'>
@@ -40,7 +40,7 @@ const ContactForm = ({ onSubmit }: { onSubmit: (data: FormAppointmentType) => an
 					type='text'
 					placeholder='Budget (renovation Cost + Furniture) exuding designer fee'
 				/>
-				<DatePicker name='date' />
+				<Input name='date' placeholder='Desired Start Date & Timeline' />
 				<TextArea name='description' placeholder='Project Description' />
 				<Dropzone name='images' label='Add inspiration pictures and/or pictures of your home.' multiple />
 				<CheckBox

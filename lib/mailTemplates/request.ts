@@ -1,4 +1,4 @@
-export const newAppointmentTemplate = `<!DOCTYPE HTML PUBLIC "-//W3C//DTD XHTML 1.0 Transitional //EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+export const newRequestTemplate = `<!DOCTYPE HTML PUBLIC "-//W3C//DTD XHTML 1.0 Transitional //EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" xmlns:v="urn:schemas-microsoft-com:vml" xmlns:o="urn:schemas-microsoft-com:office:office">
 <head>
 <!--[if gte mso 9]>
@@ -139,7 +139,7 @@ table, td { color: #fdfbf9; } #u_body a { color: #0000ee; text-decoration: under
       <td style="overflow-wrap:break-word;word-break:break-word;padding:10px;font-family:arial,helvetica,sans-serif;" align="left">
         
   <div style="font-size: 31px; font-weight: 700; line-height: 140%; text-align: left; word-wrap: break-word;">
-    <p style="line-height: 140%;"><span style="line-height: 43.4px;"><strong>You got a new appointment for <span style="line-height: 43.4px; color: #ffb236;">{{service}}</span></strong></span></p>
+    <p style="line-height: 140%;"><span style="line-height: 43.4px;"><strong>You got a new request for <span style="line-height: 43.4px; color: #ffb236;">{{service}}</span></strong></span></p>
   </div>
 
       </td>

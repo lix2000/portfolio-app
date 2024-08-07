@@ -1,8 +1,8 @@
 import { model, Model, models, Schema, Types } from 'mongoose'
-import { ServerAppointmentType } from '@types'
+import { ServerRequestType } from '@types'
 import { ImageSchema } from '@models/subschemas'
 
-const AppointmentSchema = new Schema<ServerAppointmentType>(
+const RequestSchema = new Schema<ServerRequestType>(
 	{
 		fullName: {
 			type: String,
@@ -24,7 +24,7 @@ const AppointmentSchema = new Schema<ServerAppointmentType>(
 			required: true,
 		},
 		date: {
-			type: Date,
+			type: String,
 			required: true,
 		},
 		service: {
@@ -57,7 +57,7 @@ const AppointmentSchema = new Schema<ServerAppointmentType>(
 	{ timestamps: true }
 )
 
-const Appointment: Model<ServerAppointmentType> =
-	models?.Appointment || model<ServerAppointmentType>('Appointment', AppointmentSchema)
+const Request: Model<ServerRequestType> =
+	models?.Request || model<ServerRequestType>('Request', RequestSchema)
 
-export default Appointment
+export default Request

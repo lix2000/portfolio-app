@@ -1,5 +1,5 @@
 'use client'
-import { getAppointmentsCountByIsViewed, getArticleCount, getPortfolioCount, getServiceCount } from '@actions'
+import { getRequestsCountByIsViewed, getArticleCount, getPortfolioCount, getServiceCount } from '@actions'
 import { useQueries } from '@tanstack/react-query'
 
 export const useDocumentCounts = () => {
@@ -9,8 +9,8 @@ export const useDocumentCounts = () => {
 			{ queryKey: ['serviceCount'], queryFn: () => getServiceCount(), staleTime: Infinity },
 			{ queryKey: ['portfolioCount'], queryFn: () => getPortfolioCount(), staleTime: Infinity },
 			{
-				queryKey: ['newAppointmentsCount'],
-				queryFn: () => getAppointmentsCountByIsViewed(false),
+				queryKey: ['newRequestsCount'],
+				queryFn: () => getRequestsCountByIsViewed(false),
 				staleTime: Infinity,
 			},
 		],
