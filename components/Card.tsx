@@ -1,25 +1,30 @@
 import { Button, Carousel, DangerousHtml } from '@components'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { UploadApiResponse } from 'cloudinary'
 
 interface Props {
 	delay?: number
 	onClick?: () => void
 	price?: number | string
-	images: UploadApiResponse[]
+	images?: UploadApiResponse[]
+	icon?: any
 	title: string
 	description?: string
 	label?: string
 	className?: string
+	descriptionClassName?: string
 }
 const Card = ({
 	title,
 	description,
-	images,
+	images = [],
+	icon,
 	delay,
 	price,
 	onClick,
 	label = 'Read More',
 	className,
+	descriptionClassName,
 }: Props) => {
 	const classes = [
 		'flex',
@@ -43,14 +48,21 @@ const Card = ({
 
 	return (
 		<div className={classes.join(' ')}>
-			<div className='overflow-hidden min-w-full min-h-[220px] h-full p-2 rounded-md'>
-				<Carousel images={imageURLs} delay={delay} />
-			</div>
+			{!icon && (
+				<div className='overflow-hidden min-w-full flex-center min-h-[220px] h-full p-2 rounded-md'>
+					<Carousel images={imageURLs} delay={delay} />
+				</div>
+			)}
+			{icon && (
+				<div className='overflow-hidden min-w-full flex-center min-h-[120px] h-full p-2 rounded-md'>
+					<FontAwesomeIcon className='text-primary' size='5x' icon={icon} />
+				</div>
+			)}
 			<div className='w-full p-4 flex flex-col justify-between'>
 				<div className='flex flex-col gap-4'>
 					<div className='text-title text-center min-h-[36px] text-ellipsis ... '>{title}</div>
 					{description && (
-						<div className='text-header text-center ... overflow-hidden h-[74px]'>
+						<div className={`text-header text-center ... overflow-hidden h-[74px] ${descriptionClassName}`}>
 							{DangerousHtml(description)}
 						</div>
 					)}

@@ -5,7 +5,6 @@ import {
 	SessionProvider,
 	Navbar,
 	Footer,
-	MobileNavbar,
 	ReactQueryClientProvider,
 	GoogleReCaptchaWrapper,
 } from '@components'
@@ -32,7 +31,6 @@ export default async function RootLayout({ children }: Readonly<{ children: Reac
 						<SessionProvider session={session}>
 							<Toaster />
 							<Navbar />
-							{/* <MobileNavbar /> */}
 							{children}
 							<Footer />
 						</SessionProvider>

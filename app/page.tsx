@@ -3,15 +3,18 @@ import { Antic_Didone } from 'next/font/google'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faAward } from '@fortawesome/free-solid-svg-icons'
 import { homepageReasonIcons } from '@lib/settings'
-import { ReasonCard, Title } from '@components'
+import { Card, ReasonCard, Title } from '@components'
 import AboutUses from './about-us/page'
 import Services from './services/page'
 import Image from 'next/image'
 import Reviews from './reviews/page'
+import { useIsMobile } from '@hooks'
 
 const anticDidone = Antic_Didone({ weight: '400', subsets: ['latin'] })
 
 const Home = () => {
+	const isMobile = useIsMobile()
+
 	return (
 		<div className='flex column flex-col min-h-full min-w-full'>
 			<div className={`w-full h-[666px] relative ${anticDidone.className}`}>
@@ -25,24 +28,28 @@ const Home = () => {
 					style={{ width: '100%', height: '100%' }}
 				/>
 				<div className='w-full h-full flex-center flex-col text-primary-contrast'>
-					<Image
-						className='ring-1 ring-primary rounded-full'
-						src='/images/logo.png'
-						height={140}
-						width={140}
-						alt='logo'
-					/>
-					<p className='text-title-mega block'>CSH Greenwich Advisory</p>
-					<p className='text-title-xl block'>Interior Design | Project Management | Real Estate</p>
+					{!isMobile && (
+						<Image
+							className='ring-1 ring-primary rounded-full'
+							src='/images/logo.png'
+							height={140}
+							width={140}
+							alt='logo'
+						/>
+					)}
+					<p className='text-title-mega text-center'>CSH Greenwich Advisory</p>
+					<p className='text-title-xl text-center'>Interior Design | Project Management | Real Estate</p>
 				</div>
 			</div>
 			<AboutUses />
 			<Services />
 			<Title>Why Choose Us?</Title>
 			<div className='flex flex-col gap-8 p-[58px] items-center'>
-				{homepageReasonIcons.map((item, index) => (
-					<ReasonCard key={index} {...item} />
-				))}
+				{!isMobile && homepageReasonIcons.map((item, index) => <ReasonCard key={index} {...item} />)}
+				{isMobile &&
+					homepageReasonIcons.map((item, index) => (
+						<Card key={index} descriptionClassName='!h-fit' {...item} />
+					))}
 			</div>
 			<div className='w-full text-title flex justify-center items-center mb-[58px] gap-2'>
 				Spoken Languages:
