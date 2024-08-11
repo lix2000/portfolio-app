@@ -1,7 +1,6 @@
 import { faFacebook, faInstagram, faTwitter } from '@fortawesome/free-brands-svg-icons'
 import { faEnvelope, faRankingStar, faCouch, faPhone, faLocationDot } from '@fortawesome/free-solid-svg-icons'
 import { faLightbulb, faStar } from '@fortawesome/free-regular-svg-icons'
-import { title } from 'process'
 
 export const navbarBlackList = ['/login', '/admin']
 

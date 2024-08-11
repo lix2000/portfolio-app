@@ -51,12 +51,18 @@ const Home = () => {
 						<Card key={index} descriptionClassName='!h-fit' {...item} />
 					))}
 			</div>
-			<div className='w-full text-title flex justify-center items-center mb-[58px] gap-2'>
-				Spoken Languages:
-				<Image src='/images/english.png' alt='flag' width={24} height={24} />
-				English
-				<Image src='/images/french.png' alt='flag' width={24} height={24} />
-				French
+			<div className='w-full text-title flex flex-col gap-2'>
+				<div className='text-center w-full'>Spoken Languages:</div>
+				<div className='flex justify-center items-center gap-4'>
+					<div className='flex-center gap-2'>
+						<Image src='/images/english.png' alt='flag' width={24} height={24} />
+						English
+					</div>
+					<div className='flex-center gap-2'>
+						<Image src='/images/french.png' alt='flag' width={24} height={24} />
+						French
+					</div>
+				</div>
 			</div>
 			<Reviews />
 			<div className='w-full h-[280px] bg-tertiary-10 flex-center'>

@@ -1,14 +1,13 @@
 'use client'
 import { addonsMock } from '@lib/settings'
-import { Button, Card, Title } from '@components'
-import { useServices } from '@hooks'
-import { useCallback, useState } from 'react'
+import { Slider, Title, CardGrid, Grid } from '@components'
+import { useIsMobile, useServices } from '@hooks'
+import { useCallback } from 'react'
 import { useRouter } from 'next/navigation'
 
 const Services = () => {
 	const router = useRouter()
-	const [showServices, setShowServices] = useState(true)
-
+	const isMobile = useIsMobile()
 	const {
 		data: servicesData,
 		fetchNextPage: servicesFetchNextPage,
@@ -41,74 +40,50 @@ const Services = () => {
 	)
 
 	return (
-		<div className='w-full pt-[60px] flex flex-col items-center'>
+		<div className='w-full h-fit pt-[60px] flex flex-col items-center'>
 			<Title>Services</Title>
-			<div className='w-fill min-h-full min-w-[310px] max-w-[1040px] mb-10 '>
-				{showServices && (
-					<div>
-						<div className='flex justify-between py-4'>
-							<div className='text-title grow truncate'>Interior Design</div>
-							<Button onClick={() => setShowServices(prev => !prev)}>Additional Services</Button>
-						</div>
-						<div className='w-full flex flex-row flex-wrap gap-4 justify-center'>
-							{allServices.map((service, index) => (
-								<Card
-									key={service?._id as string}
+			<div className='w-full h-fit min-w-[310px] max-w-[1040px] pt-[30px] px-[20px]'>
+				<Slider
+					className={`h-full ${useIsMobile}`}
+					components={[
+						{
+							element: (
+								<CardGrid
 									{...{
-										label: 'Learn More',
-										...service,
-										onClick: () => goToService(service?._id as string),
-										delay: index * 1000,
+										data: allServices,
+										onClick: goToService,
+										fetchNextPage: servicesFetchNextPage,
+										hasNextPage: servicesHasNextPage,
+										disabledFetchNextPage: servicesDisableFetchNext,
+										isLoading: servicesIsLoading,
 									}}
 								/>
-							))}
-						</div>
-						{servicesHasNextPage && (
-							<div className='flex-center mt-[20px]'>
-								<Button disabled={servicesDisableFetchNext} onClick={() => servicesFetchNextPage()}>
-									Load More...
-								</Button>
-							</div>
-						)}
-					</div>
-				)}
-				{!showServices && (
-					<div>
-						<div className='flex justify-between py-4'>
-							<Button onClick={() => setShowServices(prev => !prev)}>Interior Design</Button>
-							<div className='text-title grow truncate text-end'>Additional Services</div>
-						</div>
-						<div className='w-full flex flex-row flex-wrap gap-4 justify-center'>
-							{additionalServices.map((service, index) => (
-								<Card
-									key={service?._id as string}
+							),
+							name: 'Interior Design',
+						},
+						{
+							element: (
+								<CardGrid
 									{...{
-										label: 'Learn More',
-										...service,
-										onClick: () => goToService(service?._id as string),
-										delay: index * 1000,
+										data: additionalServices,
+										onClick: goToService,
+										fetchNextPage: additionalServicesFetchNextPage,
+										hasNextPage: additionalServicesHasNextPage,
+										disabledFetchNextPage: additionalServicesDisableFetchNext,
+										isLoading: additionalServicesIsLoading,
 									}}
 								/>
-							))}
-						</div>
-						{additionalServicesHasNextPage && (
-							<div className='flex-center mt-[20px]'>
-								<Button
-									disabled={additionalServicesDisableFetchNext}
-									onClick={() => additionalServicesFetchNextPage()}
-								>
-									Load More...
-								</Button>
-							</div>
-						)}
-					</div>
-				)}
+							),
+							name: 'Additional Services',
+						},
+					]}
+				/>
 			</div>
 			<div className='w-fill h-fill min-w-[310px] max-w-[1040px] mb-10'>
 				<div className='text-title text-center text-ellipsis overflow-hidden'>
 					Add-Ons (More details in Additional Services)
 				</div>
-				<div className='w-full flex flex-row flex-wrap gap-4 justify-center mt-4'>
+				<Grid>
 					{addons.map((addon, index) => (
 						<div
 							className='w-[335px] bg-tertiary text-tertiary-contrast hover:bg-tertiary-tone-450 text-center px-6 py-2 border rounded-2xl transition-colors focus:outline-none select-none shadow-lg hover:bg-red'
@@ -117,7 +92,7 @@ const Services = () => {
 							{addon}
 						</div>
 					))}
-				</div>
+				</Grid>
 			</div>
 		</div>
 	)
