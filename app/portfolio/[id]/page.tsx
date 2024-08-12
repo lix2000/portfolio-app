@@ -1,5 +1,6 @@
+'use client'
+import { usePortfolio } from '@hooks'
 import { Title } from '@components'
-import { portfolioMock } from '@lib/settings'
 import Image from 'next/image'
 
 type Props = {
@@ -9,10 +10,11 @@ type Props = {
 }
 
 const Portfolio = ({ params: { id } }: Props) => {
-	//to do remove this when api is ready
-	const { title, images } = portfolioMock.find(portfolio => portfolio.id === id) || {}
+	const { data: portfolio } = usePortfolio(id)
+	const { title, images } = portfolio || {}
+
 	return (
-		<div className='w-full max-w-full min-h-full  pt-[60px] flex flex-col'>
+		<div className='w-full max-w-full min-h-full items-center pt-[60px] flex box-border flex-col'>
 			<Title>{title}</Title>
 			<div className='w-full flex flex-row flex-wrap gap-4 justify-center py-[50px] px-[30px]'>
 				{images?.map(({ url }) => (
