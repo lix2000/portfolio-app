@@ -10,7 +10,7 @@ import Link from 'next/link'
 
 const theme = {
 	true: {
-		navbarClassnames: ['bg-tertiary-shadow', 'h-[120px]'],
+		navbarClassnames: ['bg-tertiary-shadow', 'h-[100px]'],
 		menuIconClassnames: ['text-tertiary-tone'],
 	},
 	false: {
@@ -92,8 +92,8 @@ const MobileNavbar = () => {
 								!showInfo || isMenuOpen ? 'h-[44px] w-[44px]' : 'h-[80px] w-[80px]'
 							} hover:ring-1 hover:ring-primary hover:ring-opacity-100 hover:rounded-full transition-all duration-500`}
 							src='/images/logo.png'
-							height={120}
-							width={120}
+							height={80}
+							width={80}
 							alt='logo'
 						/>
 					</div>
@@ -132,7 +132,6 @@ const MobileNavbar = () => {
 				</motion.div>
 				<motion.ul
 					variants={ulVariant}
-					onClick={toggleMenu}
 					className='px-[20px] py-[35px] h-full flex flex-col items-center justify-between gap-[15px] list-none w-full  box-border'
 				>
 					<div className='flex flex-col items-center gap-[15px]'>
