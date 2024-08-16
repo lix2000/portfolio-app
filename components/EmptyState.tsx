@@ -39,7 +39,7 @@ const EmptyState = ({
 			<FontAwesomeIcon
 				icon={icon}
 				className='w-[120px] h-[120px] mb-[10px] color-primary'
-				style={{ color: '#1E566E' }}
+				style={{ color: '#1E566E', width: '120px', height: '120px' }}
 			/>
 			<div className={`${className} box-border`}>
 				<div className={`text-black text-title`}>{title}</div>

@@ -1,8 +1,8 @@
+import EmptyState from './EmptyState'
+import Loader from './Loader'
 import Button from './Button'
 import Card from './Card'
-import EmptyState from './EmptyState'
 import Grid from './Grid'
-import Loader from './Loader'
 
 interface Props {
 	data: any[]
@@ -25,20 +25,20 @@ const CardGrid = ({
 }: Props) => {
 	if (isLoading)
 		return (
-			<div className='w-full h-full flex-center  min-h-[700px] pb-[30px]'>
+			<div className='w-full h-full flex-center pb-[30px]'>
 				<Loader key='table-loader' size='3x' />
 			</div>
 		)
 
 	if (data.length === 0)
 		return (
-			<div className='w-full h-full  min-h-[700px] flex-center pb-[30px]'>
+			<div className='w-full h-full  flex-center pb-[30px]'>
 				<EmptyState />
 			</div>
 		)
 
 	return (
-		<div className='w-full h-full min-h-[700px] gap-[30px] pb-[30px] flex flex-col items-center justify-center'>
+		<div className='w-full h-full gap-[30px] pb-[30px] flex flex-col items-center justify-center'>
 			<Grid className={className}>
 				{data.map((item, index) => (
 					<Card
@@ -46,7 +46,7 @@ const CardGrid = ({
 						{...{
 							label: 'Learn More',
 							...item,
-							onClick: () => onClick(item?._id as string),
+							onClick: () => onClick && onClick(item?._id as string),
 							delay: index * 1000,
 						}}
 					/>
