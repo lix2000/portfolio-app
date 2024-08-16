@@ -2,6 +2,8 @@
 import { useRouter } from 'next/navigation'
 import { MouseEvent, PropsWithChildren, useRef } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faXmark } from '@fortawesome/free-solid-svg-icons'
 
 type Props = {
 	visible?: boolean
@@ -13,11 +15,12 @@ const Modal = ({ className = '', visible = true, onCancel, children }: PropsWith
 	const router = useRouter()
 	const backdropRef = useRef(null)
 
-	const onClose = (e: MouseEvent<HTMLDivElement>) => {
-		if (e.target === backdropRef.current) onCancel ? onCancel() : router.back()
+	const onClose = (doTargetCheck: boolean) => (e: MouseEvent<HTMLDivElement>) => {
+		if (!doTargetCheck || e.target === backdropRef.current) onCancel ? onCancel() : router.back()
 	}
 
-	const classNames = 'shadow-card p-12 rounded-xl bg-tertiary max-h-full overflow-y-auto ' + className
+	const classNames =
+		'relative shadow-card p-12 rounded-xl bg-tertiary max-h-full overflow-y-auto ' + className
 
 	return (
 		<AnimatePresence>
@@ -25,7 +28,7 @@ const Modal = ({ className = '', visible = true, onCancel, children }: PropsWith
 				<motion.div
 					ref={backdropRef}
 					className='fixed inset-0 flex-center bg-black/70 backdrop-blur-sm z-[150]'
-					onClick={onClose}
+					onClick={onClose(true)}
 					initial={{ opacity: 0 }}
 					animate={{ opacity: 1 }}
 					exit={{ opacity: 0 }}
@@ -36,6 +39,12 @@ const Modal = ({ className = '', visible = true, onCancel, children }: PropsWith
 						animate={{ opacity: 1, scale: 1 }}
 						exit={{ opacity: 0, scale: 0.5 }}
 					>
+						<div
+							className='absolute top-4 right-4 block sm:hidden text-title-xl text-gray-400 cursor-pointer'
+							onClick={onClose(false)}
+						>
+							<FontAwesomeIcon icon={faXmark} />
+						</div>
 						{children}
 					</motion.div>
 				</motion.div>
