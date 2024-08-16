@@ -12,9 +12,9 @@ const Articles = () => {
 	}
 
 	return (
-		<div className='w-full h-full pt-[60px] flex flex-col items-center '>
+		<div className='w-full pt-[60px] flex flex-col items-center '>
 			<Title>Articles</Title>
-			<div className='w-full min-h-full h-fit pt-[60px] flex flex-col items-center'>
+			<div className='w-full h-fit pt-[60px] flex flex-col items-center'>
 				<CardGrid
 					{...{
 						data: articles,

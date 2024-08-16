@@ -2,13 +2,12 @@
 import { Antic_Didone } from 'next/font/google'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faAward } from '@fortawesome/free-solid-svg-icons'
-import { homepageReasonIcons } from '@lib/settings'
-import { Card, ReasonCard, Title } from '@components'
 import AboutUses from './about-us/page'
 import Services from './services/page'
 import Image from 'next/image'
 import Reviews from './reviews/page'
 import { useIsMobile } from '@hooks'
+import Reasons from './reasons/page'
 
 const anticDidone = Antic_Didone({ weight: '400', subsets: ['latin'] })
 
@@ -38,20 +37,19 @@ const Home = () => {
 						/>
 					)}
 					<p className='text-title-mega text-center'>CSH Greenwich Advisory</p>
-					<p className='text-title-xl text-center'>Interior Design | Project Management | Real Estate</p>
+					<div className={`text-title-xl text-center flex ${isMobile && 'flex-col items-center'}`}>
+						<div className={`w-fit ${!isMobile && 'px-[20px] border-r border-white'}`}>Interior Design</div>
+						<div className={`w-fit ${!isMobile && 'px-[20px] border-r border-white'}`}>
+							Project Management
+						</div>
+						<div className='px-[20px]'>Real Estate </div>
+					</div>
 				</div>
 			</div>
 			<AboutUses />
 			<Services />
-			<Title>Why Choose Us?</Title>
-			<div className='flex flex-col gap-8 p-[58px] items-center'>
-				{!isMobile && homepageReasonIcons.map((item, index) => <ReasonCard key={index} {...item} />)}
-				{isMobile &&
-					homepageReasonIcons.map((item, index) => (
-						<Card key={index} descriptionClassName='!h-fit' {...item} />
-					))}
-			</div>
-			<div className='w-full text-title flex flex-col gap-2'>
+			<Reasons />
+			<div className='w-full text-title flex flex-col gap-2 pt-[60px]'>
 				<div className='text-center w-full'>Spoken Languages:</div>
 				<div className='flex justify-center items-center gap-4'>
 					<div className='flex-center gap-2'>

@@ -31,8 +31,8 @@ const SliderBody = ({ components = [], currentChildIndex, setCurrentChildIndex, 
 				<div
 					className={`${carouselClasses.join(' ')} ${
 						currentChildIndex !== index
-							? 'bg-primary text-white border-primary'
-							: 'hover:text-black bg-gray-200'
+							? 'hover:text-black bg-gray-200'
+							: 'bg-primary text-white border-primary cursor-not-allowed'
 					}`}
 					onClick={() => {
 						setCurrentChildIndex(index)
