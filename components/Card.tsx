@@ -1,5 +1,6 @@
 import { Button, Carousel, DangerousHtml } from '@components'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { toPrice } from '@utils'
 import { UploadApiResponse } from 'cloudinary'
 
 interface Props {
@@ -11,6 +12,7 @@ interface Props {
 	title: string
 	description?: string
 	label?: string
+	priceDescription?: string
 	className?: string
 	descriptionClassName?: string
 }
@@ -21,6 +23,7 @@ const Card = ({
 	icon,
 	delay,
 	price,
+	priceDescription,
 	onClick,
 	label = 'Read More',
 	className,
@@ -68,7 +71,7 @@ const Card = ({
 					)}
 					{price && (
 						<div className='text-header text-center text-ellipsis overflow-hidden truncate h-[26px]'>
-							${price}
+							{`$${toPrice(price)} ${priceDescription && priceDescription}`}
 						</div>
 					)}
 					{onClick && (

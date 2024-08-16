@@ -1,6 +1,7 @@
 'use client'
 import { Carousel, DangerousHtml, Loader, Title } from '@components'
 import { useIsMobile, useService } from '@hooks'
+import { toPrice } from '@utils'
 
 type Props = {
 	params: {
@@ -10,7 +11,7 @@ type Props = {
 
 const Service = ({ params: { id } }: Props) => {
 	const { data: service, isLoading } = useService(id) || {}
-	const { title, description = '', images = [] } = service || {}
+	const { title, description = '', images = [], price, priceDescription } = service || {}
 	const parsedImages = images.map(image => image.url)
 	const isMobile = useIsMobile()
 
@@ -31,6 +32,8 @@ const Service = ({ params: { id } }: Props) => {
 
 	if (isLoading) return <Loader />
 
+	console.log(service, 'service')
+
 	return (
 		<div className='w-full max-w-full items-center pt-[60px] flex box-border flex-col'>
 			<Title>{title}</Title>
@@ -39,6 +42,10 @@ const Service = ({ params: { id } }: Props) => {
 					<Carousel images={parsedImages} />
 				</div>
 				<div className={descriptionClasses.join(' ')}>{DangerousHtml(description)}</div>
+				<div className='w-full flex-center mt-[40px] gap-[5px]'>
+					{price && <div className='text-subtitle bold'>${toPrice(price)}</div>}
+					{priceDescription && <div className='text-body'>{priceDescription}</div>}
+				</div>
 			</div>
 		</div>
 	)

@@ -2,6 +2,7 @@ import { faStar as solidStar } from '@fortawesome/free-solid-svg-icons'
 import { faStar as emptyStar } from '@fortawesome/free-regular-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { getInitialsByName } from '@utils'
+import DangerousHtml from './DangerousHtml'
 
 interface Props {
 	name: string
@@ -47,7 +48,7 @@ const ReviewCard = ({ name, description, createdAt, rating }: Props) => {
 			<div className='w-[120px] h-[120px] rounded-full absolute bg-primary top-0 right-[105px] transform -translate-y-1/2 flex-center text-title-xl text-white'>
 				{initials}
 			</div>
-			<span className='grow overflow-hidden leading-relaxed text-ellipsis'>{description}</span>
+			<span className='grow overflow-hidden leading-relaxed text-ellipsis'>{DangerousHtml(description)}</span>
 			<div className='text-tertiary-contrast-20 mt-[-5px]'>{createdAt}</div>
 			<b>{name}</b>
 			<div className='flex gap-[5px]'>

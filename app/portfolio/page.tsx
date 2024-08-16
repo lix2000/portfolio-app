@@ -20,9 +20,9 @@ const Portfolio = () => {
 	)
 
 	return (
-		<div className='w-full h-full pt-[60px] flex flex-col items-center '>
+		<div className='w-full pt-[60px] flex flex-col items-center '>
 			<Title>Portfolio</Title>
-			<div className='w-full min-h-full h-full min-w-[310px] max-w-[1040px] pt-[30px] px-[20px]'>
+			<div className='w-full min-w-[310px] max-w-[1040px] pt-[30px] px-[20px]'>
 				<CardGrid
 					{...{
 						data: allPortfolios,
