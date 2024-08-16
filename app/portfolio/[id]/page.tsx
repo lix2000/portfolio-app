@@ -14,7 +14,7 @@ const Portfolio = ({ params: { id } }: Props) => {
 	const { title, images } = portfolio || {}
 
 	return (
-		<div className='w-full max-w-full min-h-full items-center pt-[60px] flex box-border flex-col'>
+		<div className='w-full max-w-full items-center pt-[60px] flex box-border flex-col'>
 			<Title>{title}</Title>
 			<div className='w-full flex flex-row flex-wrap gap-4 justify-center py-[50px] px-[30px]'>
 				{images?.map(({ url }) => (

@@ -32,7 +32,7 @@ const Service = ({ params: { id } }: Props) => {
 	if (isLoading) return <Loader />
 
 	return (
-		<div className='w-full max-w-full min-h-full items-center pt-[60px] flex box-border flex-col'>
+		<div className='w-full max-w-full items-center pt-[60px] flex box-border flex-col'>
 			<Title>{title}</Title>
 			<div className='w-full gap-4 py-[50px] max-w-[1200px] px-[30px] box-border float-left'>
 				<div className={photoContainerClasses.join(' ')}>

@@ -2,7 +2,7 @@
 import { useState, useCallback, useLayoutEffect } from 'react'
 
 export const useIsMobile = (maxWidth: number = 700) => {
-	const [isMobile, setIsMobile] = useState(false)
+	const [isMobile, setIsMobile] = useState(window.innerWidth <= maxWidth)
 
 	const handleResize = useCallback(() => {
 		setIsMobile(window.innerWidth <= maxWidth)
