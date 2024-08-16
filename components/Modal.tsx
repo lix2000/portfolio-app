@@ -4,6 +4,7 @@ import { MouseEvent, PropsWithChildren, useRef } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faXmark } from '@fortawesome/free-solid-svg-icons'
+import OnMobile from './OnMobile'
 
 type Props = {
 	visible?: boolean
@@ -39,12 +40,14 @@ const Modal = ({ className = '', visible = true, onCancel, children }: PropsWith
 						animate={{ opacity: 1, scale: 1 }}
 						exit={{ opacity: 0, scale: 0.5 }}
 					>
-						<div
-							className='absolute top-4 right-4 block sm:hidden text-title-xl text-gray-400 cursor-pointer'
-							onClick={onClose(false)}
-						>
-							<FontAwesomeIcon icon={faXmark} />
-						</div>
+						<OnMobile>
+							<div
+								className='absolute top-4 right-4 text-title-xl text-gray-400 cursor-pointer'
+								onClick={onClose(false)}
+							>
+								<FontAwesomeIcon icon={faXmark} />
+							</div>
+						</OnMobile>
 						{children}
 					</motion.div>
 				</motion.div>
