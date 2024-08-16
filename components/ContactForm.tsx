@@ -8,11 +8,9 @@ const ContactForm = ({ onSubmit }: { onSubmit: (data: FormRequestType) => any })
 	const { data: services } = useServiceNames()
 
 	return (
-		<div className='min-w-[350px] max-w-[650px] w-full p-6 flex-col flex-center bg-white rounded-lg shadow-card hover:shadow-2xl'>
-			<div className='text-title my-2'>Contact Form</div>
-			<div className='text-subtitle mb-3 text-center'>
-				Please fill up this contact form with your project address and tell us a little bit more about what
-				you&apos;re looking to do in your home.
+		<div className='flex-col flex-center bg-tertiary text-tertiary-contrast'>
+			<div className='text-subtitle my-2 mb-3 text-center'>
+				Please complete this Contact Form. We will be in touch soon!
 			</div>
 			<Form<FormRequestType>
 				className='w-full flex flex-col gap-4'
@@ -38,7 +36,7 @@ const ContactForm = ({ onSubmit }: { onSubmit: (data: FormRequestType) => any })
 				<Input
 					name='budget'
 					type='text'
-					placeholder='Budget (renovation Cost + Furniture) exuding designer fee'
+					placeholder='Budget (Renovation Cost + Furniture) excluding designer fee'
 				/>
 				<Input name='date' placeholder='Desired Start Date & Timeline' />
 				<TextArea name='description' placeholder='Project Description' />

@@ -42,7 +42,13 @@ const Select = <T extends unknown>({
 		<div className='flex flex-col gap-1 flex-1'>
 			{label && <label className='text-label'>{label}</label>}
 			<div className='relative'>
-				<select {...props} value={field.value ?? ''} onChange={onChange} className={classes.join(' ')}>
+				<select
+					{...props}
+					key={field.value}
+					value={field.value ?? ''}
+					onChange={onChange}
+					className={classes.join(' ')}
+				>
 					<option selected disabled hidden value=''></option>
 					{options?.map(option => (
 						<option key={option?.value} value={option?.value}>

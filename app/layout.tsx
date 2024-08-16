@@ -1,5 +1,5 @@
 import type { Metadata } from 'next'
-import { Inter } from 'next/font/google'
+import { Questrial } from 'next/font/google'
 import { getCurrentSession } from '@lib'
 import {
 	SessionProvider,
@@ -13,7 +13,7 @@ import '@lib/fontawesome'
 
 import '@styles/globals.css'
 
-const inter = Inter({ subsets: ['latin'] })
+const questrial = Questrial({ weight: '400', subsets: ['latin'] })
 
 export const metadata: Metadata = {
 	title: 'CSH Greenwich Advisory | Interior Designer',
@@ -25,7 +25,7 @@ export default async function RootLayout({ children }: Readonly<{ children: Reac
 
 	return (
 		<html lang='en'>
-			<body className={inter.className}>
+			<body className={questrial.className}>
 				<GoogleReCaptchaWrapper>
 					<ReactQueryClientProvider>
 						<SessionProvider session={session}>
