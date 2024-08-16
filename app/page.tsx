@@ -48,14 +48,6 @@ const Home = () => {
 			</div>
 			<AboutUses />
 			<Services />
-			{/* <Title>Why Choose Us?</Title>
-			<div className='flex flex-col gap-8 p-[58px] items-center'>
-				{!isMobile && homepageReasonIcons.map((item, index) => <ReasonCard key={index} {...item} />)}
-				{isMobile &&
-					homepageReasonIcons.map((item, index) => (
-						<Card key={index} descriptionClassName='!h-fit' {...item} />
-					))}
-			</div> */}
 			<Reasons />
 			<div className='w-full text-title flex flex-col gap-2 pt-[60px]'>
 				<div className='text-center w-full'>Spoken Languages:</div>
