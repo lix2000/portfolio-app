@@ -9,6 +9,7 @@ import Services from './services/page'
 import Image from 'next/image'
 import Reviews from './reviews/page'
 import { useIsMobile } from '@hooks'
+import { HomeRequestForm } from './_PageSections'
 
 const anticDidone = Antic_Didone({ weight: '400', subsets: ['latin'] })
 
@@ -21,11 +22,13 @@ const Home = () => {
 				<Image
 					alt='homeBackground'
 					src='/images/homeBackground.jpeg'
-					className='w-full h-full object-cover absolute inset-0 -z-10 filter brightness-50'
+					className='w-full h-full object-cover absolute inset-0 -z-10 filter brightness-[.65]'
 					width={0}
 					height={0}
 					sizes='100vw'
 					style={{ width: '100%', height: '100%' }}
+					unoptimized
+					priority
 				/>
 				<div className='w-full h-full flex-center flex-col text-primary-contrast'>
 					{!isMobile && (
@@ -39,6 +42,7 @@ const Home = () => {
 					)}
 					<p className='text-title-mega text-center'>CSH Greenwich Advisory</p>
 					<p className='text-title-xl text-center'>Interior Design | Project Management | Real Estate</p>
+					<HomeRequestForm />
 				</div>
 			</div>
 			<AboutUses />
@@ -72,9 +76,7 @@ const Home = () => {
 					</div>
 					<div className='text-tertiary pt-6 pr-6'>
 						<div className='text-title pb-4'>Initial Consultation</div>
-						{/* <link className='text-subtitle'> */}
 						Complimentary 30-min Initial Phone Consultation with all services
-						{/* </link> */}
 					</div>
 				</div>
 			</div>

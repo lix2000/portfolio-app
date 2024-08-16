@@ -34,7 +34,7 @@ const ToastComponent = ({
 	const { startPause, endPause } = handlers
 	return (
 		<motion.div
-			className='fixed inset-0 flex-center bg-black/30 backdrop-blur-sm z-50'
+			className='fixed inset-0 flex-center bg-black/30 backdrop-blur-sm z-[200]'
 			onClick={dismiss}
 			transition={{ duration: 0.3 }}
 			initial={{ opacity: 0 }}

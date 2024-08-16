@@ -16,7 +16,9 @@ const Footer = () => {
 		<>
 			<Title>Contact Us</Title>
 			<div className='w-full py-10 bg-tertiary-10 flex-center flex-col gap-6'>
-				<ContactForm onSubmit={mutation.mutateAsync} />
+				<div className='min-w-[350px] max-w-[650px] w-full bg-tertiary p-6 rounded-lg shadow-card hover:shadow-2xl'>
+					<ContactForm onSubmit={mutation.mutateAsync} />
+				</div>
 				<div className='flex-center gap-2'>
 					{footerContactIcons.map(({ icon, href }) => (
 						<Link
