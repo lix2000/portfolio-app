@@ -1,12 +1,12 @@
 import { getPortfolios } from '@actions'
-import { QueryPrefetcher } from '@components'
+import { InfinityQueryPrefetcher } from '@components'
 import { ServerPortfolioType } from '@types'
 import { PortfolioList } from './_PageSections'
 
 const AdminPortfolio = async () => (
-	<QueryPrefetcher<ServerPortfolioType> queryKey={['portfolios']} queryFn={getPortfolios}>
+	<InfinityQueryPrefetcher<ServerPortfolioType> queryKey={['portfolios']} queryFn={getPortfolios}>
 		<PortfolioList />
-	</QueryPrefetcher>
+	</InfinityQueryPrefetcher>
 )
 
 export default AdminPortfolio

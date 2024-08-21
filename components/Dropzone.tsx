@@ -20,7 +20,7 @@ type DropzoneValue = {
 	existingFiles: UploadApiResponse[]
 }
 
-const isFileNew = (file: UploadApiResponse | File): file is File => !(file as UploadApiResponse)?.url
+export const isFileNew = (file: UploadApiResponse | File): file is File => !(file as UploadApiResponse)?.url
 
 const Dropzone = ({ name, label, multiple }: DropzoneProps) => {
 	const { field, fieldState } = useController({

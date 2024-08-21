@@ -32,8 +32,6 @@ const Service = ({ params: { id } }: Props) => {
 
 	if (isLoading) return <Loader />
 
-	console.log(service, 'service')
-
 	return (
 		<div className='w-full max-w-full items-center pt-[60px] flex box-border flex-col'>
 			<Title>{title}</Title>

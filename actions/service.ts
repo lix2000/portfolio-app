@@ -19,9 +19,9 @@ export const getServices = async (options?: {
 	limit?: number
 	filter?: FilterQuery<ServerServiceType>
 }) => {
-	log.success('getServices', options)
 	// Connect to the database
 	await db.connect()
+	log.info('⬇️ Fetching getServices', options)
 
 	const { page = 1, limit = 10, filter } = options || {}
 
@@ -43,6 +43,8 @@ export const getServices = async (options?: {
 	// Determine whether there are more pages
 	const hasMore = page < pages
 
+	log.success('✅ Fetched getServices')
+
 	return { data: JSON.parse(JSON.stringify(services)) as ServerServiceType[], pages, page, hasMore }
 }
 
@@ -53,16 +55,18 @@ export const getServices = async (options?: {
  * @throws An error if the service does not exist
  */
 export const getService = async (id: string) => {
-	log.warn('getService', id)
 	// Connect to the database
 	await db.connect()
+
+	log.info('⬇️ Fetching getService', id)
 
 	// Retrieve the service
 	const service = await Service.findById(id)
 
 	// Throw an error if the service does not exist
 	if (!service) throw new Error('Service not found')
-	log.success('getService', service)
+
+	log.success('✅ Fetched getService')
 
 	return service.toObject() as ServerServiceType
 }
@@ -74,9 +78,9 @@ export const getService = async (id: string) => {
  * @throws An error if the user is not authenticated or the service already exists
  */
 export const createService = async (servicePayload: ServicePayload, imagesFormData: FormData) => {
-	log.warn('createService', servicePayload, imagesFormData)
 	// Connect to the database
 	await db.connect()
+	log.info('⬆️ Fetching createService', servicePayload)
 
 	// Get the current session and check if the user is authenticated
 	const session = await getCurrentSession()
@@ -106,7 +110,8 @@ export const createService = async (servicePayload: ServicePayload, imagesFormDa
 		}
 		throw new Error(err)
 	})
-	log.success('createService', service)
+
+	log.success('✅ Fetched createService')
 
 	return service.toObject()
 }
@@ -118,9 +123,9 @@ export const createService = async (servicePayload: ServicePayload, imagesFormDa
  * @returns The edited service
  */
 export const editService = async (id: string, servicePayload: ServicePayload, imagesFormData: FormData) => {
-	log.success('editService', id, servicePayload, imagesFormData)
 	// Connect to the database
 	await db.connect()
+	log.info('⬆️ Fetching editService', id)
 
 	// Get the current session and check if the user is authenticated
 	const session = await getCurrentSession()
@@ -175,6 +180,8 @@ export const editService = async (id: string, servicePayload: ServicePayload, im
 			throw new Error(err)
 		})
 
+	log.success('✅ Fetched editService', id)
+
 	return service.toObject()
 }
 
@@ -186,9 +193,10 @@ export const editService = async (id: string, servicePayload: ServicePayload, im
  * @throws An error if the service or the images cannot be deleted.
  */
 export const deleteService = async (id: string) => {
-	log.success('deleteService', id)
 	// Connect to the database
 	await db.connect()
+
+	log.info('⬆️ Fetching deleteService', id)
 
 	// Find the service by ID
 	const service = await Service.findById(id)
@@ -203,11 +211,12 @@ export const deleteService = async (id: string) => {
 		deleteFiles(imageIds), // Delete the service's images
 	])
 
+	log.success('✅ Fetched deleteService', id)
+
 	return true // Return true if the operation is successful
 }
 
 export const checkServiceExists = async (title: string | undefined) => {
-	log.success('checkServiceExists', title)
 	const existingService = await Service.findOne({ title })
 	if (existingService) {
 		throw new Error('Service already exists')
@@ -215,7 +224,6 @@ export const checkServiceExists = async (title: string | undefined) => {
 }
 
 export const updateServicesDev = async (newKeys: any) => {
-	log.success('updateServicesDev', newKeys)
 	await db.connect()
 	await connection.collection('services').updateMany({}, newKeys)
 }
@@ -226,11 +234,12 @@ export const updateServicesDev = async (newKeys: any) => {
  * @throws An error if the services cannot be retrieved.
  */
 export const getServiceNames = async () => {
-	log.warn('getServiceNames')
 	await db.connect()
+	log.info('⬇️ Fetching getServiceNames')
 
 	const services: Partial<ServerServiceType>[] = await Service.find({}, { title: 1, _id: 1 }).lean()
 
+	log.success('✅ Fetched getServiceNames')
 	return JSON.parse(JSON.stringify(services))
 }
 
@@ -240,7 +249,11 @@ export const getServiceNames = async () => {
  */
 export const getServiceCount = async () => {
 	await db.connect()
+	log.info('⬇️ Fetching getServiceCount')
+
 	const count = await Service.countDocuments()
+
+	log.success('✅ Fetched getServiceCount')
 
 	return count
 }

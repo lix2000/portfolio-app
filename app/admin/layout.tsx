@@ -13,7 +13,7 @@ const AdminLayout = ({ children, modal, rightSidebar }: PropsWithChildren<Props>
 			<AdminSidebar />
 			{modal}
 			{rightSidebar}
-			{children}
+			<div className='w-full h-full overflow-auto'>{children}</div>
 		</div>
 	</ProtectedRoute>
 )

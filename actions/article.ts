@@ -19,7 +19,7 @@ export const getArticles = async (options?: {
 	limit?: number
 	filter?: FilterQuery<ServerArticleType>
 }) => {
-	log.success('getArticles', options)
+	log.info('⬇️ Fetching getArticles', options)
 	// Connect to the database
 	await db.connect()
 
@@ -43,6 +43,8 @@ export const getArticles = async (options?: {
 	// Determine whether there are more pages
 	const hasMore = page < pages
 
+	log.success('✅ Fetched getArticles')
+
 	return { data: JSON.parse(JSON.stringify(articles)) as ServerArticleType[], pages, page, hasMore }
 }
 
@@ -53,16 +55,17 @@ export const getArticles = async (options?: {
  * @throws An error if the article does not exist
  */
 export const getArticle = async (id: string) => {
-	log.warn('getArticle', id)
 	// Connect to the database
 	await db.connect()
+	log.info('⬇️ Fetching getArticle', id)
 
 	// Retrieve the article
 	const article = await Article.findById(id)
 
 	// Throw an error if the article does not exist
 	if (!article) throw new Error('Article not found')
-	log.success('getArticle', article)
+
+	log.success('✅ Fetched getArticle')
 
 	return article.toObject() as ServerArticleType
 }
@@ -74,9 +77,10 @@ export const getArticle = async (id: string) => {
  * @throws An error if the user is not authenticated or the article already exists
  */
 export const createArticle = async (articlePayload: ArticlePayload, imagesFormData: FormData) => {
-	log.warn('createArticle', articlePayload, imagesFormData)
 	// Connect to the database
 	await db.connect()
+
+	log.info('⬆️ Fetching createArticle', articlePayload)
 
 	// Get the current session and check if the user is authenticated
 	const session = await getCurrentSession()
@@ -106,7 +110,7 @@ export const createArticle = async (articlePayload: ArticlePayload, imagesFormDa
 		}
 		throw new Error(err)
 	})
-	log.success('createArticle', article)
+	log.success('✅ Fetched createArticle', article)
 
 	return article.toObject()
 }
@@ -118,9 +122,9 @@ export const createArticle = async (articlePayload: ArticlePayload, imagesFormDa
  * @returns The edited article
  */
 export const editArticle = async (id: string, articlePayload: ArticlePayload, imagesFormData: FormData) => {
-	log.success('editArticle', id, articlePayload, imagesFormData)
 	// Connect to the database
 	await db.connect()
+	log.info('⬆️ Fetching editArticle', id)
 
 	// Get the current session and check if the user is authenticated
 	const session = await getCurrentSession()
@@ -175,6 +179,8 @@ export const editArticle = async (id: string, articlePayload: ArticlePayload, im
 			throw new Error(err)
 		})
 
+	log.success('✅ Fetched editArticle', id)
+
 	return article.toObject()
 }
 
@@ -186,9 +192,9 @@ export const editArticle = async (id: string, articlePayload: ArticlePayload, im
  * @throws An error if the article or the images cannot be deleted.
  */
 export const deleteArticle = async (id: string) => {
-	log.success('deleteArticle', id)
 	// Connect to the database
 	await db.connect()
+	log.info('⬆️ Fetching deleteArticle', id)
 
 	// Find the article by ID
 	const article = await Article.findById(id)
@@ -203,11 +209,11 @@ export const deleteArticle = async (id: string) => {
 		deleteFiles(imageIds), // Delete the article's images
 	])
 
+	log.success('✅ Fetched deleteArticle', id)
 	return true // Return true if the operation is successful
 }
 
 export const checkArticleExists = async (title: string | undefined) => {
-	log.success('checkArticleExists', title)
 	const existingArticle = await Article.findOne({ title })
 	if (existingArticle) {
 		throw new Error('Article already exists')
@@ -215,7 +221,6 @@ export const checkArticleExists = async (title: string | undefined) => {
 }
 
 export const getArticleCount = async () => {
-	log.success('getArticleCount')
 	// Connect to the database
 	await db.connect()
 

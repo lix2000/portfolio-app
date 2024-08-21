@@ -10,8 +10,8 @@ import { CLOUDINARY_FOLDERS } from '@lib/settings'
 type RequestPayload = Omit<FormRequestType, 'images'>
 
 export const createRequest = async (data: RequestPayload, imagesFormData?: FormData) => {
-	log.info('createRequest', data)
 	await db.connect()
+	log.info('⬆️ Fetching createRequest')
 	const isHuman = await verifyRecaptcha(data.recaptchaToken)
 	if (!isHuman) throw new Error('Human verification failed')
 
@@ -23,7 +23,6 @@ export const createRequest = async (data: RequestPayload, imagesFormData?: FormD
 		.save()
 		.then(async req => await sendNewRequestEmail((await req.populate('service', 'title')).toObject()))
 		.catch(async err => {
-			log.error('Request failed', err)
 			if (uploadedImages?.length) {
 				// Delete the uploaded images and the folder if there are any
 				await deleteFiles(uploadedImages.map(image => image.public_id))
@@ -31,6 +30,8 @@ export const createRequest = async (data: RequestPayload, imagesFormData?: FormD
 			}
 			throw new Error(err)
 		})
+
+	log.success('✅ Fetched createRequest')
 
 	return request.toObject() as ServerRequestType
 }
@@ -55,12 +56,13 @@ const sendNewRequestEmail = async (request: ServerRequestType) => {
 	}
 	await transporter
 		.sendMail(mailOptions)
-		.then(() => log.warn('Request email sent'))
-		.catch(err => log.error('Request email failed', err))
+		.then(() => log.warn('ℹ️ Request email sent'))
+		.catch(err => log.error('❌ Request email failed', err))
 }
 
 export const getRequests = async (options?: { page?: number; limit?: number }) => {
 	await db.connect()
+	log.info('⬇️ Fetching getRequests')
 
 	const session = await getCurrentSession()
 	if (!session?.user) throw new Error('Unauthorized')
@@ -82,22 +84,29 @@ export const getRequests = async (options?: { page?: number; limit?: number }) =
 	// Determine whether there are more pages
 	const hasMore = page < pages
 
+	log.success('✅ Fetched getRequests')
+
 	return { data: JSON.parse(JSON.stringify(requests)) as ServerRequestType[], pages, page, hasMore }
 }
 
 export const getRequest = async (id: string) => {
 	await db.connect()
+	log.info('⬇️ Fetching getRequest', id)
 
 	const session = await getCurrentSession()
 	if (!session?.user) throw new Error('Unauthorized')
 
 	const request = await updateIsViewedRequest(id)
 
+	log.success('✅ Fetched getRequest')
+
 	return request as ServerRequestType
 }
 
 export const updateIsViewedRequest = async (id: string) => {
 	await db.connect()
+
+	log.info('⬆️ Fetching updateIsViewedRequest', id)
 
 	const session = await getCurrentSession()
 	if (!session?.user) throw new Error('Unauthorized')
@@ -107,16 +116,22 @@ export const updateIsViewedRequest = async (id: string) => {
 		.lean()
 	if (!request) throw new Error('Request not found')
 
+	log.success('✅ Fetched updateIsViewedRequest')
+
 	return request as ServerRequestType
 }
 
 export const getRequestsCountByIsViewed = async (isViewed: boolean) => {
 	await db.connect()
 
+	log.info('⬇️ Fetching getRequestsCountByIsViewed', isViewed)
+
 	const session = await getCurrentSession()
 	if (!session?.user) throw new Error('Unauthorized')
 
 	const count = await Request.countDocuments({ isViewed })
+
+	log.success('✅ Fetched getRequestsCountByIsViewed', isViewed)
 
 	return count
 }

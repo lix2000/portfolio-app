@@ -1,5 +1,5 @@
 'use server'
-import { db, getCurrentSession } from '@lib'
+import { db, getCurrentSession, log } from '@lib'
 import { AboutUs } from '@models'
 import { deleteFiles, deleteFolder, upload } from '@actions'
 import { CLOUDINARY_FOLDERS } from '@lib/settings'
@@ -20,6 +20,7 @@ export const getAboutUs = async (options?: {
 	filter?: FilterQuery<ServerAboutUsType>
 }) => {
 	await db.connect()
+	log.info('⬇️ Fetching aboutUs', options)
 
 	const { page = 1, limit = 10, filter } = options || {}
 
@@ -40,6 +41,7 @@ export const getAboutUs = async (options?: {
 
 	// Determine whether there are more pages
 	const hasMore = page < pages
+	log.success('✅ Fetched aboutUs')
 
 	return { data: JSON.parse(JSON.stringify(aboutUs)) as ServerAboutUsType[], pages, page, hasMore }
 }
@@ -52,12 +54,15 @@ export const getAboutUs = async (options?: {
  */
 export const getAboutUsById = async (id: string) => {
 	await db.connect()
+	log.info('⬇️ Fetching getAboutUsById', id)
 
 	// Retrieve the aboutUs
 	const aboutUs = await AboutUs.findById(id)
 
 	// Throw an error if the aboutUs does not exist
 	if (!aboutUs) throw new Error('AboutUs not found')
+
+	log.success('✅ Fetched getAboutUsById', id)
 
 	return aboutUs.toObject() as ServerAboutUsType
 }
@@ -70,6 +75,7 @@ export const getAboutUsById = async (id: string) => {
  */
 export const createAboutUs = async (aboutUsPayload: AboutUsPayload, imagesFormData: FormData) => {
 	await db.connect()
+	log.info('⬆️ Fetching createAboutUs')
 
 	// Get the current session and check if the user is authenticated
 
@@ -100,6 +106,7 @@ export const createAboutUs = async (aboutUsPayload: AboutUsPayload, imagesFormDa
 		}
 		throw new Error(err)
 	})
+	log.success('✅ Fetched createAboutUs')
 
 	return aboutUs.toObject()
 }
@@ -112,6 +119,7 @@ export const createAboutUs = async (aboutUsPayload: AboutUsPayload, imagesFormDa
  */
 export const editAboutUs = async (id: string, aboutUsPayload: AboutUsPayload, imagesFormData: FormData) => {
 	await db.connect()
+	log.info('⬆️ Fetching editAboutUs', id)
 
 	// Get the current session and check if the user is authenticated
 	const session = await getCurrentSession()
@@ -166,6 +174,8 @@ export const editAboutUs = async (id: string, aboutUsPayload: AboutUsPayload, im
 			throw new Error(err)
 		})
 
+	log.success('✅ Fetched editAboutUs', id)
+
 	return aboutUs.toObject()
 }
 
@@ -178,6 +188,7 @@ export const editAboutUs = async (id: string, aboutUsPayload: AboutUsPayload, im
  */
 export const deleteAboutUs = async (id: string) => {
 	await db.connect()
+	log.info('⬆️ Fetching deleteAboutUs', id)
 
 	// Find the aboutUs by ID
 	const aboutUs = await AboutUs.findById(id)
@@ -191,6 +202,7 @@ export const deleteAboutUs = async (id: string) => {
 		AboutUs.deleteOne({ _id: id }), // Delete the aboutUs
 		deleteFiles(imageIds), // Delete the aboutUs's images
 	])
+	log.success('✅ Fetched deleteAboutUs', id)
 
 	return true // Return true if the operation is successful
 }
@@ -204,6 +216,9 @@ export const checkAboutUsExists = async (title: string | undefined) => {
 
 export const getAboutUsCount = async () => {
 	await db.connect()
+	log.info('⬆️ Fetching getAboutUsCount')
 	const count = await AboutUs.countDocuments()
+	log.success('✅ Fetched getAboutUsCount')
+
 	return count
 }

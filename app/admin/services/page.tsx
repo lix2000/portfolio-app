@@ -1,12 +1,12 @@
 import { ServicesList } from './_PageSections'
 import { getServices } from '@actions'
 import { ServerServiceType } from '@types'
-import { QueryPrefetcher } from '@components'
+import { InfinityQueryPrefetcher } from '@components'
 
 const AdminServices = async () => (
-	<QueryPrefetcher<ServerServiceType> queryKey={['services']} queryFn={getServices}>
+	<InfinityQueryPrefetcher<ServerServiceType> queryKey={['services']} queryFn={getServices}>
 		<ServicesList />
-	</QueryPrefetcher>
+	</InfinityQueryPrefetcher>
 )
 
 export default AdminServices
