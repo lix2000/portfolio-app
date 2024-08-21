@@ -1,10 +1,10 @@
 'use client'
-import { navbarBlackList, navbarTabs, theDesignerContactIcons } from '@settings'
+import { navbarBlackList, navbarTabs } from '@settings'
 import Image from 'next/image'
 import { usePathname } from 'next/navigation'
-import { useShowInfoNavbar, useToggle } from '@hooks'
+import { useDesigner, useShowInfoNavbar, useToggle } from '@hooks'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faBars, faXmark } from '@fortawesome/free-solid-svg-icons'
+import { faBars, faEnvelope, faPhone, faXmark } from '@fortawesome/free-solid-svg-icons'
 import { motion } from 'framer-motion'
 import Link from 'next/link'
 
@@ -64,6 +64,7 @@ const MobileNavbar = () => {
 	const pathName = usePathname()
 	const [isMenuOpen, toggleMenu] = useToggle()
 	const showInfo = useShowInfoNavbar()
+	const { data: designer } = useDesigner()
 	const { navbarClassnames: navTheme, menuIconClassnames: menuTheme } =
 		theme[String(showInfo && !isMenuOpen) as keyof typeof theme]
 	const buttonClassnames = [
@@ -156,19 +157,26 @@ const MobileNavbar = () => {
 						))}
 					</div>
 					<div className='flex gap-2 flex-center'>
-						{theDesignerContactIcons.map(({ icon, href }) => (
-							<motion.div variants={liVariant} key={href} className='flex flex-col items-center gap-[15px]'>
-								<Link
-									key={href}
-									rel='noopener noreferrer '
-									target='_blank'
-									href={href}
-									className='rounded-full transition-all p-2 duration-500 flex-center bg-primary hover:bg-tertiary hover:text-primary border-2 border-primary text-primary-contrast'
-								>
-									<FontAwesomeIcon style={{ width: '20px', height: '20px' }} icon={icon} />
-								</Link>
-							</motion.div>
-						))}
+						<motion.div variants={liVariant} className='flex flex-col items-center gap-[15px]'>
+							<Link
+								rel='noopener noreferrer '
+								target='_blank'
+								href={`mailto:${designer?.email}`}
+								className='rounded-full transition-all p-2 duration-500 flex-center bg-primary hover:bg-tertiary hover:text-primary border-2 border-primary text-primary-contrast'
+							>
+								<FontAwesomeIcon style={{ width: '20px', height: '20px' }} icon={faEnvelope} />
+							</Link>
+						</motion.div>
+						<motion.div variants={liVariant} className='flex flex-col items-center gap-[15px]'>
+							<Link
+								rel='noopener noreferrer '
+								target='_blank'
+								href={`tel:${designer?.phone}`}
+								className='rounded-full transition-all p-2 duration-500 flex-center bg-primary hover:bg-tertiary hover:text-primary border-2 border-primary text-primary-contrast'
+							>
+								<FontAwesomeIcon style={{ width: '20px', height: '20px' }} icon={faPhone} />
+							</Link>
+						</motion.div>
 					</div>
 				</motion.ul>
 			</motion.div>
