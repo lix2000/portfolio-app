@@ -7,6 +7,7 @@ import {
 	faInfoCircle,
 	faListCheck,
 	faNewspaper,
+	faUserPen,
 } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import Image from 'next/image'
@@ -47,6 +48,11 @@ const adminSidebarItems: AdminSidebarItem[] = [
 		name: 'Articles',
 		path: '/admin/articles',
 		icon: faNewspaper,
+	},
+	{
+		name: 'The Designer',
+		path: '/admin/the-designer',
+		icon: faUserPen,
 	},
 	{
 		name: 'About Us',

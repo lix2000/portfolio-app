@@ -16,7 +16,7 @@ export const verifyRecaptcha = async (token?: string) => {
 		console.error(data)
 		return false
 	}
-	log.warn('Recaptcha verified', data)
+	log.success('ℹ️ Recaptcha verified', data)
 
 	return true
 }

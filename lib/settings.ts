@@ -65,17 +65,6 @@ export const footerContactIcons = [
 	},
 ]
 
-export const theDesignerContactIcons = [
-	{
-		icon: faEnvelope,
-		href: 'mailto:?body=https%3A//cshgreenwichadvisory.com&subject=CSH%20Greenwich%20Advisory',
-	},
-	{
-		icon: faPhone,
-		href: 'tel:+1%20203-900-4336',
-	},
-]
-
 export const serviceTypes = [
 	{
 		value: 'Full Service',
@@ -110,6 +99,7 @@ export const CLOUDINARY_FOLDERS = {
 	REQUESTS: 'requests',
 	ABOUT_US: 'about-us',
 	ARTICLES: 'articles',
+	DESIGNER: 'designer',
 }
 
 //todo: we have to delete it after connecting to BE
@@ -193,13 +183,6 @@ export const workingHr = [
 		day: 'Sat',
 	},
 ]
-
-export const theDesignerMock = {
-	name: 'Charlotte Sardet',
-	description:
-		'Hi there! My name is Charlotte Sardet, and I am the lead designer and founder of CSH Greenwich Advisory.<br/>I have always had a lifelong interest in architecture and design.<br/>After having a successful career in real estate in NYC, I decided to follow my passion for design and stay closer to home in Greenwich, CT.<br/>Growing up in the South of France but spending my professional life in NYC, I developed a taste for minimalism while keeping my French roots. That being said, I am versatile and like to listen and understand my clients needs and desires before starting any project. It is important for me to offer a design that fits your style and personality.<br/>I also believe that every place has a soul and will always try to respect the history of the home and incorporate it in the design.',
-	profile: 'https://www.svgrepo.com/show/382097/female-avatar-girl-face-woman-user-9.svg',
-}
 
 export const reviewMockData = [
 	{

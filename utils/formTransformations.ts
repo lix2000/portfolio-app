@@ -2,10 +2,12 @@
 import {
 	FormAboutUsType,
 	FormArticleType,
+	FormDesignerType,
 	FormPortfolioType,
 	FormServiceType,
 	ServerAboutUsType,
 	ServerArticleType,
+	ServerDesignerType,
 	ServerPortfolioType,
 	ServerServiceType,
 } from '@types'
@@ -63,4 +65,18 @@ export const transformArticleToFormValues = (article?: ServerArticleType) => {
 	}
 
 	return transformedArticle
+}
+
+export const transformDesignerToFormValues = (designer?: ServerDesignerType | null) => {
+	if (!designer) return
+	const { image, ...rest } = designer || {}
+	const transformedDesigner: FormDesignerType = {
+		...rest,
+		image: {
+			newFiles: [],
+			existingFiles: [image],
+		},
+	}
+
+	return transformedDesigner
 }

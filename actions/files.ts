@@ -1,5 +1,5 @@
 'use server'
-import { cloudinary, log } from '@lib'
+import { cloudinary } from '@lib'
 import { UploadApiResponse } from 'cloudinary'
 
 export const upload = async (files: File[], folder?: string): Promise<UploadApiResponse[]> => {
@@ -11,11 +11,9 @@ export const upload = async (files: File[], folder?: string): Promise<UploadApiR
 			cloudinary.uploader
 				.upload_stream({ folder }, (error, result) => {
 					if (error) {
-						log.error('Image Upload failed', error)
 						reject(error)
 						return
 					}
-					log.success('Image uploaded', result)
 					resolve(result)
 				})
 				.end(buffer)

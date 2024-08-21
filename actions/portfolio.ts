@@ -18,9 +18,8 @@ type PortfolioPayload = Omit<FormPortfolioType, 'images'>
  * @returns An object with the list of portfolios, number of pages, current page, and whether there are more pages
  */
 export const getPortfolios = async (options?: { page?: number; limit?: number }) => {
-	log.success('getPortfolios', options)
-
 	await db.connect()
+	log.info('⬇️ Fetching getPortfolios', options)
 
 	const { page = 1, limit = 10 } = options || {}
 
@@ -35,6 +34,8 @@ export const getPortfolios = async (options?: { page?: number; limit?: number })
 
 	const hasMore = page < pages
 
+	log.success('✅ Fetched getPortfolios')
+
 	return { data: JSON.parse(JSON.stringify(portfolio)) as ServerPortfolioType[], pages, page, hasMore }
 }
 
@@ -45,14 +46,13 @@ export const getPortfolios = async (options?: { page?: number; limit?: number })
  * @throws An error if the portfolio does not exist
  */
 export const getPortfolio = async (id: string) => {
-	log.warn('getPortfolio', id)
-
 	await db.connect()
+	log.info('⬇️ Fetching getPortfolio', id)
 
 	const portfolio = await Portfolio.findById(id)
 
 	if (!portfolio) throw new Error('Portfolio not found')
-	log.success('getPortfolio', portfolio)
+	log.success('✅ Fetched getPortfolio', id)
 
 	return portfolio.toObject() as ServerPortfolioType
 }
@@ -65,9 +65,8 @@ export const getPortfolio = async (id: string) => {
  * @throws An error if the user is not authenticated or the portfolio already exists
  */
 export const createPortfolio = async (portfolioPayload: PortfolioPayload, imagesFormData: FormData) => {
-	log.warn('createPortfolio', portfolioPayload, imagesFormData)
-
 	await db.connect()
+	log.info('⬆️ Fetching createPortfolio', portfolioPayload)
 
 	const session = await getCurrentSession()
 	if (!session?.user) throw new Error('Unauthorized')
@@ -91,7 +90,8 @@ export const createPortfolio = async (portfolioPayload: PortfolioPayload, images
 		}
 		throw new Error(err)
 	})
-	log.success('createPortfolio', portfolio)
+
+	log.success('✅ Fetched createPortfolio')
 
 	return portfolio.toObject() as ServerPortfolioType
 }
@@ -108,9 +108,8 @@ export const editPortfolio = async (
 	portfolioPayload: PortfolioPayload,
 	imagesFormData: FormData
 ) => {
-	log.success('editPortfolio', id, portfolioPayload, imagesFormData)
-
 	await db.connect()
+	log.info('⬆️ Fetching editPortfolio', id)
 
 	const session = await getCurrentSession()
 	if (!session?.user) throw new Error('Unauthorized')
@@ -157,6 +156,8 @@ export const editPortfolio = async (
 			throw new Error(err)
 		})
 
+	log.success('✅ Fetched editPortfolio', id)
+
 	return portfolio.toObject()
 }
 
@@ -168,9 +169,8 @@ export const editPortfolio = async (
  * @throws An error if the portfolio or the images cannot be deleted.
  */
 export const deletePortfolio = async (id: string) => {
-	log.success('deletePortfolio', id)
-
 	await db.connect()
+	log.info('⬆️ Fetching deletePortfolio', id)
 
 	const portfolio = await Portfolio.findById(id)
 	if (!portfolio) throw new Error('Portfolio not found')
@@ -179,6 +179,7 @@ export const deletePortfolio = async (id: string) => {
 
 	await Promise.all([Portfolio.deleteOne({ _id: id }), deleteFiles(imageIds)])
 
+	log.success('✅ Fetched deletePortfolio', id)
 	return true
 }
 
@@ -188,7 +189,6 @@ export const deletePortfolio = async (id: string) => {
  * @throws An error if a portfolio with the same title already exists
  */
 export const checkPortfolioExists = async (title: string | undefined) => {
-	log.success('checkPortfolioExists', title)
 	const existingPortfolio = await Portfolio.findOne({ title })
 	if (existingPortfolio) {
 		throw new Error('Portfolio already exists')
@@ -200,7 +200,6 @@ export const checkPortfolioExists = async (title: string | undefined) => {
  * @param newKeys - The new keys to update the portfolios with
  */
 export const updatePortfoliosDev = async (newKeys: any) => {
-	log.success('updatePortfoliosDev', newKeys)
 	await db.connect()
 	await connection.collection('portfolios').updateMany({}, newKeys)
 }
@@ -211,7 +210,11 @@ export const updatePortfoliosDev = async (newKeys: any) => {
  */
 export const getPortfolioCount = async () => {
 	await db.connect()
+	log.info('⬆️ Fetching getPortfolioCount')
+
 	const count = await Portfolio.countDocuments()
+
+	log.success('✅ Fetched getPortfolioCount')
 
 	return count
 }
