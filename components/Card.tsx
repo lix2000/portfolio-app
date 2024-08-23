@@ -65,7 +65,7 @@ const Card = ({
 				<div className='flex flex-col gap-4'>
 					<div className='text-title text-center min-h-[36px] text-ellipsis ... '>{title}</div>
 					{description && (
-						<div className={`text-header text-center ... overflow-hidden h-[74px] ${descriptionClassName}`}>
+						<div className={`text-body text-center ... overflow-hidden h-[74px] ${descriptionClassName}`}>
 							{DangerousHtml(description)}
 						</div>
 					)}

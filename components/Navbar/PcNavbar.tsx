@@ -26,6 +26,7 @@ const PcNavbar = () => {
 	const { navbarClassnames: navTheme, buttonClassnames: btnTheme } =
 		theme[String(showInfo) as keyof typeof theme]
 	const buttonClassnames = [
+		'uppercase',
 		'transition-all',
 		'duration-500',
 		'relative',
