@@ -67,7 +67,7 @@ const Home = () => {
 				</div>
 			</div>
 			<Reviews />
-			<div className='w-full h-[280px] bg-tertiary-10 flex-center'>
+			{/* <div className='w-full h-[280px] bg-tertiary-10 flex-center'>
 				<div className='w-[650px] h-[168px] flex bg-primary rounded-lg shadow-lg'>
 					<div className='w-[78px] h-[108px] bg-secondary mx-10 flex-center relative before:content-[""] before:w-0 before:h-0 before:absolute before:bottom-0 before:left-0 before:right-0 border-l-[50px] border-l-transparent border-b-[35px] border-primary border-r-[50px] border-r-transparent'>
 						<FontAwesomeIcon className='text-secondary-contrast' size='2x' icon={faAward} />
@@ -77,7 +77,7 @@ const Home = () => {
 						Complimentary 30-min Initial Phone Consultation with all services
 					</div>
 				</div>
-			</div>
+			</div> */}
 		</div>
 	)
 }

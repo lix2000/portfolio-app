@@ -16,7 +16,7 @@ const Reviews = () => {
 
 	return (
 		<div className='w-full py-[60px] flex flex-col items-center gap-[20px]'>
-			<Title>Reviews</Title>
+			<Title>Testimonials</Title>
 			<InfiniteScroll
 				loadMore={() => fetchNextPage()}
 				useWindow={false}

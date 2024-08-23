@@ -18,13 +18,15 @@ const AboutUsCard = ({ aboutUs, delay, onClick }: Props) => {
 			</div>
 			<div className='w-full h-full p-4 flex flex-col justify-between'>
 				<div>
-					<div className='text-title max-h-[72px] pb-4'>{title}</div>
-					<div className='text-subtitle max-h-[220px] truncate whitespace-break-spaces'>
+					<div className='text-subtitle max-h-[72px] pb-4'>{title}</div>
+					<div className='text-body max-h-[220px] truncate whitespace-break-spaces'>
 						{DangerousHtml(description)}
 					</div>
 				</div>
-				<div className='flex justify-end '>
-					<Button onClick={() => onClick(_id as string)}>Read More</Button>
+				<div className='flex justify-end'>
+					<Button className='text-body' onClick={() => onClick(_id as string)}>
+						Read More
+					</Button>
 				</div>
 			</div>
 		</div>

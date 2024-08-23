@@ -42,8 +42,8 @@ const EmptyState = ({
 				style={{ color: '#1E566E', width: '120px', height: '120px' }}
 			/>
 			<div className={`${className} box-border`}>
-				<div className={`text-black text-title`}>{title}</div>
-				<div className={`text-subtitle mb-lg text-primary-contrast-50`}>{subtitle}</div>
+				<div className={`text-black text-subtitle`}>{title}</div>
+				<div className={`text-body mb-lg text-primary-contrast-50`}>{subtitle}</div>
 			</div>
 			{!isHomePage && (
 				<Button className='!px-4 !rounded-md' onClick={handleOnClick}>
