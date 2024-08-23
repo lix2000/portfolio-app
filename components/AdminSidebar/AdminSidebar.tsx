@@ -1,65 +1,12 @@
 'use client'
-import {
-	faArrowRightFromBracket,
-	faBriefcase,
-	faCalendarCheck,
-	faGauge,
-	faInfoCircle,
-	faListCheck,
-	faNewspaper,
-	faUserPen,
-} from '@fortawesome/free-solid-svg-icons'
+import { faArrowRightFromBracket } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import Image from 'next/image'
 import Link from 'next/link'
 import { Button } from '@components'
 import { signOut } from 'next-auth/react'
 import SidebarItem from './SidebarItem'
-
-interface AdminSidebarItem {
-	name: string
-	path: string
-	icon: any
-	subitems?: AdminSidebarItem[]
-}
-
-const adminSidebarItems: AdminSidebarItem[] = [
-	{
-		name: 'Dashboard',
-		path: '/admin',
-		icon: faGauge,
-	},
-	{
-		name: 'Requests',
-		path: '/admin/requests',
-		icon: faCalendarCheck,
-	},
-	{
-		name: 'Services',
-		path: '/admin/services',
-		icon: faListCheck,
-	},
-	{
-		name: 'Portfolio',
-		path: '/admin/portfolio',
-		icon: faBriefcase,
-	},
-	{
-		name: 'Articles',
-		path: '/admin/articles',
-		icon: faNewspaper,
-	},
-	{
-		name: 'The Designer',
-		path: '/admin/the-designer',
-		icon: faUserPen,
-	},
-	{
-		name: 'About Us',
-		path: '/admin/about-us',
-		icon: faInfoCircle,
-	},
-]
+import { adminSidebarItems } from '@lib/settings'
 
 const AdminSidebar = () => {
 	return (

@@ -1,5 +1,5 @@
 'use server'
-import { db, getCurrentSession, log } from '@lib'
+import { db, docToJSON, getCurrentSession, log } from '@lib'
 import { Service } from '@models'
 import { deleteFiles, deleteFolder, upload } from '@actions'
 import { CLOUDINARY_FOLDERS } from '@lib/settings'
@@ -45,7 +45,7 @@ export const getServices = async (options?: {
 
 	log.success('✅ Fetched getServices')
 
-	return { data: JSON.parse(JSON.stringify(services)) as ServerServiceType[], pages, page, hasMore }
+	return { data: docToJSON<ServerServiceType[]>(services), pages, page, hasMore }
 }
 
 /**
@@ -68,7 +68,7 @@ export const getService = async (id: string) => {
 
 	log.success('✅ Fetched getService')
 
-	return service.toObject() as ServerServiceType
+	return docToJSON<ServerServiceType>(service)
 }
 
 /**
@@ -113,7 +113,7 @@ export const createService = async (servicePayload: ServicePayload, imagesFormDa
 
 	log.success('✅ Fetched createService')
 
-	return service.toObject()
+	return docToJSON<ServerServiceType>(service)
 }
 
 /**
@@ -182,7 +182,7 @@ export const editService = async (id: string, servicePayload: ServicePayload, im
 
 	log.success('✅ Fetched editService', id)
 
-	return service.toObject()
+	return docToJSON<ServerServiceType>(service)
 }
 
 /**

@@ -1,7 +1,7 @@
 'use server'
 import { FormRequestType, ServerRequestType, ServerServiceType } from '@types'
 import { Request } from '@models'
-import { compileTemplate, db, getCurrentSession, log, transporter } from '@lib'
+import { compileTemplate, db, docToJSON, getCurrentSession, log, transporter } from '@lib'
 import { newRequestTemplate } from '@lib/mailTemplates'
 import { deleteFiles, deleteFolder, upload, verifyRecaptcha } from '@actions'
 import { spaceToDash } from '@utils'
@@ -33,7 +33,7 @@ export const createRequest = async (data: RequestPayload, imagesFormData?: FormD
 
 	log.success('✅ Fetched createRequest')
 
-	return request.toObject() as ServerRequestType
+	return docToJSON<ServerRequestType>(request)
 }
 
 const sendNewRequestEmail = async (request: ServerRequestType) => {
@@ -86,7 +86,7 @@ export const getRequests = async (options?: { page?: number; limit?: number }) =
 
 	log.success('✅ Fetched getRequests')
 
-	return { data: JSON.parse(JSON.stringify(requests)) as ServerRequestType[], pages, page, hasMore }
+	return { data: docToJSON<ServerRequestType[]>(requests), pages, page, hasMore }
 }
 
 export const getRequest = async (id: string) => {
@@ -100,7 +100,7 @@ export const getRequest = async (id: string) => {
 
 	log.success('✅ Fetched getRequest')
 
-	return request as ServerRequestType
+	return docToJSON<ServerRequestType>(request)
 }
 
 export const updateIsViewedRequest = async (id: string) => {
@@ -118,7 +118,7 @@ export const updateIsViewedRequest = async (id: string) => {
 
 	log.success('✅ Fetched updateIsViewedRequest')
 
-	return request as ServerRequestType
+	return docToJSON<ServerRequestType>(request)
 }
 
 export const getRequestsCountByIsViewed = async (isViewed: boolean) => {

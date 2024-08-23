@@ -1,10 +1,10 @@
 'use server'
-import { db, getCurrentSession, log } from '@lib'
+import { db, docToJSON, getCurrentSession, log } from '@lib'
 import { AboutUs } from '@models'
 import { deleteFiles, deleteFolder, upload } from '@actions'
 import { CLOUDINARY_FOLDERS } from '@lib/settings'
 import { FormAboutUsType, ServerAboutUsType } from '@types'
-import { connection, FilterQuery } from 'mongoose'
+import { FilterQuery } from 'mongoose'
 import { spaceToDash } from '@utils'
 
 type AboutUsPayload = Omit<FormAboutUsType, 'images'>
@@ -43,7 +43,7 @@ export const getAboutUs = async (options?: {
 	const hasMore = page < pages
 	log.success('✅ Fetched aboutUs')
 
-	return { data: JSON.parse(JSON.stringify(aboutUs)) as ServerAboutUsType[], pages, page, hasMore }
+	return { data: docToJSON<ServerAboutUsType[]>(aboutUs), pages, page, hasMore }
 }
 
 /**
@@ -64,7 +64,7 @@ export const getAboutUsById = async (id: string) => {
 
 	log.success('✅ Fetched getAboutUsById', id)
 
-	return aboutUs.toObject() as ServerAboutUsType
+	return docToJSON<ServerAboutUsType>(aboutUs)
 }
 
 /**
@@ -108,7 +108,7 @@ export const createAboutUs = async (aboutUsPayload: AboutUsPayload, imagesFormDa
 	})
 	log.success('✅ Fetched createAboutUs')
 
-	return aboutUs.toObject()
+	return docToJSON<ServerAboutUsType>(aboutUs)
 }
 
 /**
@@ -176,7 +176,7 @@ export const editAboutUs = async (id: string, aboutUsPayload: AboutUsPayload, im
 
 	log.success('✅ Fetched editAboutUs', id)
 
-	return aboutUs.toObject()
+	return docToJSON<ServerAboutUsType>(aboutUs)
 }
 
 /**

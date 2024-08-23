@@ -2,8 +2,8 @@
 import { Designer } from '@models'
 import { deleteFiles, upload } from '@actions'
 import { CLOUDINARY_FOLDERS } from '@lib/settings'
-import { FormDesignerType } from '@types'
-import { db, getCurrentSession, log } from '@lib'
+import { FormDesignerType, ServerDesignerType } from '@types'
+import { db, docToJSON, getCurrentSession, log } from '@lib'
 
 type DesignerPayload = Omit<FormDesignerType, 'image'>
 
@@ -27,7 +27,8 @@ export const createOrEditDesigner = async (formData: DesignerPayload, imagesForm
 	if (!designer) {
 		const newDesigner = new Designer(data)
 		await newDesigner.save()
-		return newDesigner.toObject()
+
+		return docToJSON<ServerDesignerType>(newDesigner)
 	}
 	await designer.updateOne(data)
 	if (imageToDelete) {
@@ -36,7 +37,7 @@ export const createOrEditDesigner = async (formData: DesignerPayload, imagesForm
 
 	log.success('✅ Fetched createOrEditDesigner')
 
-	return designer.toObject()
+	return docToJSON<ServerDesignerType>(designer)
 }
 
 export const getDesigner = async () => {
@@ -45,5 +46,5 @@ export const getDesigner = async () => {
 	const [designer] = await Designer.find({})
 
 	log.success('✅ Fetched getDesigner')
-	return !!designer ? designer.toObject() : null
+	return !!designer ? docToJSON<ServerDesignerType>(designer) : null
 }

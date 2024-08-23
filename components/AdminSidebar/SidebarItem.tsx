@@ -1,23 +1,11 @@
 'use client'
 import { faAngleDown, faAngleUp } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import Link from 'next/link'
+import { AdminSidebarItem } from '@types'
 import { usePathname } from 'next/navigation'
+import Link from 'next/link'
 
-interface NavbarItemProps {
-	name: string
-	path: string
-	icon: any
-}
-
-interface Props {
-	name: string
-	path: string
-	icon: any
-	subitems?: NavbarItemProps[]
-}
-
-const SidebarItem = ({ name, path, icon, subitems }: Props) => {
+const SidebarItem = ({ name, path, icon, subitems }: AdminSidebarItem) => {
 	const pathname = usePathname()
 	const isActive = pathname === path || (subitems?.some(item => item.path === pathname) && subitems?.length)
 	const areSubitemsActive = isActive && subitems?.length
