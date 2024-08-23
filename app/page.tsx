@@ -39,7 +39,7 @@ const Home = () => {
 							alt='logo'
 						/>
 					)}
-					<p className='text-title-mega text-center'>CSH Greenwich Advisory</p>
+					<p className='text-title-2xl sm:text-title-mega text-center'>CSH Greenwich Advisory</p>
 					<div className={`text-title-xl text-center flex ${isMobile && 'flex-col items-center'}`}>
 						<div className={`w-fit ${!isMobile && 'px-[20px] border-r border-white'}`}>Interior Design</div>
 						<div className={`w-fit ${!isMobile && 'px-[20px] border-r border-white'}`}>
