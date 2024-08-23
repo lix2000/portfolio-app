@@ -1,5 +1,5 @@
 'use server'
-import { db, getCurrentSession, log } from '@lib'
+import { db, docToJSON, getCurrentSession, log } from '@lib'
 import { Article } from '@models'
 import { deleteFiles, deleteFolder, upload } from '@actions'
 import { CLOUDINARY_FOLDERS } from '@lib/settings'
@@ -45,7 +45,7 @@ export const getArticles = async (options?: {
 
 	log.success('✅ Fetched getArticles')
 
-	return { data: JSON.parse(JSON.stringify(articles)) as ServerArticleType[], pages, page, hasMore }
+	return { data: docToJSON<ServerArticleType[]>(articles), pages, page, hasMore }
 }
 
 /**
@@ -67,7 +67,7 @@ export const getArticle = async (id: string) => {
 
 	log.success('✅ Fetched getArticle')
 
-	return article.toObject() as ServerArticleType
+	return docToJSON<ServerArticleType>(article)
 }
 
 /**
@@ -112,7 +112,7 @@ export const createArticle = async (articlePayload: ArticlePayload, imagesFormDa
 	})
 	log.success('✅ Fetched createArticle', article)
 
-	return article.toObject()
+	return docToJSON<ServerArticleType>(article)
 }
 
 /**
@@ -181,7 +181,7 @@ export const editArticle = async (id: string, articlePayload: ArticlePayload, im
 
 	log.success('✅ Fetched editArticle', id)
 
-	return article.toObject()
+	return docToJSON<ServerArticleType>(article)
 }
 
 /**

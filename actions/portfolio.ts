@@ -1,5 +1,5 @@
 'use server'
-import { db, getCurrentSession, log } from '@lib'
+import { db, docToJSON, getCurrentSession, log } from '@lib'
 import { Portfolio } from '@models'
 import { FormPortfolioType, ServerPortfolioType } from '@types'
 import { deleteFiles, deleteFolder, upload } from '@actions'
@@ -36,7 +36,7 @@ export const getPortfolios = async (options?: { page?: number; limit?: number })
 
 	log.success('✅ Fetched getPortfolios')
 
-	return { data: JSON.parse(JSON.stringify(portfolio)) as ServerPortfolioType[], pages, page, hasMore }
+	return { data: docToJSON<ServerPortfolioType[]>(portfolio), pages, page, hasMore }
 }
 
 /**
@@ -54,7 +54,7 @@ export const getPortfolio = async (id: string) => {
 	if (!portfolio) throw new Error('Portfolio not found')
 	log.success('✅ Fetched getPortfolio', id)
 
-	return portfolio.toObject() as ServerPortfolioType
+	return docToJSON<ServerPortfolioType>(portfolio)
 }
 
 /**
@@ -93,7 +93,7 @@ export const createPortfolio = async (portfolioPayload: PortfolioPayload, images
 
 	log.success('✅ Fetched createPortfolio')
 
-	return portfolio.toObject() as ServerPortfolioType
+	return docToJSON<ServerPortfolioType>(portfolio)
 }
 
 /**
@@ -158,7 +158,7 @@ export const editPortfolio = async (
 
 	log.success('✅ Fetched editPortfolio', id)
 
-	return portfolio.toObject()
+	return docToJSON<ServerPortfolioType>(portfolio)
 }
 
 /**

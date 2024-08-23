@@ -1,6 +1,20 @@
 import { faFacebook, faInstagram, faTwitter } from '@fortawesome/free-brands-svg-icons'
-import { faEnvelope, faRankingStar, faCouch, faPhone, faLocationDot } from '@fortawesome/free-solid-svg-icons'
+import {
+	faEnvelope,
+	faRankingStar,
+	faCouch,
+	faPhone,
+	faLocationDot,
+	faGauge,
+	faCalendarCheck,
+	faListCheck,
+	faBriefcase,
+	faNewspaper,
+	faUserPen,
+	faInfoCircle,
+} from '@fortawesome/free-solid-svg-icons'
 import { faLightbulb, faStar } from '@fortawesome/free-regular-svg-icons'
+import { AdminSidebarItem } from '@types'
 
 export const navbarBlackList = ['/login', '/admin']
 
@@ -93,6 +107,49 @@ export const serviceTypes = [
 	},
 ]
 
+export const adminSidebarItems: AdminSidebarItem[] = [
+	{
+		name: 'Dashboard',
+		path: '/admin',
+		icon: faGauge,
+	},
+	{
+		name: 'Requests',
+		path: '/admin/requests',
+		icon: faCalendarCheck,
+	},
+	{
+		name: 'Services',
+		path: '/admin/services',
+		icon: faListCheck,
+	},
+	{
+		name: 'Portfolio',
+		path: '/admin/portfolio',
+		icon: faBriefcase,
+	},
+	{
+		name: 'Articles',
+		path: '/admin/articles',
+		icon: faNewspaper,
+	},
+	{
+		name: 'The Designer',
+		path: '/admin/the-designer',
+		icon: faUserPen,
+	},
+	{
+		name: 'About Us',
+		path: '/admin/about-us',
+		icon: faInfoCircle,
+	},
+	{
+		name: 'Testimonials',
+		path: '/admin/testimonials',
+		icon: faStar,
+	},
+]
+
 export const CLOUDINARY_FOLDERS = {
 	SERVICES: 'services',
 	PORTFOLIO: 'portfolio',
@@ -181,25 +238,6 @@ export const workingHr = [
 	{
 		id: '7',
 		day: 'Sat',
-	},
-]
-
-export const reviewMockData = [
-	{
-		id: 1,
-		name: 'Ilir Laska',
-		description:
-			'Working with Charlotte is such a bless. Charlotte is very knowledgeable and easy to work with. She helped us narrow down beautiful choices and provide advices with something that was cost effective.',
-		createdAt: 'Aug 6, 2024',
-		rating: 5,
-	},
-	{
-		id: 2,
-		name: 'Molly',
-		description:
-			'We loved working with Charlotte! She did an excellent job guiding us through decorating our home and updating the interior spaces - everything from paint, to hardware, to appliances, to furniture. We highly recommend her if you are looking for a highly organized, inspired, and fun designer!',
-		createdAt: 'Jul 16, 2024',
-		rating: 5,
 	},
 ]
 

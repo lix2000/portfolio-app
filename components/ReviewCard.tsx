@@ -1,17 +1,14 @@
-import { faStar as solidStar } from '@fortawesome/free-solid-svg-icons'
-import { faStar as emptyStar } from '@fortawesome/free-regular-svg-icons'
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { getInitialsByName } from '@utils'
 import DangerousHtml from './DangerousHtml'
+import { ServerTestimonialType } from '@types'
+import StarRatingPreview from './StarRatingPreview'
 
 interface Props {
-	name: string
-	description: string
-	createdAt: string
-	rating: number
+	testimonial: ServerTestimonialType
 }
 
-const ReviewCard = ({ name, description, createdAt, rating }: Props) => {
+const ReviewCard = ({ testimonial }: Props) => {
+	const { name, description, createdAt, rating } = testimonial
 	const classes = [
 		'flex',
 		'flex-col',
@@ -40,8 +37,6 @@ const ReviewCard = ({ name, description, createdAt, rating }: Props) => {
 		'mt-[60px]',
 	]
 	const initials = getInitialsByName(name)
-	const solidStars = Array.from({ length: rating }, (_, i) => i + 1)
-	const emptyStars = Array.from({ length: 5 - rating }, (_, i) => i + 1)
 
 	return (
 		<div className={classes.join(' ')}>
@@ -49,16 +44,11 @@ const ReviewCard = ({ name, description, createdAt, rating }: Props) => {
 				{initials}
 			</div>
 			<span className='grow overflow-hidden leading-relaxed text-ellipsis'>{DangerousHtml(description)}</span>
-			<div className='text-tertiary-contrast-20 mt-[-5px]'>{createdAt}</div>
-			<b>{name}</b>
-			<div className='flex gap-[5px]'>
-				{solidStars.map(star => (
-					<FontAwesomeIcon key={star} icon={solidStar} />
-				))}
-				{emptyStars.map(star => (
-					<FontAwesomeIcon key={star} icon={emptyStar} />
-				))}
+			<div className='text-tertiary-contrast-20 mt-[-5px]'>
+				{new Intl.DateTimeFormat('en-US').format(new Date(createdAt))}
 			</div>
+			<b>{name}</b>
+			<StarRatingPreview rating={rating} />
 		</div>
 	)
 }
