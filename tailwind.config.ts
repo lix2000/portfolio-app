@@ -64,6 +64,7 @@ const config: Config = {
 		},
 		fontSize: {
 			'title-mega': '80px',
+			'title-2xl': '38px',
 			'title-xl': '28px',
 			title: '24px',
 			subtitle: '18px',
