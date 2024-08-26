@@ -1,7 +1,7 @@
 'use client'
 
 import { createArticle, deleteArticle, editArticle, getArticles, getArticle } from '@actions'
-import { useInfiniteQuery, useMutation, useQuery } from '@tanstack/react-query'
+import { useInfiniteQuery, useMutation, useQuery, useQueryClient } from '@tanstack/react-query'
 import { FormArticleType, ServerResponse, ServerArticleType } from '@types'
 import { UploadApiResponse } from 'cloudinary'
 import { FilterQuery } from 'mongoose'
@@ -31,6 +31,7 @@ export const useArticle = (id: string) => {
 }
 
 export const useCreateArticle = () => {
+	const queryClient = useQueryClient()
 	const router = useRouter()
 	const mutation = useMutation({
 		mutationKey: ['articles'],
@@ -47,6 +48,8 @@ export const useCreateArticle = () => {
 		onSuccess: () => {
 			toast.success('Article created successfully')
 			router.push('/admin/articles')
+			queryClient.invalidateQueries({ queryKey: ['articles'] })
+			queryClient.invalidateQueries({ queryKey: ['articleCount'] })
 		},
 		onError: err => {
 			toast.error(err.message)
@@ -57,6 +60,7 @@ export const useCreateArticle = () => {
 }
 
 export const useEditArticle = (id: string, redirectUrl?: string) => {
+	const queryClient = useQueryClient()
 	const router = useRouter()
 	const mutation = useMutation({
 		mutationKey: ['articles'],
@@ -76,6 +80,7 @@ export const useEditArticle = (id: string, redirectUrl?: string) => {
 		onSuccess: () => {
 			toast.success('Article updated successfully')
 			router.push(redirectUrl ?? `/admin/articles/${id}`)
+			queryClient.invalidateQueries({ queryKey: ['articles'] })
 		},
 		onError: err => {
 			toast.error(err.message)
@@ -87,12 +92,14 @@ export const useEditArticle = (id: string, redirectUrl?: string) => {
 
 export const useDeleteArticle = (id: string) => {
 	const router = useRouter()
+	const queryClient = useQueryClient()
 	const mutation = useMutation({
 		mutationKey: ['articles'],
 		mutationFn: () => deleteArticle(id),
 		onSuccess: () => {
 			toast.success('Article deleted successfully')
 			router.push('/admin/articles')
+			queryClient.invalidateQueries({ queryKey: ['articles'] })
 		},
 		onError: err => {
 			toast.error(err.message)

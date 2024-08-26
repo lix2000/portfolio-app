@@ -6,7 +6,7 @@ import {
 	getTestimonial,
 	getTestimonials,
 } from '@actions'
-import { useInfiniteQuery, useMutation, useQuery } from '@tanstack/react-query'
+import { useInfiniteQuery, useMutation, useQuery, useQueryClient } from '@tanstack/react-query'
 import { FormTestimonialType, ServerResponse, ServerTestimonialType } from '@types'
 import { useRouter } from 'next/navigation'
 import toast from 'react-hot-toast'
@@ -34,6 +34,7 @@ export const useTestimonial = (id: string) => {
 }
 
 export const useCreateTestimonial = () => {
+	const queryClient = useQueryClient()
 	const router = useRouter()
 	const mutation = useMutation({
 		mutationKey: ['testimonials'],
@@ -41,6 +42,7 @@ export const useCreateTestimonial = () => {
 		onSuccess: () => {
 			toast.success('Testimonial created successfully')
 			router.push('/admin/testimonials')
+			queryClient.invalidateQueries({ queryKey: ['testimonials'] })
 		},
 		onError: err => {
 			toast.error(err.message)
@@ -51,6 +53,7 @@ export const useCreateTestimonial = () => {
 }
 
 export const useEditTestimonial = (id: string, redirectUrl?: string) => {
+	const queryClient = useQueryClient()
 	const router = useRouter()
 	const mutation = useMutation({
 		mutationKey: ['testimonials', id],
@@ -58,6 +61,7 @@ export const useEditTestimonial = (id: string, redirectUrl?: string) => {
 		onSuccess: () => {
 			toast.success('Testimonial updated successfully')
 			router.push(redirectUrl ?? `/admin/testimonials/${id}`)
+			queryClient.invalidateQueries({ queryKey: ['testimonials'] })
 		},
 		onError: err => {
 			toast.error(err.message)
@@ -68,11 +72,13 @@ export const useEditTestimonial = (id: string, redirectUrl?: string) => {
 }
 
 export const useDeleteTestimonial = (id: string) => {
+	const queryClient = useQueryClient()
 	const mutation = useMutation({
 		mutationKey: ['testimonials', id],
 		mutationFn: () => deleteTestimonial(id),
 		onSuccess: () => {
 			toast.success('Testimonial deleted successfully')
+			queryClient.invalidateQueries({ queryKey: ['testimonials'] })
 		},
 		onError: err => {
 			toast.error(err.message)

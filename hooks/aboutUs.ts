@@ -1,7 +1,7 @@
 'use client'
 
 import { createAboutUs, deleteAboutUs, editAboutUs, getAboutUs, getAboutUsById } from '@actions'
-import { useInfiniteQuery, useMutation, useQuery } from '@tanstack/react-query'
+import { useInfiniteQuery, useMutation, useQuery, useQueryClient } from '@tanstack/react-query'
 import { FormAboutUsType, ServerResponse, ServerAboutUsType } from '@types'
 import { UploadApiResponse } from 'cloudinary'
 import { FilterQuery } from 'mongoose'
@@ -31,6 +31,7 @@ export const useAboutUs = (id: string) => {
 }
 
 export const useCreateAboutUs = () => {
+	const queryClient = useQueryClient()
 	const router = useRouter()
 	const mutation = useMutation({
 		mutationKey: ['aboutUses'],
@@ -46,6 +47,7 @@ export const useCreateAboutUs = () => {
 		onSuccess: () => {
 			toast.success('AboutUs created successfully')
 			router.push('/admin/about-us')
+			queryClient.invalidateQueries({ queryKey: ['aboutUses'] })
 		},
 		onError: err => {
 			toast.error(err.message)
@@ -56,6 +58,7 @@ export const useCreateAboutUs = () => {
 }
 
 export const useEditAboutUs = (id: string, redirectUrl?: string) => {
+	const queryClient = useQueryClient()
 	const router = useRouter()
 	const mutation = useMutation({
 		mutationKey: ['aboutUses'],
@@ -74,6 +77,7 @@ export const useEditAboutUs = (id: string, redirectUrl?: string) => {
 		onSuccess: () => {
 			toast.success('AboutUs updated successfully')
 			router.push(redirectUrl ?? `/admin/about-us/${id}`)
+			queryClient.invalidateQueries({ queryKey: ['aboutUses'] })
 		},
 		onError: err => {
 			toast.error(err.message)
@@ -84,6 +88,7 @@ export const useEditAboutUs = (id: string, redirectUrl?: string) => {
 }
 
 export const useDeleteAboutUs = (id: string) => {
+	const queryClient = useQueryClient()
 	const router = useRouter()
 	const mutation = useMutation({
 		mutationKey: ['aboutUses'],
@@ -91,6 +96,7 @@ export const useDeleteAboutUs = (id: string) => {
 		onSuccess: () => {
 			toast.success('AboutUs deleted successfully')
 			router.push('/admin/about-us')
+			queryClient.invalidateQueries({ queryKey: ['aboutUses'] })
 		},
 		onError: err => {
 			toast.error(err.message)

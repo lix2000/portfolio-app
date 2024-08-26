@@ -1,5 +1,5 @@
 import { createRequest, getRequests } from '@actions'
-import { useInfiniteQuery, useMutation } from '@tanstack/react-query'
+import { useInfiniteQuery, useMutation, useQueryClient } from '@tanstack/react-query'
 import { FormRequestType, ServerRequestType, ServerResponse } from '@types'
 import toast from 'react-hot-toast'
 
@@ -16,6 +16,7 @@ export const useRequests = () => {
 }
 
 export const useCreateRequest = () => {
+	const queryClient = useQueryClient()
 	const mutation = useMutation({
 		mutationKey: ['requests'],
 		mutationFn: (formValues: FormRequestType) => {
@@ -30,6 +31,8 @@ export const useCreateRequest = () => {
 		},
 		onSuccess: () => {
 			toast.success('Request sent successfully')
+			queryClient.invalidateQueries({ queryKey: ['requests'] })
+			queryClient.invalidateQueries({ queryKey: ['newRequestsCount'] })
 		},
 		onError: err => {
 			toast.error(err.message)

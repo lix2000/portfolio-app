@@ -1,7 +1,7 @@
 'use client'
 
 import { createService, deleteService, editService, getServices, getService, getServiceNames } from '@actions'
-import { useInfiniteQuery, useMutation, useQuery } from '@tanstack/react-query'
+import { useInfiniteQuery, useMutation, useQuery, useQueryClient } from '@tanstack/react-query'
 import { FormServiceType, ServerResponse, ServerServiceType } from '@types'
 import { UploadApiResponse } from 'cloudinary'
 import { FilterQuery } from 'mongoose'
@@ -41,6 +41,7 @@ export const useService = (id: string) => {
 
 export const useCreateService = () => {
 	const router = useRouter()
+	const queryClient = useQueryClient()
 	const mutation = useMutation({
 		mutationKey: ['services'],
 		mutationFn: (formValues: FormServiceType) => {
@@ -56,6 +57,8 @@ export const useCreateService = () => {
 		onSuccess: () => {
 			toast.success('Service created successfully')
 			router.push('/admin/services')
+			queryClient.invalidateQueries({ queryKey: ['services'] })
+			queryClient.invalidateQueries({ queryKey: ['serviceCount'] })
 		},
 		onError: err => {
 			toast.error(err.message)
@@ -66,6 +69,7 @@ export const useCreateService = () => {
 }
 
 export const useEditService = (id: string, redirectUrl?: string) => {
+	const queryClient = useQueryClient()
 	const router = useRouter()
 	const mutation = useMutation({
 		mutationKey: ['services'],
@@ -85,6 +89,7 @@ export const useEditService = (id: string, redirectUrl?: string) => {
 		onSuccess: () => {
 			toast.success('Service updated successfully')
 			router.push(redirectUrl ?? `/admin/services/${id}`)
+			queryClient.invalidateQueries({ queryKey: ['services'] })
 		},
 		onError: err => {
 			toast.error(err.message)
@@ -95,6 +100,7 @@ export const useEditService = (id: string, redirectUrl?: string) => {
 }
 
 export const useDeleteService = (id: string) => {
+	const queryClient = useQueryClient()
 	const router = useRouter()
 	const mutation = useMutation({
 		mutationKey: ['services'],
@@ -102,6 +108,7 @@ export const useDeleteService = (id: string) => {
 		onSuccess: () => {
 			toast.success('Service deleted successfully')
 			router.push('/admin/services')
+			queryClient.invalidateQueries({ queryKey: ['services'] })
 		},
 		onError: err => {
 			toast.error(err.message)

@@ -1,6 +1,6 @@
 'use client'
 import { createOrEditDesigner, getDesigner } from '@actions'
-import { useMutation, useQuery } from '@tanstack/react-query'
+import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query'
 import { FormDesignerType } from '@types'
 import toast from 'react-hot-toast'
 
@@ -13,6 +13,7 @@ export const useDesigner = () => {
 }
 
 export const useCreateOrEditDesigner = () => {
+	const queryClient = useQueryClient()
 	const mutation = useMutation({
 		mutationKey: ['designer'],
 		mutationFn: (formValues: FormDesignerType) => {
@@ -24,6 +25,7 @@ export const useCreateOrEditDesigner = () => {
 		},
 		onSuccess: () => {
 			toast.success('The designer was edited successfully')
+			queryClient.invalidateQueries({ queryKey: ['designer'] })
 		},
 		onError: err => {
 			toast.error(err.message)

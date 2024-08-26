@@ -1,7 +1,7 @@
 'use client'
 
 import { createPortfolio, deletePortfolio, editPortfolio, getPortfolio, getPortfolios } from '@actions'
-import { useInfiniteQuery, useMutation, useQuery } from '@tanstack/react-query'
+import { useInfiniteQuery, useMutation, useQuery, useQueryClient } from '@tanstack/react-query'
 import { FormPortfolioType, ServerResponse, ServerPortfolioType } from '@types'
 import { UploadApiResponse } from 'cloudinary'
 import { useRouter } from 'next/navigation'
@@ -30,6 +30,7 @@ export const usePortfolio = (id: string) => {
 
 export const useCreatePortfolio = () => {
 	const router = useRouter()
+	const queryClient = useQueryClient()
 	const mutation = useMutation({
 		mutationKey: ['portfolios'],
 		mutationFn: (formValues: FormPortfolioType) => {
@@ -45,6 +46,8 @@ export const useCreatePortfolio = () => {
 		onSuccess: () => {
 			toast.success('Portfolio created successfully')
 			router.push('/admin/portfolio')
+			queryClient.invalidateQueries({ queryKey: ['portfolioCount'] })
+			queryClient.invalidateQueries({ queryKey: ['portfolios'] })
 		},
 		onError: err => {
 			toast.error(err.message)
