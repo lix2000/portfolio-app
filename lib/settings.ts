@@ -163,41 +163,32 @@ export const CLOUDINARY_FOLDERS = {
 export const homepageReasonIcons = [
 	{
 		id: '1',
-		icon: faLightbulb,
+		image: '/images/lightbulb.png',
 		title: 'Attention to Detail',
 		description:
 			'Every single project that we take on is characterized by a painstaking attention to detail, which ultimately results in design solutions that find a balance between beauty and usefulness.',
 	},
 	{
 		id: '2',
-		icon: faStar,
+		image: '/images/star.png',
 		title: 'Personalized Design Concepts',
 		description:
 			'Our interior designer collaborates closely with clients to generate individualized design concepts that are in line with the styles and preferences that are unique to each individual client.',
 	},
 	{
 		id: '3',
-		icon: faCouch,
+		image: '/images/procurement.jpg',
 		title: 'Procurement',
 		description:
 			'We handle the intricate process of procuring building materials, furniture, and accessories for your project. We can provide a white-glove delivery service for those who prefer added convenience through our receiver partner.<br/>You can trust that the right materials and furnishings will be ordered and delivered with precision.',
 	},
 	{
 		id: '4',
-		icon: faRankingStar,
+		image: '/images/award.png',
 		title: 'Expert Vendor Selection',
 		description:
 			'In order to ensure that your renovation project is of the highest possible quality and reliability, we take great care in selecting both the vendors we work with and the materials we suggest for each project.',
 	},
-]
-
-export const addonsMock = [
-	'✔️ White Glove Delivery',
-	'✔️ Installation Services',
-	'✔️ Contractor Bid Management',
-	'✔️ Project Management',
-	'✔️ Professional Organizer',
-	'✔️ Procurement Service',
 ]
 
 export const workingHr = [

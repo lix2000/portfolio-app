@@ -2,12 +2,14 @@ import { Button, Carousel, DangerousHtml } from '@components'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { toPrice } from '@utils'
 import { UploadApiResponse } from 'cloudinary'
+import Image from 'next/image'
 
 interface Props {
 	delay?: number
 	onClick?: () => void
 	price?: number | string
 	images?: UploadApiResponse[]
+	image?: string
 	icon?: any
 	title: string
 	description?: string
@@ -20,6 +22,7 @@ const Card = ({
 	title,
 	description,
 	images = [],
+	image,
 	icon,
 	delay,
 	price,
@@ -51,7 +54,7 @@ const Card = ({
 
 	return (
 		<div className={classes.join(' ')}>
-			{!icon && (
+			{!icon && !image && (
 				<div className='overflow-hidden min-w-full flex-center min-h-[220px] h-full p-2 rounded-md'>
 					<Carousel images={imageURLs} delay={delay} />
 				</div>
@@ -59,6 +62,19 @@ const Card = ({
 			{icon && (
 				<div className='overflow-hidden min-w-full flex-center min-h-[120px] h-full p-2 rounded-md'>
 					<FontAwesomeIcon className='text-primary' size='5x' icon={icon} />
+				</div>
+			)}
+			{image && (
+				<div className='overflow-hidden w-full flex-center'>
+					<Image
+						src={image}
+						alt={title}
+						width={0}
+						height={0}
+						sizes='100vw'
+						className='object-contain'
+						style={{ width: '100%', height: '100%' }}
+					/>
 				</div>
 			)}
 			<div className='w-full p-4 flex flex-col justify-between'>
