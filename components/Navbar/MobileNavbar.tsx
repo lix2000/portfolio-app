@@ -1,5 +1,4 @@
 'use client'
-import { navbarBlackList, navbarTabs } from '@settings'
 import Image from 'next/image'
 import { usePathname } from 'next/navigation'
 import { useDesigner, useShowInfoNavbar, useToggle } from '@hooks'
@@ -7,6 +6,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faBars, faEnvelope, faPhone, faXmark } from '@fortawesome/free-solid-svg-icons'
 import { motion } from 'framer-motion'
 import Link from 'next/link'
+import { AdminSidebarItem } from '@types'
 
 const theme = {
 	true: {
@@ -60,7 +60,15 @@ const fadeInVariant = {
 	closed: { opacity: 0 },
 }
 
-const MobileNavbar = () => {
+const MobileNavbar = ({
+	navbarTabs,
+	className,
+	blacklist,
+}: {
+	navbarTabs: Omit<AdminSidebarItem, 'icon'>[]
+	className?: string
+	blacklist?: string[]
+}) => {
 	const pathName = usePathname()
 	const [isMenuOpen, toggleMenu] = useToggle()
 	const showInfo = useShowInfoNavbar()
@@ -74,16 +82,17 @@ const MobileNavbar = () => {
 		'text-tertiary-contrast',
 		'text-subtitle',
 	]
+	const containerClassnames = ['w-full h-fit z-index-[100]', className]
 	const navbarClassnames = ['w-full', 'h-60', 'flex-center', 'transition-all', 'duration-500', ...navTheme]
 	const menuIconClassnames = ['transition-all', 'duration-500', 'cursor-pointer', ...menuTheme]
 
-	if (navbarBlackList.some(item => pathName.includes(item))) return null
+	if (blacklist && blacklist.some(item => pathName.includes(item))) return null
 
 	return (
 		<motion.nav
 			initial='closed'
 			animate={isMenuOpen ? 'opened' : 'closed'}
-			className='w-full h-fit z-index-[100]'
+			className={containerClassnames.join(' ')}
 		>
 			<div className='fixed w-full z-[100]'>
 				<div className={navbarClassnames.join(' ')}>
@@ -136,15 +145,15 @@ const MobileNavbar = () => {
 					className='px-[20px] py-[35px] h-full flex flex-col items-center justify-between gap-[15px] list-none w-full  box-border'
 				>
 					<div className='flex flex-col items-center gap-[15px]'>
-						{navbarTabs.map(({ name, link }) => (
+						{navbarTabs.map(({ name, path }) => (
 							<>
 								<motion.li whileTap={{ scale: 0.95 }} key={name}>
 									<motion.div variants={liVariant} className='flex flex-col items-center gap-[15px]'>
 										<>
-											<Link key={link} href={link}>
+											<Link key={path} href={path}>
 												<button
 													onClick={toggleMenu}
-													className={`${buttonClassnames.join(' ')} ${link === pathName && 'font-semibold'}`}
+													className={`${buttonClassnames.join(' ')} ${path === pathName && 'font-semibold'}`}
 												>
 													{name}
 												</button>
