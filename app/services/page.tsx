@@ -1,5 +1,4 @@
 'use client'
-import { addonsMock } from '@lib/settings'
 import { Slider, Title, CardGrid, Grid } from '@components'
 import { useIsMobile, useServices } from '@hooks'
 import { useCallback } from 'react'
@@ -31,7 +30,6 @@ const Services = () => {
 	const { pages: additionalServicePages = [] } = additionalServicesData || {}
 	const additionalServices = additionalServicePages.flatMap(page => page.data)
 
-	const addons = addonsMock
 	const goToService = useCallback(
 		(id: string) => {
 			router.push(`/services/${id}`)
@@ -79,21 +77,23 @@ const Services = () => {
 					]}
 				/>
 			</div>
-			<div className='w-fill h-fill min-w-[310px] max-w-[1040px] mb-10'>
-				<div className='text-title text-center text-ellipsis overflow-hidden'>
-					Add-Ons (More details in Additional Services)
+			{!!additionalServices.length && (
+				<div className='w-fill h-fill min-w-[310px] max-w-[1040px] mb-10'>
+					<div className='text-title text-center text-ellipsis overflow-hidden'>
+						Add-Ons (More details in Additional Services)
+					</div>
+					<Grid>
+						{additionalServices.map((service, index) => (
+							<div
+								className='w-[335px] bg-tertiary text-tertiary-contrast hover:bg-tertiary-tone-450 text-center px-6 py-2 border rounded-2xl transition-colors focus:outline-none select-none shadow-lg hover:bg-red'
+								key={index}
+							>
+								✔️&nbsp;{service.title}
+							</div>
+						))}
+					</Grid>
 				</div>
-				<Grid>
-					{addons.map((addon, index) => (
-						<div
-							className='w-[335px] bg-tertiary text-tertiary-contrast hover:bg-tertiary-tone-450 text-center px-6 py-2 border rounded-2xl transition-colors focus:outline-none select-none shadow-lg hover:bg-red'
-							key={index}
-						>
-							{addon}
-						</div>
-					))}
-				</Grid>
-			</div>
+			)}
 		</div>
 	)
 }
