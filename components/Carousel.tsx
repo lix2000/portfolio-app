@@ -102,9 +102,9 @@ const Carousel: React.FC<CarouselProps> = ({
 								width={0}
 								height={0}
 								sizes='100vw'
-								style={{ width: '100%', height: 'auto' }}
+								style={{ width: '100%', height: '100%' }}
 								alt={`carousel-${index}`}
-								className='min-w-full w-full min-h-full h-full object-cover'
+								className='object-contain'
 							/>
 						))
 					: children.map((child, index) => (
