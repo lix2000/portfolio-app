@@ -96,7 +96,7 @@ const MobileNavbar = ({
 		>
 			<div className='fixed w-full z-[100]'>
 				<div className={navbarClassnames.join(' ')}>
-					<div className='min-w-[330px] flex justify-center ml-[32px]'>
+					<div className='w-full flex justify-center ml-[64px]'>
 						<Image
 							className={`${
 								!showInfo || isMenuOpen ? 'h-[44px] w-[44px]' : 'h-[80px] w-[80px]'
@@ -107,7 +107,7 @@ const MobileNavbar = ({
 							alt='logo'
 						/>
 					</div>
-					<div className='w-[32px] flex-center'>
+					<div className='w-[32px] mr-[32px] flex-center'>
 						<FontAwesomeIcon
 							className={menuIconClassnames.join(' ')}
 							onClick={toggleMenu}
@@ -122,7 +122,7 @@ const MobileNavbar = ({
 				className='fixed top-0 left-0 h-screen w-full flex flex-col items-center bg-white z-[500]'
 			>
 				<motion.div variants={fadeInVariant} className={`${navbarClassnames.join(' ')} border-b`}>
-					<div className='min-w-[330px] flex justify-center ml-[32px]'>
+					<div className='w-full flex justify-center ml-[64px]'>
 						<Image
 							className='h-[44px] w-[44px] hover:ring-1 hover:ring-primary hover:ring-opacity-100 hover:rounded-full transition-all duration-500'
 							src='/images/logo.png'
@@ -131,7 +131,7 @@ const MobileNavbar = ({
 							alt='logo'
 						/>
 					</div>
-					<div className='w-[32px] flex-center'>
+					<div className='w-[32px] mr-[32px] flex-center'>
 						<FontAwesomeIcon
 							className={menuIconClassnames.join(' ')}
 							onClick={toggleMenu}
@@ -146,23 +146,21 @@ const MobileNavbar = ({
 				>
 					<div className='flex flex-col items-center gap-[15px]'>
 						{navbarTabs.map(({ name, path }) => (
-							<>
-								<motion.li whileTap={{ scale: 0.95 }} key={name}>
-									<motion.div variants={liVariant} className='flex flex-col items-center gap-[15px]'>
-										<>
-											<Link key={path} href={path}>
-												<button
-													onClick={toggleMenu}
-													className={`${buttonClassnames.join(' ')} ${path === pathName && 'font-semibold'}`}
-												>
-													{name}
-												</button>
-											</Link>
-											<div className='w-[30px] h-[1px] bg-primary' />
-										</>
-									</motion.div>
-								</motion.li>
-							</>
+							<motion.li whileTap={{ scale: 0.95 }} key={name}>
+								<motion.div variants={liVariant} className='flex flex-col items-center gap-[15px]'>
+									<>
+										<Link key={path} href={path}>
+											<button
+												onClick={toggleMenu}
+												className={`${buttonClassnames.join(' ')} ${path === pathName && 'font-semibold'}`}
+											>
+												{name}
+											</button>
+										</Link>
+										<div className='w-[30px] h-[1px] bg-primary' />
+									</>
+								</motion.div>
+							</motion.li>
 						))}
 					</div>
 					<div className='flex gap-2 flex-center'>

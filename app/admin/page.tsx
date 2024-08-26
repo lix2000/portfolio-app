@@ -38,7 +38,7 @@ const Admin = () => {
 	return (
 		<div className='w-full h-full max-h-screen flex flex-col'>
 			<Title.Label>Welcome, {session?.user?.name}</Title.Label>
-			<div className='w-full flex-1 grid grid-rows-1 grid-cols-1 sm:grid-cols-2 sm:grid-rows-2 gap-6 p-4'>
+			<div className='w-full overflow-x-hidden overflow-y-auto flex-1 grid gap-4 p-4 grid-cols-1 lg:grid-cols-2 lg:grid-rows-2'>
 				<Card title='New Requests' count={newRequestsCount} to='admin/requests' />
 				<Card title='Articles' count={articleCount} to='admin/articles' />
 				<Card title='Services' count={serviceCount} to='admin/services' />
