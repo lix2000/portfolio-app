@@ -19,7 +19,8 @@
 		],
 		"paths": {
 			"@*": ["./*"],
-			"@settings": ["./lib/settings"]
+			"@settings": ["./lib/settings"],
+			"@actions": ["./app/_actions"]
 		}
 	},
 	"include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts"],

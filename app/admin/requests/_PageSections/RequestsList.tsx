@@ -19,7 +19,7 @@ const columns = [
 	columnHelper.accessor('service', {
 		header: 'Service',
 		cell: info => (
-			<div className='truncate'>{(info.getValue() as Pick<ServerServiceType, 'title'>).title}</div>
+			<div className='truncate'>{(info.getValue() as Pick<ServerServiceType, 'title'>)?.title}</div>
 		),
 	}),
 	columnHelper.accessor('date', {

@@ -112,12 +112,12 @@ const PcNavbar = () => {
 					)}
 				</AnimatePresence>
 				<div className='flex-center gap-2'>
-					{navbarTabs.map(({ name, link }) => (
-						<Link key={link} href={link}>
+					{navbarTabs.map(({ name, path }) => (
+						<Link key={path} href={path}>
 							<button
 								className={`${buttonClassnames.join(' ')} 
                 ${
-									link === pathName && !isHomePage
+									path === pathName && !isHomePage
 										? 'bg-primary text-secondary-tone'
 										: 'hover:bg-tertiary-shadow'
 								}  `}

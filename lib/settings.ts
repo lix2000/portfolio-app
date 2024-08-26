@@ -13,7 +13,7 @@ import {
 	faUserPen,
 	faInfoCircle,
 } from '@fortawesome/free-solid-svg-icons'
-import { faLightbulb, faStar } from '@fortawesome/free-regular-svg-icons'
+import { faStar } from '@fortawesome/free-regular-svg-icons'
 import { AdminSidebarItem } from '@types'
 
 export const navbarBlackList = ['/login', '/admin']
@@ -25,27 +25,27 @@ export const DROPZONE_ACCEPT_TYPES = { 'image/*': ['.jpeg', '.jpg', '.png', '.we
 export const navbarTabs = [
 	{
 		name: 'Home',
-		link: '/',
+		path: '/',
 	},
 	{
 		name: 'Services',
-		link: '/services',
+		path: '/services',
 	},
 	{
 		name: 'Portfolio',
-		link: '/portfolio',
+		path: '/portfolio',
 	},
 	{
 		name: 'The Designer',
-		link: '/the-designer',
+		path: '/the-designer',
 	},
 	{
 		name: 'Articles',
-		link: '/articles',
+		path: '/articles',
 	},
 	{
 		name: 'Contact Us',
-		link: '/contact-us',
+		path: '/contact-us',
 	},
 ]
 
