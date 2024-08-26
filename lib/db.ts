@@ -12,7 +12,6 @@ if (!cached) {
 }
 
 async function connect() {
-	'use server'
 	if (cached.conn) {
 		log.success('Connection to db already established')
 		return cached.conn
@@ -42,7 +41,6 @@ async function connect() {
 }
 
 async function disconnect() {
-	'use server'
 	log.info('Disconnecting from db...')
 	await mongoose.disconnect()
 	log.success('Disconnected from db')
