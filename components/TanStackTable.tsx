@@ -24,15 +24,24 @@ const TanStackTable = ({ data, columns, hasMore, loadMore, onRowClick, ...tableO
 	const tsTableClasses = [
 		'w-full',
 		'max-w-full',
+		'min-w-fit',
 		'rounded-t-lg',
 		'text-[#25272980]',
-		'text-[10px]',
+		'text-body',
 		'leading-[14px]',
 		'tracking-[0.5px]',
+		'overflow-x-auto',
 	]
 
-	const tsTableRow = ['flex', 'items-center', 'w-auto', 'max-w-full', 'min-h-[40px]']
-	const tsTableRowHeader = ['rounded-t-lg', 'bg-[#edeeee]', 'font-bold', 'border-b', 'border-b-white']
+	const tsTableRow = ['flex', 'items-center', 'w-auto', 'max-w-full', 'min-h-[40px]', 'shrink-0']
+	const tsTableRowHeader = [
+		'rounded-t-lg',
+		'bg-[#edeeee]',
+		'font-bold',
+		'border-b',
+		'border-b-white',
+		'shrink-0',
+	]
 
 	const table = useReactTable({
 		data,
@@ -51,7 +60,7 @@ const TanStackTable = ({ data, columns, hasMore, loadMore, onRowClick, ...tableO
 					{headerGroup.headers.map(header => {
 						const canSort = header.column.getCanSort()
 						const isSorted = header.column.getIsSorted()
-						const classNames = ['relative', 'flex', 'justify-between', 'items-center', 'p-3']
+						const classNames = ['relative', 'flex', 'justify-between', 'items-center', 'p-3', 'shrink-0']
 						if (canSort) classNames.push('cursor-pointer text-[#385f87]')
 						if (isSorted) classNames.push('text-[#51667b]')
 						const resizerClassNames = [
@@ -109,7 +118,7 @@ const TanStackTable = ({ data, columns, hasMore, loadMore, onRowClick, ...tableO
 						onClick={() => onRowClick?.(row)}
 					>
 						{row.getVisibleCells().map(cell => (
-							<div className='p-[12px]' style={{ width: cell.column.getSize() }} key={cell.id}>
+							<div className='p-[12px] shrink-0' style={{ width: cell.column.getSize() }} key={cell.id}>
 								{flexRender(cell.column.columnDef.cell, cell.getContext())}
 							</div>
 						))}
